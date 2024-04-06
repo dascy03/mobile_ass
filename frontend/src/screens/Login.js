@@ -23,21 +23,21 @@ export default function Login() {
       <Pressable style={[styles.box, { backgroundColor: "#5384EE" }]}>
         <Image
           style={styles.tinyLogo}
-          source={require("../assets/images/icon_google.png")}
+          source={require("../../assets/images/icon_google.png")}
         />
         <Text style={styles.textFont}>Đăng nhập với Google</Text>
       </Pressable>
       <Pressable style={[styles.box, { backgroundColor: "#415792" }]}>
         <Image
           style={styles.tinyLogo}
-          source={require("../assets/images/icon_facebook.png")}
+          source={require("../../assets/images/icon_facebook.png")}
         />
         <Text style={styles.textFont}>Đăng nhập với Facebook</Text>
       </Pressable>
       <Pressable style={[styles.box, { backgroundColor: "#000000" }]}>
         <Image
           style={styles.tinyLogo}
-          source={require("../assets/images/icon_apple.png")}
+          source={require("../../assets/images/icon_apple.png")}
         />
         <Text style={styles.textFont}>Đăng nhập với Apple</Text>
       </Pressable>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   tinyLogo: {
-    marginRight:10,
+    marginRight: 10,
     margin: 3,
     width: 20,
     height: 20,
