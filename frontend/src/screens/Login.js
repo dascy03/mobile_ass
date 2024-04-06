@@ -2,12 +2,15 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 
-export default function Login() {
+export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Brew Kash</Text>
 
-      <Pressable style={[styles.box, { backgroundColor: "#21B4A3" }]}>
+      <Pressable
+        style={[styles.box, { backgroundColor: "#21B4A3" }]}
+        onPress={() => navigation.navigate("Sign-in")}
+      >
         <Text style={styles.textFont}>Đăng nhập</Text>
       </Pressable>
       <Text
