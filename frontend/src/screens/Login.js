@@ -1,6 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_600SemiBold,
+} from "@expo-google-fonts/poppins";
 
 export default function Login({ navigation }) {
   return (
@@ -18,6 +23,7 @@ export default function Login({ navigation }) {
           margin: 15,
           color: "#757575",
           fontSize: 16,
+          fontFamily: "Poppins_600SemiBold",
         }}
       >
         hoặc
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#21B4A3",
     marginBottom: 120,
-    // fontFamily: 'poppins'
+    fontFamily: "Poppins_600SemiBold",
   },
   box: {
     display: "flex",
@@ -87,6 +93,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontWeight: "500",
     fontSize: 16,
+    fontFamily: "Poppins_600SemiBold",
   },
   tinyLogo: {
     marginRight: 10,
