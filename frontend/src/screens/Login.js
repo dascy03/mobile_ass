@@ -8,6 +8,14 @@ import {
 } from "@expo-google-fonts/poppins";
 
 export default function Login({ navigation }) {
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_600SemiBold,
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Brew Kash</Text>
@@ -23,7 +31,7 @@ export default function Login({ navigation }) {
           margin: 15,
           color: "#757575",
           fontSize: 16,
-          fontFamily: "Poppins_600SemiBold",
+          fontFamily: "Poppins_400Regular",
         }}
       >
         hoặc
