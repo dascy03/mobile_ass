@@ -16,7 +16,7 @@ import {
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
 
-const SignIn = ({navgiation}) => {
+const SignIn = ({navigation}) => {
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -30,7 +30,7 @@ const SignIn = ({navgiation}) => {
       <Pressable
         style={{
           alignItems: "flex-start",
-          flex: 0.06,
+          flex: 0.09,
           justifyContent: "flex-end",
         }}
         onPress={() => navigation.navigate("Login")}
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     flex: 0.2,
     fontSize: 30,
     color: "black",
-    width: "50%",
+    width: "75%",
     lineHeight: 40,
     textAlignVertical: "center",
     fontFamily: "Poppins_600SemiBold",
