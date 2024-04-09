@@ -16,7 +16,7 @@ import {
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
 
-const SignIn = () => {
+const SignIn = ({navgiation}) => {
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -33,6 +33,7 @@ const SignIn = () => {
           flex: 0.06,
           justifyContent: "flex-end",
         }}
+        onPress={() => navigation.navigate("Login")}
       >
         <AntIcon name="arrowleft" size={20} color="black" />
       </Pressable>

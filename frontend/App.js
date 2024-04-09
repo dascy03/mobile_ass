@@ -1,6 +1,7 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Boarding1 from "./src/screens/boarding1";
 import Login from "./src/screens/Login";
 import SignIn from "./src/screens/Sign-in";
 
@@ -14,6 +15,11 @@ export default function App() {
           headerShown: false, // do it if needed
         }}
       >
+        <Stack.Screen
+          name="boarding1"
+          component={Boarding1}
+          options={{ title: "boarding1" }}
+        />
         <Stack.Screen
           name="Login"
           component={Login}
