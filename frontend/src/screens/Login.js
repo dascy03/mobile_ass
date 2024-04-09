@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View, Pressable, Image } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, Pressable, Image, BackHandler } from "react-native";
 import {
   useFonts,
   Poppins_400Regular,
@@ -8,6 +8,20 @@ import {
 } from "@expo-google-fonts/poppins";
 
 export default function Login({ navigation }) {
+  useEffect(() => {
+    const backAction = () => {
+      if (navigation.isFocused()) {
+        return true;
+      }
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -16,6 +30,7 @@ export default function Login({ navigation }) {
   if (!fontsLoaded && !fontError) {
     return null;
   }
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Brew Kash</Text>
