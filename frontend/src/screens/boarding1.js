@@ -27,15 +27,19 @@ export default function Boarding1({ navigation }) {
         Chỉ với điện thoại, bạn có thể quản lý toàn bộ dòng tiền của mình một
         cách dễ dàng và chi tiết hơn
       </Text>
-      <Image style={{marginTop: 30}} source={require("../../assets/images/Page_control_1.png")} />
+      <Image
+        style={styles.dot}
+        source={require("../../assets/images/Page_control_1.png")}
+      />
       <Pressable
-        style={[styles.box, { backgroundColor: "#21B4A3", marginTop: 50 }]}
-        // onPress={() => navigation.navigate("Sign-in")}
+        style={styles.box}
+        onPress={() => navigation.navigate("boarding2")}
       >
         <Text style={styles.textFont}>Tiếp tục</Text>
       </Pressable>
       <Pressable
-        style={[{marginTop:10}]}
+        style={{ position: "absolute", marginTop: 753 }}
+        onPress={() => navigation.navigate("Login")}
       >
         <Text
           style={{
@@ -58,12 +62,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#EAF4F3",
   },
   Logo: {
+    position: "absolute",
     width: 375,
     height: 392,
+    marginTop: 66,
   },
   title: {
     textAlign: "center",
@@ -72,36 +77,40 @@ const styles = StyleSheet.create({
     color: "#1E1E1E",
     fontFamily: "Poppins_600SemiBold",
     width: "60%",
+    position: "absolute",
+    marginTop: 406,
   },
   content: {
+    position: "absolute",
     textAlign: "center",
-    alignItems: "center",
     alignItems: "center",
     fontSize: 16,
     color: "#1E1E1E",
     fontFamily: "Poppins_400Regular",
     marginRight: 33,
     marginLeft: 33,
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 514,
+    width: 310,
+  },
+  dot: {
+    position: "absolute",
+    alignItems: "center",
+    marginTop: 615,
   },
   box: {
-    display: "flex",
-    flexDirection: "row",
+    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    width: 300,
-    paddingTop: 12,
-    paddingBottom: 12,
-    margin: 10,
-    borderRadius: 32,
-    color: "red",
+    marginTop: 655,
+    width: 201,
+    height: 59,
+    borderRadius: 20,
+    backgroundColor: "#21B4A3",
   },
   textFont: {
     color: "#FFFFFF",
     fontWeight: "500",
     fontSize: 16,
     fontFamily: "Poppins_600SemiBold",
-    
   },
 });
