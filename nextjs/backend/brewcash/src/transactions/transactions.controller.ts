@@ -41,9 +41,11 @@ export class TransactionsController {
     }
   }
 
+
   @Get(':category')
   @ApiResponse({status:200, description:"successfully"})
     @ApiResponse({status:500, description:"fail!"})
+
   async findByCategory(@Param('category') category: string): Promise<Object> {
     try {
       return await this.transactionsService.findByCategory(category);
@@ -52,10 +54,14 @@ export class TransactionsController {
     }
   }
 
+
   @Get(':date')
   @ApiResponse({status:200, description:"successfully"})
     @ApiResponse({status:500, description:"fail!"})
   async findByDate(@Param('date') date: Date): Promise<Object> {
+
+  async findByDate(@Param('date') date: string): Promise<Object> {
+
     try {
       return await this.transactionsService.findByDate(date);
     } catch (err) {
