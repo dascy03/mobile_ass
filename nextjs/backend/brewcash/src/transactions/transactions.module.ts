@@ -7,6 +7,7 @@ import { Transaction, TransactionSchema } from './entities/transaction.entity';
   controllers: [TransactionsController],
   providers: [TransactionsService],
   imports: [MongooseModule.forFeature([{
+    name: Transaction.name,
     schema: TransactionSchema
   }])],
 })
