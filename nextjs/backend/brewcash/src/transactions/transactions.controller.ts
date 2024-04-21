@@ -10,12 +10,17 @@ import {
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse } from '@nestjs/swagger';
+@ApiTags("Transactions")
 
 @Controller('transactions')
 export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
   @Post()
+  @ApiResponse({status:200, description:"successfully"})
+  @ApiResponse({status:500, description:"fail!"})
   async create(
     @Body() createTransactionDto: CreateTransactionDto,
   ): Promise<Object> {
@@ -26,6 +31,8 @@ export class TransactionsController {
     }
   }
   @Get()
+  @ApiResponse({status:200, description:"successfully"})
+  @ApiResponse({status:500, description:"fail!"})
   async findAll(): Promise<Object> {
     try {
       return await this.transactionsService.findAll();
@@ -33,7 +40,12 @@ export class TransactionsController {
       return { message: err.message || 'Internal Server Error' };
     }
   }
-  @Get('category')
+
+
+  @Get(':category')
+  @ApiResponse({status:200, description:"successfully"})
+    @ApiResponse({status:500, description:"fail!"})
+
   async findByCategory(@Param('category') category: string): Promise<Object> {
     try {
       return await this.transactionsService.findByCategory(category);
@@ -42,8 +54,14 @@ export class TransactionsController {
     }
   }
 
-  @Get('date')
+
+  @Get(':date')
+  @ApiResponse({status:200, description:"successfully"})
+    @ApiResponse({status:500, description:"fail!"})
+  async findByDate(@Param('date') date: Date): Promise<Object> {
+
   async findByDate(@Param('date') date: string): Promise<Object> {
+
     try {
       return await this.transactionsService.findByDate(date);
     } catch (err) {
@@ -52,6 +70,8 @@ export class TransactionsController {
   }
 
   @Patch()
+  @ApiResponse({status:200, description:"successfully"})
+    @ApiResponse({status:500, description:"fail!"})
   async update(
     @Body() updateTransactionDto: UpdateTransactionDto,
   ): Promise<Object> {
@@ -63,6 +83,8 @@ export class TransactionsController {
   }
 
   @Delete(':id')
+  @ApiResponse({status:200, description:"successfully"})
+    @ApiResponse({status:500, description:"fail!"})
   async remove(@Param('id') id: string): Promise<Object> {
     try {
       return await this.transactionsService.remove(+id);
