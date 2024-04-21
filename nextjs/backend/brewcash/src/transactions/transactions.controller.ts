@@ -16,56 +16,57 @@ export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
   @Post()
-  create(@Body() createTransactionDto: CreateTransactionDto) {
+  async create(
+    @Body() createTransactionDto: CreateTransactionDto,
+  ): Promise<Object> {
     try {
-      return this.transactionsService.create(createTransactionDto);
+      return await this.transactionsService.create(createTransactionDto);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
     }
   }
   @Get()
-  findAll() {
+  async findAll(): Promise<Object> {
     try {
-      return this.transactionsService.findAll();
+      return await this.transactionsService.findAll();
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
     }
   }
-  
+
   @Get(':category')
-  findByCategory(@Param('category') category: string) {
+  async findByCategory(@Param('category') category: string): Promise<Object> {
     try {
-      return this.transactionsService.findByCategory(category);
+      return await this.transactionsService.findByCategory(category);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
     }
   }
 
   @Get(':date')
-  findByDate(@Param('date') date: Date) {
+  async findByDate(@Param('date') date: Date): Promise<Object> {
     try {
-      return this.transactionsService.findByCategory(date);
+      return await this.transactionsService.findByDate(date);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
     }
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
+  @Patch()
+  async update(
     @Body() updateTransactionDto: UpdateTransactionDto,
-  ) {
+  ): Promise<Object> {
     try {
-      return this.transactionsService.update(+id, updateTransactionDto);
+      return await this.transactionsService.update(updateTransactionDto);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
     }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string): Promise<Object> {
     try {
-      return this.transactionsService.remove(+id);
+      return await this.transactionsService.remove(+id);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
     }
