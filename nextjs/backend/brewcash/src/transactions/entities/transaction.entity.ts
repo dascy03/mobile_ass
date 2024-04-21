@@ -11,14 +11,14 @@ export class Transaction {
   @Prop({ required: true })
   categories: string;
 
-  @Prop({ required: true })
+  @Prop()
   note: string;
 
   @Prop()
-  shareflag?: Date;
+  shareflag?: boolean;
 
   @Prop({ required: true })
-  type: Date;
+  type: boolean; // income = True | outcome = False
 
   @Prop()
   completedAt?: Date;
