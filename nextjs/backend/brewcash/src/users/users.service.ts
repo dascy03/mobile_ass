@@ -20,12 +20,20 @@ export class UsersService {
     return await this.model.find().exec();
   }
 
-  async findOne(id: number): Promise<User> {
-    return await this.model.findById(id).exec();
+  async findAllByName(name: string): Promise<User[]> {
+    return await this.model.find({ name: name }, null, null).exec();
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    return await this.model.findByIdAndUpdate(id, updateUserDto).exec();
+  async update(email: string, updateUserDto: UpdateUserDto): Promise<User> {
+    return await this.model
+      .findOneAndUpdate(
+        { email: email },
+        {
+          ...UpdateUserDto,
+          createdAt: new Date(),
+        },
+      )
+      .exec();
   }
 
   async remove(id: number): Promise<User> {

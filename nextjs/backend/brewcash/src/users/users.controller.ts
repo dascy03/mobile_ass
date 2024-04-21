@@ -19,26 +19,26 @@ import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Post()
+  @Post('register')
   @ApiResponse({status:201, description:"successfully"})
   @ApiResponse({status:401, description:"fail!"})
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto){
+    return await this.usersService.create(createUserDto);
   }
 
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
+  @Get('all-user')
+  async findAll() {
+    return await this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @Get(':name')
+  async findOne(@Param('name') name: string) {
+    return await this.usersService.findAllByName(name);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch(':email')
+  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(email, updateUserDto);
   }
 
   @Delete(':id')
