@@ -9,8 +9,7 @@ async function bootstrap() {
   .setDescription("List APIs for Brew Kash")
   .setVersion("1.0")
   .addTag("Users")
-  .addTag("Wallets")
-  .addBearerAuth()
+  .addTag("Transactions")
   .build();
 
   const document = SwaggerModule.createDocument(app, config);
