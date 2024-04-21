@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { WalletsModule } from './wallets/wallets.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TransactionsModule } from './transactions/transactions.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ),
     UsersModule,
     WalletsModule,
+    TransactionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
