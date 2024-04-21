@@ -33,8 +33,7 @@ export class TransactionsController {
       return { message: err.message || 'Internal Server Error' };
     }
   }
-
-  @Get(':category')
+  @Get('category')
   async findByCategory(@Param('category') category: string): Promise<Object> {
     try {
       return await this.transactionsService.findByCategory(category);
@@ -43,8 +42,8 @@ export class TransactionsController {
     }
   }
 
-  @Get(':date')
-  async findByDate(@Param('date') date: Date): Promise<Object> {
+  @Get('date')
+  async findByDate(@Param('date') date: string): Promise<Object> {
     try {
       return await this.transactionsService.findByDate(date);
     } catch (err) {

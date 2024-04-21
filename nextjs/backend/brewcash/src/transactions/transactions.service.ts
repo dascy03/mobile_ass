@@ -25,8 +25,9 @@ export class TransactionsService {
     return await this.model.findOne({ categories: categories}).exec();
   }
 
-  async findByDate(date: Date): Promise<Transaction> {
-    return await this.model.findOne({ createAt: date}).exec();
+  async findByDate(date: string): Promise<Transaction> {\
+    const parsedDate = new Date(date); // Parse the string to a Date object
+    return await this.model.findOne({ createAt: parsedDate}).exec();
   }
 
   async update(updateTransactionDto: UpdateTransactionDto): Promise<Transaction> {
