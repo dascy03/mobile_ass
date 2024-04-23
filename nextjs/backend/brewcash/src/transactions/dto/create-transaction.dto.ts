@@ -1,3 +1,3 @@
-import { BaseTransactionDto } from "./base-transaction.dto";
+import { BaseTransactionDto } from './base-transaction.dto';
 
 export class CreateTransactionDto extends BaseTransactionDto {}

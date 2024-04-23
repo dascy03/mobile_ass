@@ -16,27 +16,64 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post('register')
-  async create(@Body() createUserDto: CreateUserDto){
-    return await this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto): Promise<Object> {
+    try {
+      return await this.usersService.create(createUserDto);
+    } catch (err) {
+      return { message: err.message || 'Internal Server Error' };
+    }
   }
 
-  @Get('all-user')
-  async findAll() {
-    return await this.usersService.findAll();
+  @Get('all-users')
+  async findAll(): Promise<Object> {
+    try {
+      return await this.usersService.findAll();
+    } catch (err) {
+      return { message: err.message || 'Internal Server Error' };
+    }
   }
 
   @Get(':name')
-  async findOne(@Param('name') name: string) {
-    return await this.usersService.findAllByName(name);
+  async find(@Param('name') name: string): Promise<Object> {
+    try {
+      return await this.usersService.findAllByName(name);
+    } catch (err) {
+      return { message: err.message || 'Internal Server Error' };
+    }
   }
 
   @Patch(':email')
-  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(email, updateUserDto);
+  async update(
+    @Param('email') email: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<Object> {
+    try {
+      const updateUser = await this.usersService.update(email, updateUserDto);
+      if (updateUser) {
+        return updateUser;
+      } else {
+        return { message: 'Not found email!' };
+      }
+    } catch (err) {
+      return { message: err.message || 'Internal Server Error' };
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  async remove(@Param('id') id: string): Promise<Object> {
+    try {
+      const deleteUser = await this.usersService.remove(id);
+      if (deleteUser) {
+        return { message: 'Deleted user!' };
+      } else {
+        return {
+          message: 'Not found ID!',
+        };
+      }
+    } catch (err) {
+      {
+        message: err.message || 'Internal Server Error';
+      }
+    }
   }
 }

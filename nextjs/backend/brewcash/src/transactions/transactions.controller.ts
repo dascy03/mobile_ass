@@ -15,7 +15,7 @@ import { UpdateTransactionDto } from './dto/update-transaction.dto';
 export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
 
-  @Post()
+  @Post('create')
   async create(
     @Body() createTransactionDto: CreateTransactionDto,
   ): Promise<Object> {
@@ -25,7 +25,7 @@ export class TransactionsController {
       return { message: err.message || 'Internal Server Error' };
     }
   }
-  @Get()
+  @Get('all-transactions')
   async findAll(): Promise<Object> {
     try {
       return await this.transactionsService.findAll();
@@ -51,21 +51,10 @@ export class TransactionsController {
     }
   }
 
-  @Patch()
-  async update(
-    @Body() updateTransactionDto: UpdateTransactionDto,
-  ): Promise<Object> {
-    try {
-      return await this.transactionsService.update(updateTransactionDto);
-    } catch (err) {
-      return { message: err.message || 'Internal Server Error' };
-    }
-  }
-
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Object> {
     try {
-      return await this.transactionsService.remove(+id);
+      return await this.transactionsService.remove(id);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
     }

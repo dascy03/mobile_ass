@@ -25,18 +25,21 @@ export class UsersService {
   }
 
   async update(email: string, updateUserDto: UpdateUserDto): Promise<User> {
-    return await this.model
+    const updateUser = await this.model
       .findOneAndUpdate(
         { email: email },
-        {
-          ...UpdateUserDto,
-          createdAt: new Date(),
-        },
+        { ...updateUserDto, updatedAt: new Date() },
+        { new: true },
       )
       .exec();
+    if (updateUser) {
+      return updateUser;
+    } else {
+      return null;
+    }
   }
 
-  async remove(id: number): Promise<User> {
+  async remove(id: string): Promise<User> {
     return await this.model.findByIdAndDelete(id).exec();
   }
 }
