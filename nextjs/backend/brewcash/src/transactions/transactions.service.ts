@@ -3,44 +3,51 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Transaction, TransactionDocument } from './entities/transaction.entity';
+import {
+  Transaction,
+  TransactionDocument,
+} from './entities/transaction.entity';
 
 @Injectable()
 export class TransactionsService {
   constructor(
-    @InjectModel(Transaction.name) private readonly model: Model<TransactionDocument>,
+    @InjectModel(Transaction.name)
+    private readonly model: Model<TransactionDocument>,
   ) {}
-  async create(createTransactionDto: CreateTransactionDto): Promise<Transaction> {
+  async create(
+    createTransactionDto: CreateTransactionDto,
+  ): Promise<Transaction> {
     return await new this.model({
-      ...CreateTransactionDto,
-      createAt: new Date(),
-    })
+      ...createTransactionDto,
+      createdAt: new Date(),
+    }).save();
   }
 
-  async findAll(): Promise<Transaction[]>{
+  async findAll(): Promise<Transaction[]> {
     return this.model.find().exec();
   }
 
-  async findByCategory(categories: String): Promise<Transaction> {
-    return await this.model.findOne({ categories: categories}).exec();
+  async findByCategory(categories: String): Promise<Transaction[]> {
+    return await this.model.find({ categories: categories }).exec();
   }
 
-  async findByDate(date: Date): Promise<Transaction> {
-    return await this.model.findOne({ createAt: date}).exec();
-  }
+  // async findByDate(date: Date): Promise<Transaction[]> {
+  //   const startOfDay = new Date(date);
+  //   startOfDay.setHours(0, 0, 0, 0); // Đặt giờ, phút, giây và millisecond về 00:00:00:00
+  //   const endOfDay = new Date(date);
+  //   endOfDay.setHours(23, 59, 59, 999); // Đặt giờ, phút, giây và millisecond về 23:59:59:999
+  //   console.log(startOfDay, endOfDay);
+  //   return await this.model
+  //     .find({
+  //       createAt: {
+  //         $gte: new Date(startOfDay),
+  //         $lte: new Date(endOfDay),
+  //       },
+  //     })
+  //     .exec();
+  // }
 
-  async update(updateTransactionDto: UpdateTransactionDto): Promise<Transaction> {
-    return await this.model
-    .findOneAndUpdate(
-      {
-        ...updateTransactionDto,
-        createdAt: new Date(),
-      },
-    )
-    .exec();
-  }
-t
-  async remove(id: number): Promise<Transaction>  {
+  async remove(id: string): Promise<Transaction> {
     return await this.model.findByIdAndDelete(id).exec();
   }
 }

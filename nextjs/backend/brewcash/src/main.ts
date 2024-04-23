@@ -10,6 +10,7 @@ async function bootstrap() {
   .setVersion("1.0")
   .addTag("Users")
   .addTag("Transactions")
+  // .addTag("Wallets")
   .build();
 
   const document = SwaggerModule.createDocument(app, config);

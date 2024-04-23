@@ -6,7 +6,7 @@ export type TransactionDocument = Transaction & Document;
 @Schema()
 export class Transaction {
   @Prop({ required: true })
-  money: string;
+  money: number;
 
   @Prop({ required: true })
   categories: string;
@@ -19,13 +19,12 @@ export class Transaction {
 
   @Prop({ required: true })
   type: boolean; // income = True | outcome = False
-
+  @Prop({ required: true })
+  userRef: string;
+  @Prop({ required: true })
+  createdAt: Date;
   @Prop()
-  completedAt?: Date;
-  @Prop()
-  createdAt?: Date;
-  @Prop()
-  deletedAt?: Date;
+  updatedAt?: Date;
 }
 
 export const TransactionSchema = SchemaFactory.createForClass(Transaction);
