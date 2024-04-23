@@ -33,7 +33,7 @@ export class TransactionsController {
       return { message: err.message || 'Internal Server Error' };
     }
   }
-  @Get('category')
+  @Get('category/:category')
   async findByCategory(@Param('category') category: string): Promise<Object> {
     try {
       return await this.transactionsService.findByCategory(category);
@@ -42,19 +42,24 @@ export class TransactionsController {
     }
   }
 
-  @Get('date')
-  async findByDate(@Param('date') date: string): Promise<Object> {
-    try {
-      return await this.transactionsService.findByDate(date);
-    } catch (err) {
-      return { message: err.message || 'Internal Server Error' };
-    }
-  }
+  // @Get('date/:date')
+  // async findByDate(@Param('date') date: Date): Promise<Object> {
+  //   try {
+  //     return await this.transactionsService.findByDate(date);
+  //   } catch (err) {
+  //     return { message: err.message || 'Internal Server Error' };
+  //   }
+  // }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Object> {
     try {
-      return await this.transactionsService.remove(id);
+      const deleteTransaction = await this.transactionsService.remove(id);
+      if (!deleteTransaction) {
+        return { message: 'Not found ID!' };
+      } else {
+        return { message: 'Deleted transaction!' };
+      }
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
     }

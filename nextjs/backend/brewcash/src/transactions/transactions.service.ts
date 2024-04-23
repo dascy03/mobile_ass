@@ -31,21 +31,21 @@ export class TransactionsService {
     return await this.model.find({ categories: categories }).exec();
   }
 
-  async findByDate(date: string): Promise<Transaction[]> {
-    const startOfDay = new Date(date);
-    startOfDay.setHours(0, 0, 0, 0); // Đặt giờ, phút, giây và millisecond về 00:00:00:00
-    const endOfDay = new Date(date);
-    endOfDay.setHours(23, 59, 59, 999); // Đặt giờ, phút, giây và millisecond về 23:59:59:999
-
-    return await this.model
-      .find({
-        createAt: {
-          $gte: startOfDay,
-          $lte: endOfDay,
-        },
-      })
-      .exec();
-  }
+  // async findByDate(date: Date): Promise<Transaction[]> {
+  //   const startOfDay = new Date(date);
+  //   startOfDay.setHours(0, 0, 0, 0); // Đặt giờ, phút, giây và millisecond về 00:00:00:00
+  //   const endOfDay = new Date(date);
+  //   endOfDay.setHours(23, 59, 59, 999); // Đặt giờ, phút, giây và millisecond về 23:59:59:999
+  //   console.log(startOfDay, endOfDay);
+  //   return await this.model
+  //     .find({
+  //       createAt: {
+  //         $gte: new Date(startOfDay),
+  //         $lte: new Date(endOfDay),
+  //       },
+  //     })
+  //     .exec();
+  // }
 
   async remove(id: string): Promise<Transaction> {
     return await this.model.findByIdAndDelete(id).exec();
