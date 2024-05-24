@@ -1,3 +1,4 @@
+
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
@@ -17,37 +18,36 @@ export class TransactionsService {
   async create(
     createTransactionDto: CreateTransactionDto,
   ): Promise<Transaction> {
-    return await new this.model({
-      ...createTransactionDto,
-      createdAt: new Date(),
-    }).save();
+    return new this.model({
+      ...CreateTransactionDto,
+      createAt: new Date(),
+    });
   }
 
   async findAll(): Promise<Transaction[]> {
     return this.model.find().exec();
   }
 
-  async findByCategory(categories: String): Promise<Transaction[]> {
-    return await this.model.find({ categories: categories }).exec();
+  async findByCategory(categories: String): Promise<Transaction> {
+    return await this.model.findOne({ categories: categories }).exec();
   }
 
-  // async findByDate(date: Date): Promise<Transaction[]> {
-  //   const startOfDay = new Date(date);
-  //   startOfDay.setHours(0, 0, 0, 0); // Đặt giờ, phút, giây và millisecond về 00:00:00:00
-  //   const endOfDay = new Date(date);
-  //   endOfDay.setHours(23, 59, 59, 999); // Đặt giờ, phút, giây và millisecond về 23:59:59:999
-  //   console.log(startOfDay, endOfDay);
-  //   return await this.model
-  //     .find({
-  //       createAt: {
-  //         $gte: new Date(startOfDay),
-  //         $lte: new Date(endOfDay),
-  //       },
-  //     })
-  //     .exec();
-  // }
+  async findByDate(date: string): Promise<Transaction> {
+    const parsedDate = new Date(date); // Parse the string to a Date object
+    return await this.model.findOne({ createAt: parsedDate }).exec();
+  }
 
-  async remove(id: string): Promise<Transaction> {
+  async update(
+    updateTransactionDto: UpdateTransactionDto,
+  ): Promise<Transaction> {
+    return await this.model
+      .findOneAndUpdate({
+        ...updateTransactionDto,
+        createdAt: new Date(),
+      })
+      .exec();
+  }
+  async remove(id: number): Promise<Transaction> {
     return await this.model.findByIdAndDelete(id).exec();
   }
 }

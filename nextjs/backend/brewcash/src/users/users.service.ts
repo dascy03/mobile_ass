@@ -9,6 +9,7 @@ export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly model: Model<UserDocument>,
   ) {}
+  
   async create(createUserDto: CreateUserDto): Promise<User> {
     return await new this.model({
       ...createUserDto,
