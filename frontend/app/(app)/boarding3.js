@@ -6,8 +6,9 @@ import {
   Poppins_400Regular,
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
+import { router } from "expo-router";
 
-export default function Boarding1({ navigation }) {
+export default function Boarding3() {
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -20,37 +21,18 @@ export default function Boarding1({ navigation }) {
     <View style={styles.container}>
       <Image
         style={styles.Logo}
-        source={require("../../assets/images/boarding1.png")}
+        source={require("../../assets/images/boarding3.png")}
       />
-      <Text style={styles.title}>Dễ dàng tự chủ tài chính</Text>
+      <Text style={styles.title}>Chia sẻ và học hỏi Bắt đầu thôi</Text>
       <Text style={styles.content}>
-        Chỉ với điện thoại, bạn có thể quản lý toàn bộ dòng tiền của mình một
-        cách dễ dàng và chi tiết hơn
+        Chi tiêu hợp lý và bạn sẽ tiến gần hơn đến tự do tài chính
       </Text>
       <Image
         style={styles.dot}
-        source={require("../../assets/images/Page_control_1.png")}
+        source={require("../../assets/images/Page_control_3.png")}
       />
-      <Pressable
-        style={styles.box}
-        onPress={() => navigation.navigate("boarding2")}
-      >
+      <Pressable style={styles.box} onPress={() => router.replace("/Login")}>
         <Text style={styles.textFont}>Tiếp tục</Text>
-      </Pressable>
-      <Pressable
-        style={{ position: "absolute", marginTop: 753 }}
-        onPress={() => navigation.navigate("Login")}
-      >
-        <Text
-          style={{
-            margin: 15,
-            color: "#B09B9B",
-            fontSize: 16,
-            fontFamily: "Poppins_600SemiBold",
-          }}
-        >
-          Skip
-        </Text>
       </Pressable>
       <StatusBar style="auto" />
     </View>
@@ -67,8 +49,8 @@ const styles = StyleSheet.create({
   Logo: {
     position: "absolute",
     width: 375,
-    height: 392,
-    marginTop: 66,
+    height: 369,
+    marginTop: 44,
   },
   title: {
     textAlign: "center",
@@ -76,7 +58,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "#1E1E1E",
     fontFamily: "Poppins_600SemiBold",
-    width: "60%",
+    width: 323,
     position: "absolute",
     marginTop: 406,
   },
@@ -87,15 +69,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#1E1E1E",
     fontFamily: "Poppins_400Regular",
-    marginRight: 33,
-    marginLeft: 33,
-    marginTop: 514,
-    width: 310,
+    marginRight: 51,
+    marginLeft: 51,
+    marginTop: 517,
+    width: 272,
   },
   dot: {
     position: "absolute",
     alignItems: "center",
-    marginTop: 615,
+    marginTop: 600,
   },
   box: {
     position: "absolute",

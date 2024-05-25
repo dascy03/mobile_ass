@@ -15,8 +15,9 @@ import {
   Poppins_400Regular,
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
+import { router } from "expo-router";
 
-const SignIn = ({navigation}) => {
+const SignIn = () => {
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -33,7 +34,7 @@ const SignIn = ({navigation}) => {
           flex: 0.09,
           justifyContent: "flex-end",
         }}
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => router.replace("/Login")}
       >
         <AntIcon name="arrowleft" size={20} color="black" />
       </Pressable>
