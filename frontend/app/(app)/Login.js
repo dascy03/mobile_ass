@@ -1,27 +1,37 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Pressable, Image, BackHandler } from "react-native";
+import React, { useCallback } from "react";
+import { useRouter } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Image,
+  BackHandler,
+} from "react-native";
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
+import { router } from "expo-router";
 
-export default function Login({ navigation }) {
-  useEffect(() => {
-    const backAction = () => {
-      if (navigation.isFocused()) {
+export default function Login() {
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Optionally handle back press or disable it
         return true;
-      }
-    };
+      };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
-    return () => backHandler.remove();
-  }, []);
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
+
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -30,14 +40,14 @@ export default function Login({ navigation }) {
   if (!fontsLoaded && !fontError) {
     return null;
   }
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Brew Kash</Text>
 
       <Pressable
         style={[styles.box, { backgroundColor: "#21B4A3" }]}
-        onPress={() => navigation.navigate("Sign-in")}
+        onPress={() => router.push("/Sign-in")}
       >
         <Text style={styles.textFont}>Đăng nhập</Text>
       </Pressable>
