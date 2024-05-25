@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useCallback } from "react";
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -83,8 +82,9 @@ export default function Login() {
         />
         <Text style={styles.textFont}>Đăng nhập với Apple</Text>
       </Pressable>
-      <Text style={styles.register}>Đăng ký tài khoản</Text>
-      <StatusBar style="auto" />
+      <Pressable onPress={() => router.push("/register")}>
+        <Text style={styles.register}>Đăng ký tài khoản</Text>
+      </Pressable>
     </View>
   );
 }
@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
   register: {
     marginTop: 70,
     color: "#FBC43A",
-    fontSize: 20,
-    fontWeight: "500",
+    fontSize: 22,
+    fontFamily: "Poppins_600SemiBold",
   },
   textFont: {
     color: "#FFFFFF",

@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import {
@@ -50,7 +49,6 @@ export default function Boarding1() {
           Skip
         </Text>
       </Pressable>
-      <StatusBar style="auto" />
     </View>
   );
 }
