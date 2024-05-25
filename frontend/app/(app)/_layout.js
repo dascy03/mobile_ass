@@ -10,7 +10,8 @@ export default function Layout() {
       <Stack.Screen name="boarding2" options={{ headerShown: false }} />
       <Stack.Screen name="boarding3" options={{ headerShown: false }} />
       <Stack.Screen name="Login" options={{ headerShown: false }} />
-      <Stack.Screen name="Sign-in" options={{ headerShown: false }} />
+      <Stack.Screen name="Sign-in" />
+      <Stack.Screen name="register" />
     </Stack>
   );
 }

@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import {
@@ -34,7 +33,6 @@ export default function Boarding3() {
       <Pressable style={styles.box} onPress={() => router.replace("/Login")}>
         <Text style={styles.textFont}>Tiếp tục</Text>
       </Pressable>
-      <StatusBar style="auto" />
     </View>
   );
 }
