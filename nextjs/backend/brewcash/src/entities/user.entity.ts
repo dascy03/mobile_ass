@@ -63,16 +63,30 @@ export class User {
   @Prop({ default: null })
   birthDay: Date;
 
-  @ApiProperty()
-  @Prop({ default: null})
-  career : string;
+  
+  @ApiProperty({
+    example: { vi: 'Lập trình viên', en: 'IT' },
+    description: 'The career of the user in both Vietnamese and English',
+  })
+  @Prop({
+    type: {
+      vi: { type: String, default: null },
+      en: { type: String, default: null },
+    },
+    default: {
+      vi: null,
+      en: null,
+    },
+  })
+  career: { vi: string; en: string };
+  
 
   @ApiProperty()
   @Prop({ default: null })
-  income: string;
+  income: number;
   @ApiProperty()
   @Prop({ default: null })
-  outcome: string;
+  outcome: number;
   @ApiProperty({
     example: '2022-05-13T08:00:00.000Z',
     description: 'The date and time when the user account was created',
