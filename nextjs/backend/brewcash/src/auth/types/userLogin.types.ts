@@ -4,26 +4,35 @@ export class UserLogin {
   @ApiProperty({ example: '0123456789', description: 'The user ID' })
   id: string;
 
-  @ApiProperty({ example: 'john@example.com', description: 'The user email' })
-  email: string;
+  // @ApiProperty({ example: 'john@example.com', description: 'The user email' })
+  // email: string;
 
   @ApiProperty({ example: 'John Doe', description: 'The user name' })
   name: string;
 
-  @ApiProperty({ example: 'male', description: 'The user gender' })
-  gender: string;
+  // @ApiProperty({ example: 'male', description: 'The user gender' })
+  // gender: string;
 
-  @ApiProperty({
-    example: '1990-01-01T00:00:00Z',
-    description: 'The user date of birth',
-  })
-  birthDay: Date;
+  // @ApiProperty({
+  //   example: '1990-01-01T00:00:00Z',
+  //   description: 'The user date of birth',
+  // })
+  // birthDay: Date;
 
-  @ApiProperty({
-    example: '2023-05-13T12:34:56Z',
-    description: 'The timestamp of when the user was created',
-  })
-  createdAt: Date;
+  // @ApiProperty({
+  //   example: '2023-05-13T12:34:56Z',
+  //   description: 'The timestamp of when the user was created',
+  // })
+  // createdAt: Date;
+
+  // @ApiProperty()
+  // career: string;
+
+  // @ApiProperty()
+  // income: string
+
+  // @ApiProperty()
+  // outcome: string
 
   @ApiProperty({
     example:

@@ -59,9 +59,20 @@ export class User {
     description: 'The date of birth of the user (if set)',
     default: null,
   })
+  @ApiProperty()
   @Prop({ default: null })
   birthDay: Date;
 
+  @ApiProperty()
+  @Prop({ default: null})
+  career : string;
+
+  @ApiProperty()
+  @Prop({ default: null })
+  income: string;
+  @ApiProperty()
+  @Prop({ default: null })
+  outcome: string;
   @ApiProperty({
     example: '2022-05-13T08:00:00.000Z',
     description: 'The date and time when the user account was created',
