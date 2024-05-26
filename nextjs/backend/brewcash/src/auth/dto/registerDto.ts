@@ -23,5 +23,5 @@ export class RegisterDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  fullname: string;
+  name: string;
 }
