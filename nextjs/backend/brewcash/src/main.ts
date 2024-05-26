@@ -4,13 +4,14 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const config = new DocumentBuilder()
+  const config = new DocumentBuilder().addBearerAuth()
   .setTitle("Brew Kash APIs")
   .setDescription("List APIs for Brew Kash")
   .setVersion("1.0")
   .addTag("Users")
+  // .addTag("Users")
   .addTag("Transactions")
-  .addTag("Auth")
+  
   // .addTag("Wallets")
   .build();
 
