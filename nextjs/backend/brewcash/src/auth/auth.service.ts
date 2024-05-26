@@ -2,7 +2,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from './entities/user.entity';
+import { User, UserDocument } from '../entities/user.entity';
 import { ERROR_EXCEPTION, ResponseStatus, SUCCESS_EXCEPTION,  } from 'types';
 // import { v4 as uuidv4 } from 'uuid';
 import { compare, hashPassword } from 'utils';
@@ -29,12 +29,15 @@ export class AuthService {
         code: HttpStatus.OK,
         message: "login successful",
         data: {
-          id: user.id,
-          email: user.email,
+          id: user._id,
+          // email: user.email,
           name: user.name,
-          gender: user.gender,
-          birthDay: user.birthDay,
-          createdAt: user.createdAt,
+          // gender: user.gender,
+          // birthDay: user.birthDay,
+          // createdAt: user.createdAt,
+          // career: user.career,
+          // income: user.income,
+          // outcome: user.outcome,
           accessToken: this.jwtService.sign(user),
           active: user.active,
         },
