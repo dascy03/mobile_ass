@@ -4,22 +4,23 @@ import { ResponseStatus } from '../../types';
 import { AuthService } from './auth.service';
 import { LoginDto, RegisterDto } from './dto';
 import { UserLogin, UserRegister } from './types';
+import { ConfirmOtpDto } from './dto/confirmOtpDto';
 
 @Controller('users')
 @ApiTags('Users')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // @Post('otp')
-  // @ApiOperation({ summary: 'Verify OTP for email' })
-  // @ApiResponse({ status: 200, description: 'OTP verified successfully' })
-  // @ApiResponse({ status: 400, description: 'Bad Request' })
-  // @ApiResponse({ status: 500, description: 'Internal Server Error' })
-  // async otpVerify(
-  //   @Body() dto: { email: string; otp: string },
-  // ): Promise<ResponseStatus<null>> {
-  //   return await this.authService.otpVerify(dto);
-  // }
+  @Post('otp')
+  @ApiOperation({ summary: 'Verify OTP for email' })
+  @ApiResponse({ status: 200, description: 'OTP verified successfully' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiResponse({ status: 500, description: 'Internal Server Error' })
+  async otpVerify(
+    @Body() dto: ConfirmOtpDto,
+  ): Promise<ResponseStatus<null>> {
+    return await this.authService.otpVerify(dto);
+  }
 
   @Post('login')
   @ApiOperation({ summary: 'Login with email and password' })

@@ -11,7 +11,25 @@ export class User {
     description: 'The name of the user',
   })
   @Prop()
-  fullname: string;
+  name: string;
+
+  @ApiProperty({
+    example: '123456',
+    description: 'The one-time password of the user (if set)',
+    default: null,
+  })
+  @Prop({ default: null })
+  otp: string;
+
+  @ApiProperty({
+    example: true,
+    description: 'Whether the user account is active or not',
+    default: false,
+  })
+  @Prop({
+    default: false,
+  })
+  active: boolean;
 
   @ApiProperty({
     example: 'johndoe@example.com',
@@ -26,6 +44,23 @@ export class User {
   })
   @Prop()
   password: string;
+
+
+  @ApiProperty({
+    example: 'Male',
+    description: 'The gender of the user (if set)',
+    default: null,
+  })
+  @Prop({ default: null })
+  gender: string;
+
+  @ApiProperty({
+    example: '1990-01-01',
+    description: 'The date of birth of the user (if set)',
+    default: null,
+  })
+  @Prop({ default: null })
+  birthDay: Date;
 
   @ApiProperty({
     example: '2022-05-13T08:00:00.000Z',
