@@ -39,7 +39,7 @@ export class UsersController {
     }
   }
 
-  
+
 @ApiResponse({ status: 200, description: 'Successfully.' })
 @ApiResponse({ status: 500, description: 'Internal Server Error.'})
   @Get(':name')
@@ -68,9 +68,8 @@ export class UsersController {
       return { message: err.message || 'Internal Server Error' };
     }
   }
-
   @ApiResponse({ status: 200, description: 'Deleted Successfully.' })
-@ApiResponse({ status: 500, description: 'Internal Server Error.'})
+  @ApiResponse({ status: 500, description: 'Internal Server Error.'})
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Object> {
     try {
