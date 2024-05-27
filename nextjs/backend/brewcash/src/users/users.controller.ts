@@ -77,7 +77,7 @@ export class UsersController {
 
 @ApiResponse({ status: 200, description: 'Successfully.' })
 @ApiResponse({ status: 500, description: 'Internal Server Error.'})
-  @Get('all-users')
+  @Get('all')
   async findAll(): Promise<Object> {
     try {
       return await this.usersService.findAll();
