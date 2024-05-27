@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
-
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Wallet, WalletDocument } from './entities/wallet.entity';
 @Injectable()
 export class WalletsService {
-  create(createWalletDto: CreateWalletDto) {
-    return 'This action adds a new wallet';
+  constructor(
+    @InjectModel(Wallet.name)
+    private readonly model: Model<WalletDocument>,
+  ) {
+  }
+  async create(_id: string,createWalletDto: CreateWalletDto, ): Promise<Wallet>{
+    return new this.model({
+      ...createWalletDto,
+      userRef: _id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }).save();
   }
 
-  findAll() {
-    return `This action returns all wallets`;
+  findAll(): Promise<WalletDocument[]>{
+    return this.model.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} wallet`;
+  async update(id: string, updateWalletDto: UpdateWalletDto) {
+    //update the wallet with new value,if not value is provided, keep the old value
+    return this.model.findOneAndUpdate({_id: id}, updateWalletDto, {new: true})
   }
 
-  update(id: number, updateWalletDto: UpdateWalletDto) {
-    return `This action updates a #${id} wallet`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} wallet`;
+  remove(id: string):Promise<WalletDocument> {
+    return this.model.findByIdAndDelete(id);
   }
 }

@@ -6,15 +6,22 @@ import {
   Patch,
   Param,
   Delete,
+  UnauthorizedException,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth} from '@nestjs/swagger';
 import { ApiResponse } from '@nestjs/swagger';
-@ApiTags("Transactions")
-
+import { Request } from 'express';
+import * as jwt from 'jsonwebtoken';
+import { JwtAuthGuard } from 'src/auth/jwt.guard';
+@ApiTags('Transactions')
 @Controller('transactions')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {
   }
@@ -22,11 +29,18 @@ export class TransactionsController {
   @Post()
   @ApiResponse({status: 200, description: "successfully"})
   @ApiResponse({status: 500, description: "fail!"})
-  async create(
-      @Body() createTransactionDto: CreateTransactionDto,
-  ): Promise<Object> {
+  async create(@Body() createTransactionDto: CreateTransactionDto, @Req() request:Request ): Promise<Object> {
     try {
-      return await this.transactionsService.create(createTransactionDto);
+      const authHeader = request.headers['authorization'];
+      if (!authHeader) {
+        throw new UnauthorizedException('Authorization header missing');
+      }
+      const token = authHeader.split(' ')[1];
+      if (!token) {
+        throw new UnauthorizedException('Token missing');
+      }
+      const _id: any = jwt.verify(token, 'super-ultra-max-secret');
+      return await this.transactionsService.create(_id, createTransactionDto);
     } catch (err) {
       return {message: err.message || 'Internal Server Error'};
     }

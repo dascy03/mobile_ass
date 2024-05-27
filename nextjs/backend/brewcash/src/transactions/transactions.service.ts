@@ -15,13 +15,13 @@ export class TransactionsService {
     @InjectModel(Transaction.name)
     private readonly model: Model<TransactionDocument>,
   ) {}
-  async create(
-    createTransactionDto: CreateTransactionDto,
-  ): Promise<Transaction> {
+  async create(_id:string, createTransactionDto: CreateTransactionDto): Promise<Transaction> {
+
     return new this.model({
-      ...CreateTransactionDto,
-      createAt: new Date(),
-    });
+      ...createTransactionDto,
+      userRef: _id,
+      createdAt: new Date(),
+    }).save();
   }
 
   async findAll(): Promise<Transaction[]> {
