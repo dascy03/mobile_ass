@@ -11,6 +11,7 @@ async function bootstrap() {
   .addTag("Users")
   // .addTag("Users")
   .addTag("Transactions")
+  .addTag("Budgets")
   
   // .addTag("Wallets")
   .build();

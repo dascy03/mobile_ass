@@ -7,19 +7,23 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags , ApiResponse, ApiCreatedResponse, ApiBearerAuth, ApiOperation} from '@nestjs/swagger';
+import { ApiTags , ApiResponse, ApiCreatedResponse, ApiBearerAuth, ApiOperation, ApiQuery} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
-import { User } from 'src/users/entities/user.entity';
+import { User } from 'src/entities/user.entity';
 import { ResponseStatus } from 'types/Response/ResponseStatus';
+import { AdvancedSearchUserDto } from './dto/advancedSearchDto';
+// import { query } from 'express';
 
 @ApiTags("Users")
 @Controller('users')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
+// @UseGuards(JwtAuthGuard)
+// @ApiBearerAuth()
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -44,17 +48,36 @@ export class UsersController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 404, description: 'User not found' })
   @ApiResponse({ status: 500, description: 'Internal server error' })
-  getUserProfile(
+  async getUserProfile(
     @Param('id') id: string,
   ): Promise<ResponseStatus<Omit<User, 'password'>>> {
-    return this.usersService.getUserProfile(id);
+    return await this.usersService.getUserProfile(id);
+  }
+
+  @Get('search/:outcome')
+  @ApiOperation({ summary: 'Search user by outcome' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns all user in outcome range',
+    type: User,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async searchUserByOutcome(
+    @Param('outcome') outcome: number,
+  ) {
+    return await this.usersService.findAllByOutcomeRange(outcome);
   }
 
 
 
+  
+  
+
 @ApiResponse({ status: 200, description: 'Successfully.' })
 @ApiResponse({ status: 500, description: 'Internal Server Error.'})
-  @Get('all-users')
+  @Get('all')
   async findAll(): Promise<Object> {
     try {
       return await this.usersService.findAll();
@@ -63,7 +86,7 @@ export class UsersController {
     }
   }
 
-
+  
 @ApiResponse({ status: 200, description: 'Successfully.' })
 @ApiResponse({ status: 500, description: 'Internal Server Error.'})
   @Get(':name')
@@ -92,8 +115,31 @@ export class UsersController {
       return { message: err.message || 'Internal Server Error' };
     }
   }
+
+ @Get('advanced-search/user')
+  // @UsePipes(new ValidationPipe({ transform: true }))
+  @ApiOperation({ summary: 'Advanced Search user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns all user in query',
+    type: User,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async advancedSearch(
+    @Query() query: AdvancedSearchUserDto
+    // @Query('income') income: string
+  ){
+
+    // console.log(income)
+    const { career, income, outcome } = query
+    return await this.usersService.advancedSearch(career,income, outcome);
+  }
+
+
   @ApiResponse({ status: 200, description: 'Deleted Successfully.' })
-  @ApiResponse({ status: 500, description: 'Internal Server Error.'})
+@ApiResponse({ status: 500, description: 'Internal Server Error.'})
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Object> {
     try {

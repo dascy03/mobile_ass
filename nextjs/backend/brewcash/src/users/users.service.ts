@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from './entities/user.entity';
+import { User, UserDocument } from './../entities/user.entity';
 import { ResponseStatus } from 'types/Response/ResponseStatus';
 import { ERROR_EXCEPTION, SUCCESS_EXCEPTION } from 'types';
 @Injectable()
@@ -52,6 +52,36 @@ export class UsersService {
       return null;
     }
   }
+
+  async findAllByOutcomeRange(n: number): Promise<User[]> {
+    const lowerBound = n - 500000;
+    const upperBound = n + 500000;
+    return await this.model.find({
+      outcome: { $gte: lowerBound, $lte: upperBound },
+    }).exec();
+  }
+
+  async advancedSearch(
+    career?: string,
+    income?: number,
+    outcome?: number,
+  ): Promise<User[]> {
+    const query: any = {};
+    // console.log
+    if (career) {
+    query['career.en'] = { $regex: career, $options: 'i' };
+    }
+    if (income) {
+      query.income = { $gte: income - 500000, $lte: income + 500000 };
+    }
+
+    if (outcome) {
+      query.outcome = { $gte: outcome - 500000, $lte: outcome + 500000 };
+    }
+    console.log(query);
+    return await this.model.find(query).exec();
+  }
+
 
   async remove(id: string): Promise<User> {
     return await this.model.findByIdAndDelete(id).exec();
