@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TransactionsModule } from './transactions/transactions.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { BudgetModule } from './budget/budget.module';
 @Module({
 
   imports: [
@@ -17,7 +18,8 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
     // WalletsModule,
     TransactionsModule,
-    AuthModule
+    AuthModule,
+    BudgetModule
   ],
   controllers: [AppController],
   providers: [AppService],
