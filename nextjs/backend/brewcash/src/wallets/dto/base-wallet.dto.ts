@@ -6,8 +6,4 @@ export class BaseWalletDto {
     Balance: number;
     @ApiProperty()
     Icon: string;
-    @ApiProperty()
-    createdAt: Date;
-    @ApiProperty()
-    updatedAt?: Date;
 }

@@ -10,6 +10,8 @@ export class Wallet {
   @Prop()
   Icon: string;
   @Prop()
+  userRef: string;
+  @Prop()
   createdAt: Date;
   @Prop()
   updatedAt?: Date;

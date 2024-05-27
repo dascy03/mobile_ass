@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "acme",
     "name": "frontend",
     "slug": "frontend",
     "version": "1.0.0",
@@ -24,17 +25,13 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
     "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "node_modules/@expo-google-fonts/Poppins_400Regular.ttf"
-          ]
-        }
-      ]
+      "expo-font",
+      "expo-router",
+      "expo-secure-store"
     ],
     "extra": {
       "eas": {

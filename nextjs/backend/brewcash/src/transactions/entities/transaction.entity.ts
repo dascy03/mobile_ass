@@ -7,17 +7,15 @@ export type TransactionDocument = Transaction & Document;
 export class Transaction {
   @Prop({ required: true })
   money: number;
-
   @Prop({ required: true })
-  categories: string;
-
+  categoriesRef: string;
+  @Prop()
+  walletRef: string;
   @Prop()
   note: string;
-
   @Prop()
   shareflag?: boolean;
-
-  @Prop({ required: true })
+  @Prop({ default: false })
   type: boolean; // income = True | outcome = False
   @Prop({ required: true })
   userRef: string;
@@ -25,6 +23,8 @@ export class Transaction {
   createdAt: Date;
   @Prop()
   updatedAt?: Date;
+  @Prop({ default: false})
+  isDeleted?: boolean;
 }
 
 export const TransactionSchema = SchemaFactory.createForClass(Transaction);

@@ -1,20 +1,37 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, Req, UseGuards, UnauthorizedException } from '@nestjs/common';
 import { WalletsService } from './wallets.service';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt.guard';
+import { Request } from 'express';
+import * as jwt from 'jsonwebtoken';
 @ApiTags('Wallets')
 @Controller('wallets')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class WalletsController {
   constructor(private walletsService: WalletsService) {}
 
   @Post()
   @ApiResponse({ status: 200, description: 'successfully'})
   @ApiResponse({ status: 500, description: 'fail!'})
-  async create(@Body() createWalletDto: CreateWalletDto): Promise<Object>{
+  async create(@Body() createWalletDto: CreateWalletDto,@Req() request: Request): Promise<Object>{
     try {
-      return await this.walletsService.create(createWalletDto);
+      //how to get accessToken from request
+      const authHeader = request.headers['authorization'];
+      if (!authHeader) {
+        throw new UnauthorizedException('Authorization header missing');
+      }
+
+      const token = authHeader.split(' ')[1];
+      if (!token) {
+        throw new UnauthorizedException('Token missing');
+      }
+
+      const _id: any = jwt.verify(token, 'super-ultra-max-secret');
+      return await this.walletsService.create(_id,createWalletDto);
     }
     catch (err) {
       return {message: err.message || 'Internal Server Error'};

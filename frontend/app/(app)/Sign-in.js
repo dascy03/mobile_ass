@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   StyleSheet,
@@ -9,14 +8,17 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
+import { Stack } from "expo-router";
+import CustomTextInput from "../../components/CustomTextInput";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
+import { router } from "expo-router";
 
-const SignIn = ({navigation}) => {
+const SignIn = () => {
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -27,57 +29,73 @@ const SignIn = ({navigation}) => {
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Pressable
-        style={{
-          alignItems: "flex-start",
-          flex: 0.09,
-          justifyContent: "flex-end",
+      <Stack.Screen
+        options={{
+          statusBarTranslucent: false,
+          headerShown: true,
+          title: "",
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
         }}
-        onPress={() => navigation.navigate("Login")}
-      >
-        <AntIcon name="arrowleft" size={20} color="black" />
-      </Pressable>
+      />
 
       <Text style={styles.welcomeText}>Chào mừng bạn trở lại</Text>
-
-      <View style={{ flex: 0.24, justifyContent: "space-between" }}>
+      <View style={{ rowGap: 30, marginBottom: 20 }}>
         <View
           style={{
             justifyContent: "space-between",
-            flex: 1,
-            marginBottom: 30,
+            rowGap: 5,
           }}
         >
           <Text style={styles.textLabel}>Email</Text>
-          <TextInput style={styles.textInput} placeholder="Nhập email" />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Nhập email"
+            textContentType="emailAddress"
+            autoCapitalize="none"
+            onSubmitEditing={() => {
+              passwordInput.focus();
+            }}
+            returnKeyType="next"
+          />
         </View>
-
         <View
           style={{
             justifyContent: "space-between",
-            flex: 1,
+            rowGap: 5,
           }}
         >
           <Text style={styles.textLabel}>Mật khẩu</Text>
-          <TextInput style={styles.textInput} placeholder="Nhập mật khẩu" />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Nhập mật khẩu"
+            textContentType="password"
+            autoCapitalize="none"
+            returnKeyType="done"
+            ref={(input) => {
+              passwordInput = input;
+            }}
+            secureTextEntry={true}
+          />
         </View>
       </View>
 
       <Text
         style={{
-          flex: 0.08,
-          textAlignVertical: "center",
           color: "#FBC43A",
           fontFamily: "Poppins_400Regular",
+          fontSize: 14,
         }}
       >
         Quên mật khẩu
       </Text>
 
-      <Pressable style={styles.btn}>
+      <Pressable style={styles.btn} onPress={() => router.push("register")}>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 18,
             fontFamily: "Poppins_600SemiBold",
             color: "white",
             marginRight: 10,
@@ -90,15 +108,16 @@ const SignIn = ({navigation}) => {
 
       <View
         style={{
-          flex: 0.07,
           flexDirection: "row",
           justifyContent: "space-evenly",
           alignItems: "center",
+          marginTop: 16,
+          marginBottom: 14,
         }}
       >
         <Text
           style={{
-            fontSize: 11,
+            fontSize: 14,
             fontFamily: "Poppins_400Regular",
             color: "#D9D9D9",
           }}
@@ -109,7 +128,6 @@ const SignIn = ({navigation}) => {
 
       <View
         style={{
-          flex: 0.06,
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "flex-start",
@@ -128,8 +146,15 @@ const SignIn = ({navigation}) => {
           />
         </Pressable>
       </View>
-
-      <Text style={styles.registerText}>Đăng kí tài khoản</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text style={styles.registerText}>Đăng ký tài khoản</Text>
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -140,15 +165,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     justifyContent: "flex-start",
-    padding: 30,
+    paddingHorizontal: 30,
   },
   btn: {
-    flex: 0.07,
+    height: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#21B4A3",
     borderRadius: 10,
+    marginTop: 25,
   },
   otherOptionsBtn: {
     height: 44,
@@ -167,33 +193,27 @@ const styles = StyleSheet.create({
     width: 24,
   },
   welcomeText: {
-    flex: 0.2,
-    fontSize: 30,
+    fontSize: 32,
     color: "black",
     width: "75%",
-    lineHeight: 40,
     textAlignVertical: "center",
     fontFamily: "Poppins_600SemiBold",
-    fontWeight: "100",
+    marginBottom: 36,
   },
   textLabel: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "Poppins_400Regular",
     color: "black",
   },
   textInput: {
-    flex: 0.8,
+    height: 55,
     borderWidth: 1,
     borderRadius: 10,
     paddingLeft: 20,
     borderColor: "#D9D9D9",
   },
   registerText: {
-    flex: 0.2,
-    textAlignVertical: "center",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "600",
+    fontSize: 22,
     color: "#FBC43A",
     fontFamily: "Poppins_600SemiBold",
   },

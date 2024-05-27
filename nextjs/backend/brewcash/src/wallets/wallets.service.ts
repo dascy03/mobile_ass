@@ -11,10 +11,12 @@ export class WalletsService {
     private readonly model: Model<WalletDocument>,
   ) {
   }
-  async create(createWalletDto: CreateWalletDto): Promise<Wallet>{
+  async create(_id: string,createWalletDto: CreateWalletDto, ): Promise<Wallet>{
     return new this.model({
       ...createWalletDto,
-      createAt: new Date(),
+      userRef: _id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }).save();
   }
 

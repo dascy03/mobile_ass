@@ -2,18 +2,15 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class BaseTransactionDto {
   @ApiProperty()
-    money: string;
-
-    @ApiProperty()
-    categories: string;
-
-    @ApiProperty()
-    note: string;
-
-    @ApiProperty()
-    type: boolean;
-    
-    @ApiProperty()
-    shareflag: boolean;
+  money: number;
+  @ApiProperty()
+  categoriesRef: string;
+  @ApiProperty()
+  walletRef: string;
+  @ApiProperty()
+  note: string;
+  @ApiProperty()
+  type: boolean;
+  @ApiProperty()
+  shareflag: boolean;
 }
-

@@ -5,8 +5,8 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthService } from './auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './entities/user.entity';
-// import { MailModule } from 'src/mail/mail.module';
+import { UserSchema } from '../users/entities/user.entity';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
@@ -21,10 +21,10 @@ import { UserSchema } from './entities/user.entity';
     JwtModule.registerAsync({
       useFactory: () => ({
         secret: process.env.JWT_SECRET,
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '120s' },
       }),
     }),
-    // MailModule,
+    MailModule,
   ],
   controllers: [AuthController],
   providers: [JwtStrategy, AuthService],

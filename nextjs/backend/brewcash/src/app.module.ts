@@ -20,7 +20,7 @@ import { CategoriesModule } from './categories/categories.module';
     WalletsModule,
     TransactionsModule,
     AuthModule,
-    CategoriesModule
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

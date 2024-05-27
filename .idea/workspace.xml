@@ -4,7 +4,65 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01779770-2342-4de0-960e-d1036fad1819" name="Changes" comment="" />
+    <list default="true" id="01779770-2342-4de0-960e-d1036fad1819" name="Changes" comment="add wallet, categories">
+      <change afterPath="$PROJECT_DIR$/frontend/app/(app)/_layout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/app/(app)/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/app/(app)/register.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/assets/images/back-button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/AuthContext.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/CustomTextInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/env.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/dto/confirmOtpDto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/mail/mail.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/mail/mail.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/mail/templates/confirmation.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/screens/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/(app)/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/screens/Sign-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/(app)/Sign-in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/screens/boarding1.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/(app)/boarding1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/screens/boarding2.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/(app)/boarding2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/screens/boarding3.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/(app)/boarding3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/nest-cli.json" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/nest-cli.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/auth.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/auth.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/dto/loginDto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/dto/loginDto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/dto/registerDto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/dto/registerDto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/entities/user.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/jwt.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/jwt.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/types/userLogin.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/types/userLogin.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/types/userRegister.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/auth/types/userRegister.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.controller.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.controller.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/dto/base-category.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/dto/base-category.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/entities/category.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/entities/category.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/middlewares/jwt.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/middlewares/jwt.middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/dto/base-transaction.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/dto/base-transaction.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/entities/transaction.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/entities/transaction.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/transactions.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/transactions.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/transactions.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/transactions.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/users/entities/user.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/users/users.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/users/users.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/users/users.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/users/users.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/users/users.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/users/users.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/dto/base-wallet.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/dto/base-wallet.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/entities/wallet.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/entities/wallet.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/wallets.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/wallets.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/wallets.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/wallets.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/wallets.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/wallets.service.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +71,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "longthaibao"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/dascy03/mobile_ass.git",
+    "accountId": "56b38cd7-180c-47fd-9dbb-b148320a9f67"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -29,22 +99,27 @@
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/macbookpro/Documents/mobile_ass&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/macbookpro/Documents/mobile_ass/nextjs/backend/brewcash/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging main",
+    "last_opened_file_path": "/Users/macbookpro/Documents/mobile_ass",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/Users/macbookpro/Documents/mobile_ass/nextjs/backend/brewcash/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/nextjs/backend/brewcash/src/users" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -70,7 +145,8 @@
       <workItem from="1716559897756" duration="274000" />
       <workItem from="1716560180477" duration="3941000" />
       <workItem from="1716654263845" duration="312000" />
-      <workItem from="1716654698272" duration="12413000" />
+      <workItem from="1716654698272" duration="28768000" />
+      <workItem from="1716818568187" duration="6731000" />
     </task>
     <servers />
   </component>
@@ -87,5 +163,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add wallet, categories" />
+    <option name="LAST_COMMIT_MESSAGE" value="add wallet, categories" />
   </component>
 </project>
