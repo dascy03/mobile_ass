@@ -6,6 +6,7 @@ export default function Layout() {
   //if (!authState.authenticated) return <Redirect href="/login" />;
   return (
     <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="boarding1" options={{ headerShown: false }} />
       <Stack.Screen name="boarding2" options={{ headerShown: false }} />
       <Stack.Screen name="boarding3" options={{ headerShown: false }} />
