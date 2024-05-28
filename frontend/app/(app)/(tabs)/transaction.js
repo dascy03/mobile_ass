@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import { useState, useEffect } from "react";
 
 import { withExpoSnack } from "nativewind";
@@ -120,7 +120,12 @@ const Transaction = () => {
         </StyledView>
         <StyledView className="basis-1/6 items-start "></StyledView>
       </StyledView>
-      <StyledView className="flex flex-row py-3 w-full border-b-2 border-[#D9D9D9]">
+      <TouchableOpacity
+        className="flex flex-row py-3 w-full border-b-2 border-[#D9D9D9]"
+        onPress={() => {
+          router.push("transaction_details");
+        }}
+      >
         <Image
           className="basis-1/6 items-center justify-center place-items-center"
           style={{ resizeMode: "contain" }}
@@ -134,7 +139,7 @@ const Transaction = () => {
           70,000
         </StyledView>
         <StyledView className="basis-1/6 items-start "></StyledView>
-      </StyledView>
+      </TouchableOpacity>
     </StyledView>
   );
 };

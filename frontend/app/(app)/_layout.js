@@ -13,6 +13,8 @@ export default function Layout() {
       <Stack.Screen name="Login" options={{ headerShown: false }} />
       <Stack.Screen name="Sign-in" />
       <Stack.Screen name="register" />
+      <Stack.Screen name="transaction_details" />
+      <Stack.Screen name="transaction_fix" options={{headerShown: false}}/>
     </Stack>
   );
 }
