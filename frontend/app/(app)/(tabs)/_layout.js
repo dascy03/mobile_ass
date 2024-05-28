@@ -1,7 +1,6 @@
 import React from "react";
 import { Tabs, Stack } from "expo-router";
 import { Image, Text, View } from "react-native";
-
 import {
   useFonts,
   Poppins_400Regular,
