@@ -69,7 +69,7 @@ export class UsersService {
     const query: any = {};
     // console.log
     if (career) {
-    query['career.en'] = { $regex: career, $options: 'i' };
+    query.career = { $regex: career, $options: 'i' };
     }
     if (income) {
       query.income = { $gte: income - 500000, $lte: income + 500000 };

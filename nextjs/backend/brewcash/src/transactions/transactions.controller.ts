@@ -9,11 +9,12 @@ import {
   UnauthorizedException,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
-import { ApiTags, ApiBearerAuth} from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiOperation} from '@nestjs/swagger';
 import { ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
@@ -46,6 +47,9 @@ export class TransactionsController {
     }
   }
 
+  
+
+
   @Get()
   @ApiResponse({status: 200, description: "successfully"})
   @ApiResponse({status: 500, description: "fail!"})
@@ -56,6 +60,71 @@ export class TransactionsController {
       return {message: err.message || 'Internal Server Error'};
     }
   }
+ 
+  @Get('report/detail')
+  @ApiOperation({ summary: 'Get a report by month and year' })
+  @ApiResponse({ status: 200, description: 'Get report successfully' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async getMonthlyReport(@Query('month') month: number, @Query('year') year: number, @Req() request: Request): Promise<any>{
+    const authHeader = request.headers['authorization'];
+    if (!authHeader) {
+      throw new UnauthorizedException('Authorization header missing');
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Token missing');
+    }
+    const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(userRef,month,year);
+    return await this.transactionsService.getMonthlyReport(userRef,month, year);
+  }
+
+  @Get('report/outcome')
+  @ApiOperation({ summary: 'Get a report outcome by month and year' })
+  @ApiResponse({ status: 200, description: 'Get report successfully' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async getMonthlyReportOutcome(
+    @Req() request: Request,
+    @Query('month') month: number,
+    @Query('year') year: number,
+  ) {
+    const authHeader = request.headers['authorization'];
+    if (!authHeader) {
+      throw new UnauthorizedException('Authorization header missing');
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Token missing');
+    }
+    const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
+    return await this.transactionsService.getMonthlyReportOutcome(userRef, month, year);
+  }
+
+  @Get('report/income')
+  @ApiOperation({ summary: 'Get a report income by month and year' })
+  @ApiResponse({ status: 200, description: 'Get report successfully' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async getMonthlyReportIncome(
+    @Req() request: Request,
+    @Query('month') month: number,
+    @Query('year') year: number,
+  ) {
+    const authHeader = request.headers['authorization'];
+    if (!authHeader) {
+      throw new UnauthorizedException('Authorization header missing');
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Token missing');
+    }
+    const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
+    return await this.transactionsService.getMonthlyReportIncome(userRef, month, year);
+  }
+
+
 
 
   @Get(':category')
@@ -106,4 +175,8 @@ export class TransactionsController {
       return {message: err.message || 'Internal Server Error'};
     }
   }
+
+  
+
+
 }
