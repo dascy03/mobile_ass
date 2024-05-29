@@ -9,6 +9,8 @@ import {
   TransactionDocument,
 } from './entities/transaction.entity';
 import { Wallet, WalletDocument } from 'src/wallets/entities/wallet.entity';
+import { Budget, BudgetDocument} from '../entities/budget.entity';
+import { Category, CategoryDocument } from '../categories/entities/category.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -16,10 +18,39 @@ export class TransactionsService {
     @InjectModel(Transaction.name)
     private readonly model: Model<TransactionDocument>,
     @InjectModel(Wallet.name)
+    private readonly walletModel: Model<WalletDocument>,
+    @InjectModel(Budget.name)
+    private readonly budgetModel: Model<BudgetDocument>,
+    @InjectModel(Category.name)
+    private readonly categoryModel: Model<CategoryDocument>,
     private readonly walletModel : Model<WalletDocument>,
   ) {}
   async create(_id:string, createTransactionDto: CreateTransactionDto): Promise<Transaction> {
-
+    if(createTransactionDto.type === true){
+      const wallet= await this.walletModel.findOneAndUpdate(
+        { _id: createTransactionDto.walletRef },
+      {
+        $inc: {
+          Balance: createTransactionDto.money
+        }
+      },
+        { new: true }
+      ).exec();
+    }
+    else {
+      const categories = await this.categoryModel.findOne({ _id: createTransactionDto.categoriesRef }).exec();
+      const budget= await this.budgetModel.findOne({categories:categories.name}).exec();
+      if(budget){
+        const budget= await this.budgetModel.findOneAndUpdate(
+          {categories:categories.name},
+          {
+            $inc: {
+              money_spend: createTransactionDto.money
+            }
+          },
+        ).exec();
+      }
+    }
     return new this.model({
       ...createTransactionDto,
       userRef: _id,

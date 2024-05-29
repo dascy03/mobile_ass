@@ -33,7 +33,7 @@ const SignIn = () => {
         options={{
           statusBarTranslucent: false,
           headerShown: true,
-          title: "Sign in",
+          title: "",
           headerStyle: {
             backgroundColor: "white",
           },
@@ -92,7 +92,7 @@ const SignIn = () => {
         Quên mật khẩu
       </Text>
 
-      <Pressable style={styles.btn} onPress={() => router.push("/home")}>
+      <Pressable style={styles.btn} onPress={() => router.push("home")}>
         <Text
           style={{
             fontSize: 18,
@@ -146,8 +146,7 @@ const SignIn = () => {
           />
         </Pressable>
       </View>
-      <Pressable
-        onPress={() => router.push("register")}
+      <View
         style={{
           flex: 1,
           justifyContent: "center",
@@ -155,7 +154,7 @@ const SignIn = () => {
         }}
       >
         <Text style={styles.registerText}>Đăng ký tài khoản</Text>
-      </Pressable>
+      </View>
     </KeyboardAvoidingView>
   );
 };

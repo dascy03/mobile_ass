@@ -11,6 +11,4 @@ export class BaseTransactionDto {
   note: string;
   @ApiProperty()
   type: boolean;
-  @ApiProperty()
-  shareflag: boolean;
 }

@@ -14,6 +14,7 @@ export class WalletsService {
   async create(_id: string,createWalletDto: CreateWalletDto, ): Promise<Wallet>{
     return new this.model({
       ...createWalletDto,
+      fixedBalance: createWalletDto.Balance,
       userRef: _id,
       createdAt: new Date(),
       updatedAt: new Date(),

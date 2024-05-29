@@ -1,7 +1,6 @@
 import React from "react";
 import { Tabs, Stack } from "expo-router";
 import { Image, Text, View } from "react-native";
-
 import {
   useFonts,
   Poppins_400Regular,
@@ -81,6 +80,28 @@ export default function TabLayout() {
               >
                 Giao dịch
               </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="addTransaction"
+        options={{
+          tabBarShowLabel: false,
+          tabBarStyle: { height: 72 },
+          headerShown: true,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                rowGap: 2,
+              }}
+            >
+              <Image
+                source={require("../../../assets/images/addTransaction.png")}
+                style={{ width: 50, height: 50, resizeMode: 'contain' }}
+              />
             </View>
           ),
         }}
