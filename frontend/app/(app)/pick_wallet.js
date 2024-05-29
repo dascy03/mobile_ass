@@ -15,7 +15,7 @@ import { styled } from "nativewind";
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const Transaction_Fix = () => {
+const Pick_Wallet = () => {
   const formatNumber = (num) => {
     if (num == undefined) return;
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -46,63 +46,36 @@ const Transaction_Fix = () => {
             source={require("../../assets/images/back-button.png")}
           />
         </TouchableOpacity>
-        <StyledText className="basis-3/6 text-3xl text-white font-semibold ">
-          Sửa giao dịch
+        <StyledText className="basis-3/6 text-xl text-white font-semibold items-center flex ">
+          Chọn ví
         </StyledText>
       </StyledView>
       <StyledView>
-        <StyledView className="bg-[#D9D9D9] h-[20]"></StyledView>
         <StyledView className="flex-row gap-4 p-3">
           <Image
             style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/VND.png")}
+            source={require("../../assets/images/confirmVector.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Fill your money"></TextInput>
+          <StyledView className="justify-center border-[#D9D9D9]">
+            <TouchableOpacity
+              onPress={() => {
+                router.push("new_wallet");
+              }}
+            >
+              Ví mới
+            </TouchableOpacity>
           </StyledView>
         </StyledView>
       </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
-          <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/Wallet.png")}
-          />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Chọn ví"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
-          <Image
-            style={{ resizeMode: "contain" }}
-            source={require("../../assets/images/Invoice.png")}
-          />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Hóa đơn điện"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
-          <Image
-            style={{ resizeMode: "contain" }}
-            source={require("../../assets/images/Calendar_month.png")}
-          />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Hôm nay"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
+      <StyledView className="bg-[#D9D9D9] h-[10]"></StyledView>
       <StyledView>
         <StyledView className="flex-row gap-4 p-3">
           <Image
             style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/Note.png")}
+            source={require("../../assets/images/pigVector.png")}
           />
-          <StyledView>
-            <StyledText>...</StyledText>
+          <StyledView className="justify-center border-[#D9D9D9]">
+            <Text>Tiết kiệm</Text>
           </StyledView>
         </StyledView>
       </StyledView>
@@ -110,7 +83,7 @@ const Transaction_Fix = () => {
   );
 };
 
-export default Transaction_Fix;
+export default Pick_Wallet;
 
 const styles = StyleSheet.create({
   container: {

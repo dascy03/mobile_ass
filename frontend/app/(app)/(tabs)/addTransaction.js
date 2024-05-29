@@ -4,6 +4,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Modal,
   TextInput,
 } from "react-native";
 import React from "react";
@@ -15,7 +16,7 @@ import { styled } from "nativewind";
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const Transaction_Fix = () => {
+const Add_Transaction = () => {
   const formatNumber = (num) => {
     if (num == undefined) return;
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -25,7 +26,7 @@ const Transaction_Fix = () => {
   const [income, setIncome] = useState();
   const [outcome, setOutcome] = useState();
   const [total, setTotal] = useState();
-
+  const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     setSoDu(9999999);
     setIncome(100000);
@@ -34,7 +35,19 @@ const Transaction_Fix = () => {
   }, []);
   return (
     <StyledView style={styles.container}>
-      <StyledView className="bg-[#21B4A3] w-full flex flex-row py-3 justify-center place-content-center">
+      <Stack.Screen
+        options={{
+          statusBarTranslucent: false,
+          headerShown: false,
+
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "white",
+          },
+          headerShadowVisible: false,
+        }}
+      />
+      <StyledView className="bg-[#21B4A3] w-full flex flex-row py-5 justify-center place-content-center">
         <TouchableOpacity
           className="basis-1/6 mt-2 px-4"
           onPress={() => {
@@ -42,12 +55,12 @@ const Transaction_Fix = () => {
           }}
         >
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/back-button.png")}
+            style={{ resizeMode: "contain" }}
+            source={require("../../../assets/images/Delete.png")}
           />
         </TouchableOpacity>
-        <StyledText className="basis-3/6 text-3xl text-white font-semibold ">
-          Sửa giao dịch
+        <StyledText className=" text-3xl text-white font-semibold ">
+          Giao dịch mới
         </StyledText>
       </StyledView>
       <StyledView>
@@ -55,7 +68,7 @@ const Transaction_Fix = () => {
         <StyledView className="flex-row gap-4 p-3">
           <Image
             style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/VND.png")}
+            source={require("../../../assets/images/VND.png")}
           />
           <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
             <TextInput placeholder="Fill your money"></TextInput>
@@ -66,10 +79,17 @@ const Transaction_Fix = () => {
         <StyledView className="flex-row gap-4 p-3">
           <Image
             style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/Wallet.png")}
+            source={require("../../../assets/images/WalletVector.png")}
           />
           <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Chọn ví"></TextInput>
+            <TouchableOpacity
+              onPress={() => {
+                router.push("pick_wallet");
+              }}
+            >
+              {" "}
+              Chọn ví
+            </TouchableOpacity>
           </StyledView>
         </StyledView>
       </StyledView>
@@ -77,10 +97,17 @@ const Transaction_Fix = () => {
         <StyledView className="flex-row gap-4 p-3">
           <Image
             style={{ resizeMode: "contain" }}
-            source={require("../../assets/images/Invoice.png")}
+            source={require("../../../assets/images/Category.png")}
           />
           <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Hóa đơn điện"></TextInput>
+            <TouchableOpacity
+              onPress={() => {
+                router.push("pick_category_outcome");
+              }}
+            >
+              {" "}
+              Chọn danh mục
+            </TouchableOpacity>
           </StyledView>
         </StyledView>
       </StyledView>
@@ -88,10 +115,10 @@ const Transaction_Fix = () => {
         <StyledView className="flex-row gap-4 p-3">
           <Image
             style={{ resizeMode: "contain" }}
-            source={require("../../assets/images/Calendar_month.png")}
+            source={require("../../../assets/images/Calendar_month_vector.png")}
           />
           <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Hôm nay"></TextInput>
+            <StyledText>Hôm nay</StyledText>
           </StyledView>
         </StyledView>
       </StyledView>
@@ -99,18 +126,23 @@ const Transaction_Fix = () => {
         <StyledView className="flex-row gap-4 p-3">
           <Image
             style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/Note.png")}
+            source={require("../../../assets/images/NoteVector.png")}
           />
           <StyledView>
             <StyledText>...</StyledText>
           </StyledView>
         </StyledView>
       </StyledView>
+      <StyledView className="flex-row justify-center mt-[20]">
+        <TouchableOpacity className="bg-[#21B4A3] text-white rounded-xl py-1 px-20 text-xl">
+          Lưu
+        </TouchableOpacity>
+      </StyledView>
     </StyledView>
   );
 };
 
-export default Transaction_Fix;
+export default Add_Transaction;
 
 const styles = StyleSheet.create({
   container: {
