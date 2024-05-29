@@ -22,9 +22,9 @@ export class Budget {
 //   @Prop({ default: 0 })
 //   total_money_spend: number;
 
-  @ApiProperty({ 
-    example:"food", 
-    description: 'The categories in both Vietnamese and English' 
+  @ApiProperty({
+    example:"food",
+    description: 'The categories in both Vietnamese and English'
   })
   @Prop({ required: true })
   categories: string;

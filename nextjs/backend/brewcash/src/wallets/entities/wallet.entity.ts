@@ -7,12 +7,14 @@ export class Wallet {
   Name: string;
   @Prop({ required: true })
   Balance: number;
+  @Prop({ required: true})
+  fixedBalance: number;
   @Prop()
   Icon: string;
   @Prop()
   userRef: string;
   @Prop()
-  createdAt: Date;
+  createdAt?: Date;
   @Prop()
   updatedAt?: Date;
 }

@@ -13,8 +13,8 @@ export class Transaction {
   walletRef: string;
   @Prop()
   note: string;
-  @Prop()
-  shareflag?: boolean;
+  @Prop({ default: false})
+  shareflag: boolean;
   @Prop({ default: false })
   type: boolean; // income = True | outcome = False
   @Prop({ required: true })
