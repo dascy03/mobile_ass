@@ -4,6 +4,7 @@ import { BudgetController } from './budget.controller';
 import { Budget, BudgetSchema } from 'src/entities/budget.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/entities/user.entity';
+import { Category, CategorySchema } from 'src/categories/entities/category.entity';
 
 @Module({
   controllers: [BudgetController],
@@ -14,6 +15,9 @@ import { User, UserSchema } from 'src/entities/user.entity';
   },{
     name: User.name,
     schema: UserSchema
+  },{
+    name: Category.name,
+    schema: CategorySchema
   }])]
 })
 export class BudgetModule {}

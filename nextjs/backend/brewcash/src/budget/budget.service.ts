@@ -5,20 +5,23 @@ import { Budget, BudgetDocument } from 'src/entities/budget.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/entities/user.entity';
+import { Category, CategoryDocument } from 'src/categories/entities/category.entity';
 
 @Injectable()
 export class BudgetService {
   constructor(
     @InjectModel(Budget.name) private readonly budgetModel: Model<BudgetDocument>,
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(Category.name) private readonly categoryModel: Model<CategoryDocument>
   ) {}
   async create(userid: string, createBudgetDto: CreateBudgetDto) {
     const existingUser = await this.userModel.findOne({ _id: userid });
+    const findCategories = await this.categoryModel.findOne({ name: createBudgetDto.categories });
     if(existingUser) {
       const newBudget = await this.budgetModel.create({
       ...createBudgetDto,
+      categoriesRef: findCategories._id,
       userRef: userid,
-
     })
 
     await newBudget.save();
