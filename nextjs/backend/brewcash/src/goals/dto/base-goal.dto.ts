@@ -1,14 +1,16 @@
-import { ApiProperty } from "@nestjs/swagger";
+import {ApiProperty} from '@nestjs/swagger';
 
-export class BaseTransactionDto {
+export class BaseGoalDto {
   @ApiProperty()
   money: number;
+  @ApiProperty()
+  name: string;
   @ApiProperty()
   categoriesRef: string;
   @ApiProperty()
   walletRef: string;
   @ApiProperty()
-  note: string;
+  createdAt: Date;
   @ApiProperty()
-  type: boolean;
+  endDate: Date;
 }
