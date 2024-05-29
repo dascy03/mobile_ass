@@ -66,7 +66,7 @@ export class UsersService {
     income?: number,
     outcome?: number,
   ): Promise<User[]> {
-    const query: any = {};
+    const query: any = { };
     // console.log
     if (career) {
     query.career = { $regex: career, $options: 'i' };
