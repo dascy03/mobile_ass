@@ -258,7 +258,7 @@ const Home = () => {
           </View>
           <View style={styles.recentTransaction}>
             <Image
-              source={require("../../../assets/images/food.png")}
+              source={require("../../../assets/images/food-icon.png")}
               style={{
                 width: 34,
                 height: 34,
@@ -445,7 +445,7 @@ const Home = () => {
         </View>
         <View style={styles.recentTransaction}>
           <Image
-            source={require("../../../assets/images/food.png")}
+            source={require("../../../assets/images/food-icon.png")}
             style={{
               width: 44,
               height: 44,
