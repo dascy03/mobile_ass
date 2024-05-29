@@ -24,10 +24,15 @@ export class Budget {
 
   @ApiProperty({ 
     example:"food", 
-    description: 'The categories in both Vietnamese and English' 
+    description: 'The categories ' 
   })
   @Prop({ required: true })
   categories: string;
+
+  @ApiProperty({ example: '34356765432', description: 'Reference to the categories' })
+  @Prop()
+  categoriesRef: string;
+
 
   @ApiProperty({ example: '2024-05-01', description: 'The start date of the budget period' })
   @Prop({ required: true })
@@ -44,6 +49,8 @@ export class Budget {
   @ApiProperty({ example: 'user123', description: 'Reference to the user who owns the budget' })
   @Prop({ required: true })
   userRef: string;
+
+
 
   @ApiProperty({
     example: '2022-05-13T08:00:00.000Z',
