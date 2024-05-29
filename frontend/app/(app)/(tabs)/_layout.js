@@ -85,6 +85,28 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="addTransaction"
+        options={{
+          tabBarShowLabel: false,
+          tabBarStyle: { height: 72 },
+          headerShown: true,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                rowGap: 2,
+              }}
+            >
+              <Image
+                source={require("../../../assets/images/addTransaction.png")}
+                style={{ width: 50, height: 50, resizeMode: 'contain' }}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="report"
         options={{
           tabBarShowLabel: false,
