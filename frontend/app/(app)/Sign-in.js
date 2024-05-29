@@ -33,7 +33,7 @@ const SignIn = () => {
         options={{
           statusBarTranslucent: false,
           headerShown: true,
-          title: "Sign in",
+          title: "",
           headerStyle: {
             backgroundColor: "white",
           },
