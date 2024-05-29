@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01779770-2342-4de0-960e-d1036fad1819" name="Changes" comment="add wallet, categories">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/categories/categories.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/entities/budget.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/entities/budget.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/transactions.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/transactions.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/transactions.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/transactions/transactions.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/entities/wallet.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/entities/wallet.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/wallets.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/backend/brewcash/src/wallets/wallets.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +38,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#28 on Long",
+    "git-widget-placeholder": "#28 on Merging Long",
     "last_opened_file_path": "/Users/macbookpro/Documents/mobile_ass",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
