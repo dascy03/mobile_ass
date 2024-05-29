@@ -11,7 +11,9 @@ import { Stack } from "expo-router";
 import {
   useFonts,
   Poppins_400Regular,
+  Poppins_500Medium,
   Poppins_600SemiBold,
+  Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import { router } from "expo-router";
 import AntIcon from "react-native-vector-icons/AntDesign";
@@ -20,7 +22,9 @@ import React from "react";
 const Home = () => {
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
+    Poppins_500Medium,
     Poppins_600SemiBold,
+    Poppins_700Bold,
   });
 
   if (!fontsLoaded && !fontError) {
@@ -147,7 +151,10 @@ const Home = () => {
           </Text>
         </View>
       </View>
-      <View style={styles.bottomContainer}>
+
+      <ScrollView
+        contentContainerStyle={{ padding: 24, backgroundColor: "white" }}
+      >
         <View style={styles.featureContainer}>
           <TouchableOpacity
             style={{ flexDirection: "column", alignItems: "center", rowGap: 8 }}
@@ -177,7 +184,306 @@ const Home = () => {
             <Text style={styles.blackText}>Chia sẻ</Text>
           </TouchableOpacity>
         </View>
-      </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            marginTop: 20,
+            marginBottom: 6,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Poppins_600SemiBold",
+              fontSize: 17,
+              color: "#21B4A3",
+            }}
+          >
+            Giao dịch gần đây
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Poppins_700Bold",
+              fontSize: 13,
+              color: "#797979",
+            }}
+          >
+            Xem tất cả
+          </Text>
+        </View>
+        <View>
+          <View style={styles.recentTransaction}>
+            <Image
+              source={require("../../../assets/images/bill.png")}
+              style={{
+                width: 34,
+                height: 34,
+                marginRight: 14,
+                alignSelf: "center",
+              }}
+            />
+            <View style={{ flexDirection: "column", flex: 1 }}>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 19,
+                  color: "black",
+                  lineHeight: 28,
+                }}
+              >
+                Hóa đơn tiền điện
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 13,
+                  color: "#797979",
+                }}
+              >
+                23/04/2024
+              </Text>
+            </View>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+                color: "black",
+              }}
+            >
+              1,000,000
+            </Text>
+          </View>
+          <View style={styles.recentTransaction}>
+            <Image
+              source={require("../../../assets/images/food-icon.png")}
+              style={{
+                width: 34,
+                height: 34,
+                marginRight: 14,
+                alignSelf: "center",
+              }}
+            />
+            <View style={{ flexDirection: "column", flex: 1 }}>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 18,
+                  color: "black",
+                  lineHeight: 28,
+                }}
+              >
+                Ăn uống
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 13,
+                  color: "#797979",
+                }}
+              >
+                23/04/2024
+              </Text>
+            </View>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 19,
+                color: "black",
+              }}
+            >
+              90,000
+            </Text>
+          </View>
+        </View>
+        <Text
+          style={{
+            alignSelf: "flex-start",
+            fontFamily: "Poppins_600SemiBold",
+            fontSize: 17,
+            color: "#21B4A3",
+            marginTop: 6,
+          }}
+        >
+          Báo cáo chi tiêu
+        </Text>
+        <View
+          style={{ justifyContent: "flex-start", width: "100", padding: 16 }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "100%",
+              backgroundColor: "#70D8CC",
+              borderRadius: 6,
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  paddingTop: 3,
+                  fontFamily: "Poppins_500Medium",
+                  fontSize: 17,
+                  color: "white",
+                }}
+              >
+                Tuần
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#21B4A3",
+                borderRadius: 5,
+              }}
+            >
+              <Text
+                style={{
+                  paddingTop: 3,
+                  fontFamily: "Poppins_500Medium",
+                  fontSize: 17,
+                  color: "white",
+                  padding: 1,
+                }}
+              >
+                Tháng
+              </Text>
+            </View>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text
+              style={{
+                fontFamily: "Poppins_500Medium",
+                fontSize: 19,
+                color: "#21B4A3",
+              }}
+            >
+              1,200,000 VNĐ
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 13,
+                color: "#484848",
+              }}
+            >
+              Tổng chi tiêu tháng này +{" "}
+              <Text style={{ color: "#FA416A" }}>10%</Text>
+            </Text>
+          </View>
+          <Image
+            source={require("../../../assets/images/home-dashboard.png")}
+            style={{
+              marginTop: 10,
+              width: 230,
+              height: 115,
+              alignSelf: "center",
+            }}
+          />
+        </View>
+        <Text
+          style={{
+            fontFamily: "Poppins_500Medium",
+            fontSize: 15,
+            color: "#484848",
+            marginTop: 10,
+            marginBottom: 6,
+          }}
+        >
+          Chi tiêu hàng đầu
+        </Text>
+        <View style={styles.recentTransaction}>
+          <Image
+            source={require("../../../assets/images/bill.png")}
+            style={{
+              width: 44,
+              height: 44,
+              marginRight: 34,
+              alignSelf: "center",
+            }}
+          />
+          <View style={{ flexDirection: "column", flex: 1 }}>
+            <Text
+              style={{
+                fontFamily: "Poppins_600SemiBold",
+                fontSize: 15,
+                color: "black",
+              }}
+            >
+              Hoá đơn
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 13,
+                color: "#797979",
+              }}
+            >
+              900,000 VNĐ
+            </Text>
+          </View>
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 15,
+              color: "#FA416A",
+            }}
+          >
+            75%
+          </Text>
+        </View>
+        <View style={styles.recentTransaction}>
+          <Image
+            source={require("../../../assets/images/food-icon.png")}
+            style={{
+              width: 44,
+              height: 44,
+              marginRight: 34,
+              alignSelf: "center",
+            }}
+          />
+          <View style={{ flexDirection: "column", flex: 1 }}>
+            <Text
+              style={{
+                fontFamily: "Poppins_600SemiBold",
+                fontSize: 15,
+                color: "black",
+              }}
+            >
+              Ăn uống
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 13,
+                color: "#797979",
+              }}
+            >
+              300,000 VNĐ
+            </Text>
+          </View>
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 15,
+              color: "#FA416A",
+            }}
+          >
+            25%
+          </Text>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -235,5 +541,12 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_400Regular",
     fontSize: 15,
     color: "black",
+  },
+  recentTransaction: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: 10,
   },
 });

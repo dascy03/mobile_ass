@@ -16,7 +16,7 @@ import {BudgetModule} from './budget/budget.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true}),
     MongooseModule.forRoot(
-      'mongodb+srv://clay:1234@brewcash.flk27ma.mongodb.net/brewcash?retryWrites=true&w=majority&appName=BrewCash',
+      process.env.DB
     ),
     UsersModule,
     WalletsModule,

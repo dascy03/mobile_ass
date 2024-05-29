@@ -23,6 +23,7 @@ export class TransactionsService {
     private readonly budgetModel: Model<BudgetDocument>,
     @InjectModel(Category.name)
     private readonly categoryModel: Model<CategoryDocument>,
+    private readonly walletModel : Model<WalletDocument>,
   ) {}
   async create(_id:string, createTransactionDto: CreateTransactionDto): Promise<Transaction> {
     if(createTransactionDto.type === true){
@@ -82,5 +83,86 @@ export class TransactionsService {
   }
   async remove(id: number): Promise<Transaction> {
     return await this.model.findByIdAndDelete(id).exec();
+  }
+
+  async getMonthlyReport(userRef: string,month: number, year: number): Promise<any> {
+    const startOfMonth = new Date(year, month - 1, 1);
+    const endOfMonth = new Date(year, month, 0);
+
+    // console.log(userRef,startOfMonth,endOfMonth)
+
+    const transactions = await this.model.find({
+      userRef: userRef,
+      createdAt: {
+        $gte: startOfMonth,
+        $lt: endOfMonth,
+      },
+    });
+
+    console.log(transactions)
+    const wallet = await this.walletModel.findOne({ userRef: userRef });
+    const report = transactions.reduce((acc, transaction) => {
+      const date = new Date(transaction.createdAt);
+
+      let period: string;
+      if (date.getDate() <= 3) period = 'Period 1';
+      else if (date.getDate() <= 10) period = 'Period 2';
+      else if (date.getDate() <= 17) period = 'Period 3';
+      else if (date.getDate() <= 24) period = 'Period 4';
+      else period = 'Period 5';
+
+      if (!acc[period]) acc[period] = { income: 0, outcome: 0 };
+
+      if (transaction.type) {
+        acc[period].income += transaction.money;
+      } else {
+        acc[period].outcome += transaction.money;
+      }
+      // console.log(acc)
+      return acc;
+    }, {});
+
+    const balance = wallet?.Balance
+    return {balance, report};
+  }
+
+  async getMonthlyReportOutcome(userRef: string,month: number, year: number): Promise<any> {
+    const startOfMonth = new Date(year, month - 1, 1);
+    const endOfMonth = new Date(year, month, 0);
+
+    // console.log(userRef,startOfMonth,endOfMonth)
+
+    const transactions = await this.model.find({
+      userRef: userRef,
+      createdAt: {
+        $gte: startOfMonth,
+        $lt: endOfMonth,
+      },
+      type: false,
+    });
+    const totalOutcome = transactions.reduce((total, transaction) => total + transaction.money, 0);
+    const totalDays = (endOfMonth.getDate() - startOfMonth.getDate()) + 1;
+    const averageDailyOutcome = totalOutcome / totalDays;
+
+    return { totalOutcome, averageDailyOutcome,transactions };
+  }
+
+  async getMonthlyReportIncome(userRef: string,month: number, year: number): Promise<any> {
+    const startOfMonth = new Date(year, month - 1, 1);
+    const endOfMonth = new Date(year, month, 0);
+
+    // console.log(userRef,startOfMonth,endOfMonth)
+
+    const transactions = await this.model.find({
+      userRef: userRef,
+      createdAt: {
+        $gte: startOfMonth,
+        $lt: endOfMonth
+      },
+      type: true,
+    });
+    const totalIncome = transactions.reduce((total, transaction) => total + transaction.money, 0);
+
+    return { totalIncome,transactions };
   }
 }

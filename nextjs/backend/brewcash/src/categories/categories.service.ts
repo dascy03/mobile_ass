@@ -32,7 +32,8 @@ export class CategoriesService {
     return this.model.findOneAndUpdate({_id: id}, updateCategoryDto, {new: true})
   }
 
-  remove(id: string): any{
+
+  remove(id: string):any{
     return this.model.deleteOne({_id: id});
   }
 }

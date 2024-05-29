@@ -22,8 +22,8 @@ import { AdvancedSearchUserDto } from './dto/advancedSearchDto';
 
 @ApiTags("Users")
 @Controller('users')
-// @UseGuards(JwtAuthGuard)
-// @ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -75,46 +75,46 @@ export class UsersController {
   
   
 
-@ApiResponse({ status: 200, description: 'Successfully.' })
-@ApiResponse({ status: 500, description: 'Internal Server Error.'})
-  @Get('all')
-  async findAll(): Promise<Object> {
-    try {
-      return await this.usersService.findAll();
-    } catch (err) {
-      return { message: err.message || 'Internal Server Error' };
-    }
-  }
+// @ApiResponse({ status: 200, description: 'Successfully.' })
+// @ApiResponse({ status: 500, description: 'Internal Server Error.'})
+//   @Get('all')
+//   async findAll(): Promise<Object> {
+//     try {
+//       return await this.usersService.findAll();
+//     } catch (err) {
+//       return { message: err.message || 'Internal Server Error' };
+//     }
+//   }
 
   
-@ApiResponse({ status: 200, description: 'Successfully.' })
-@ApiResponse({ status: 500, description: 'Internal Server Error.'})
-  @Get(':name')
-  async find(@Param('name') name: string): Promise<Object> {
-    try {
-      return await this.usersService.findAllByName(name);
-    } catch (err) {
-      return { message: err.message || 'Internal Server Error' };
-    }
-  }
-@ApiResponse({ status: 200, description: 'Updated Successfully.' })
-@ApiResponse({ status: 500, description: 'Internal Server Error.'})
-  @Patch(':email')
-  async update(
-    @Param('email') email: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ): Promise<Object> {
-    try {
-      const updateUser = await this.usersService.update(email, updateUserDto);
-      if (updateUser) {
-        return updateUser;
-      } else {
-        return { message: 'Not found email!' };
-      }
-    } catch (err) {
-      return { message: err.message || 'Internal Server Error' };
-    }
-  }
+// @ApiResponse({ status: 200, description: 'Successfully.' })
+// @ApiResponse({ status: 500, description: 'Internal Server Error.'})
+//   @Get(':name')
+//   async find(@Param('name') name: string): Promise<Object> {
+//     try {
+//       return await this.usersService.findAllByName(name);
+//     } catch (err) {
+//       return { message: err.message || 'Internal Server Error' };
+//     }
+//   }
+// @ApiResponse({ status: 200, description: 'Updated Successfully.' })
+// @ApiResponse({ status: 500, description: 'Internal Server Error.'})
+//   @Patch(':email')
+//   async update(
+//     @Param('email') email: string,
+//     @Body() updateUserDto: UpdateUserDto,
+//   ): Promise<Object> {
+//     try {
+//       const updateUser = await this.usersService.update(email, updateUserDto);
+//       if (updateUser) {
+//         return updateUser;
+//       } else {
+//         return { message: 'Not found email!' };
+//       }
+//     } catch (err) {
+//       return { message: err.message || 'Internal Server Error' };
+//     }
+//   }
 
  @Get('advanced-search/user')
   // @UsePipes(new ValidationPipe({ transform: true }))

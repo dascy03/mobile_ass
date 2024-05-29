@@ -65,20 +65,11 @@ export class User {
 
   
   @ApiProperty({
-    example: { vi: 'Lập trình viên', en: 'IT' },
-    description: 'The career of the user in both Vietnamese and English',
   })
   @Prop({
-    type: {
-      vi: { type: String, default: null },
-      en: { type: String, default: null },
-    },
-    default: {
-      vi: null,
-      en: null,
-    },
+    default: null,
   })
-  career: { vi: string; en: string };
+  career: string;
   
 
   @ApiProperty()
