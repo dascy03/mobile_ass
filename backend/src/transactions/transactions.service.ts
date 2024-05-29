@@ -23,7 +23,6 @@ export class TransactionsService {
     private readonly budgetModel: Model<BudgetDocument>,
     @InjectModel(Category.name)
     private readonly categoryModel: Model<CategoryDocument>,
-    private readonly walletModel : Model<WalletDocument>,
   ) {}
   async create(_id:string, createTransactionDto: CreateTransactionDto): Promise<Transaction> {
     if(createTransactionDto.type === true){
