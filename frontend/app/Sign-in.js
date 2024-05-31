@@ -30,7 +30,11 @@ const SignIn = () => {
     }
     const result = await onLogin(email, password);
     console.log(result);
-    router.replace("/home");
+    if (result && result.error) {
+      alert(result.error);
+    } else {
+      router.replace("/home");
+    }
   };
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
