@@ -61,15 +61,37 @@ const Report = () => {
           contentContainerStyle={{
             alignItems: "center",
           }}
-          style={{ height: 22, backgroundColor: "yellow" }}
+          style={{ height: 40, marginBottom: 10 }}
         >
           <Text
             style={{
               fontFamily: "Poppins_400Regular",
               fontSize: 17,
               color: "black",
-              backgroundColor: "red",
-              width: 120,
+              width: 100,
+              textAlign: "center",
+            }}
+          >
+            11/2023
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 17,
+              color: "black",
+              width: 100,
+              textAlign: "center",
+            }}
+          >
+            12/2023
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 17,
+              color: "black",
+              width: 100,
+              textAlign: "center",
             }}
           >
             01/2024
@@ -80,6 +102,7 @@ const Report = () => {
               fontSize: 17,
               color: "black",
               width: 120,
+              textAlign: "center",
             }}
           >
             THÁNG TRƯỚC
@@ -90,6 +113,7 @@ const Report = () => {
               fontSize: 17,
               color: "black",
               width: 120,
+              textAlign: "center",
             }}
           >
             THÁNG NÀY
@@ -110,7 +134,6 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     width: "100%",
-    height: 140,
     justifyContent: "flex-start",
     alignItems: "center",
     paddingTop: 20,
