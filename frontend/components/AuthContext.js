@@ -37,13 +37,15 @@ const AuthProvider = ({ children }) => {
         email,
         password,
       });
-      const token = response.data.accessToken;
+      console.log("data", response.data);
+      const token = response.data.data.accessToken;
       console.log("token", token);
       setAuthState({ token, authenticated: true });
       axios.defaults.headers.common["Authorization"] = token;
       await SecureStore.setItemAsync("token", token);
       return response;
     } catch (error) {
+      console.log("error", error.response);
       return { error };
       //console.error("Failed to login:", error);
     }
