@@ -4,6 +4,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    allowedHeaders: ['content-type', 'Authorization'],
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  })
   const config = new DocumentBuilder().addBearerAuth()
   .setTitle("Brew Kash APIs")
   .setDescription("List APIs for Brew Kash")
