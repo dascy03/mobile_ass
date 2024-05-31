@@ -7,7 +7,6 @@ export default function Layout() {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="register" />
       <Stack.Screen name="transaction_details" />
       <Stack.Screen name="transaction_fix" options={{ headerShown: false }} />
       <Stack.Screen name="pick_wallet" options={{ headerShown: false }} />
