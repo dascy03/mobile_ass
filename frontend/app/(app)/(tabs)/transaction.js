@@ -108,16 +108,16 @@ const Transaction = () => {
         <StyledView className="bg-[#D9D9D9] h-[20]"></StyledView>
       </StyledView>
       <StyledView className="flex flex-row py-3 w-full border-b-2 border-[#D9D9D9]">
-        <StyledView className="basis-1/6 items-center justify-center">
+        <StyledText className="basis-1/6 items-center justify-center">
           25
-        </StyledView>
+        </StyledText>
         <StyledView className="basis-3/6 items-start">
-          <StyledView>Hôm nay</StyledView>
-          <StyledView>Tháng 3 2024</StyledView>
+          <StyledText>Hôm nay</StyledText>
+          <StyledText>Tháng 3 2024</StyledText>
         </StyledView>
-        <StyledView className="basis-1/6 items-start justify-center ">
+        <StyledText className="basis-1/6 items-start justify-center ">
           70,000
-        </StyledView>
+        </StyledText>
         <StyledView className="basis-1/6 items-start "></StyledView>
       </StyledView>
       <TouchableOpacity
@@ -132,12 +132,12 @@ const Transaction = () => {
           source={require("../../../assets/images/Petrol.png")}
         />
         <StyledView className="basis-3/6 items-start">
-          <StyledView>Hôm nay</StyledView>
-          <StyledView>Tháng 3 2024</StyledView>
+          <StyledText>Hôm nay</StyledText>
+          <StyledText>Tháng 3 2024</StyledText>
         </StyledView>
-        <StyledView className="basis-1/6 items-start justify-center ">
+        <StyledText className="basis-1/6 items-start justify-center ">
           70,000
-        </StyledView>
+        </StyledText>
         <StyledView className="basis-1/6 items-start "></StyledView>
       </TouchableOpacity>
     </StyledView>

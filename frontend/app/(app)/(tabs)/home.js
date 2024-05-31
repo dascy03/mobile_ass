@@ -17,9 +17,12 @@ import {
 } from "@expo-google-fonts/poppins";
 import { router } from "expo-router";
 import AntIcon from "react-native-vector-icons/AntDesign";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import BASE_URL from "../../../env";
+import axios from "axios";
 
 const Home = () => {
+  const [search, setSearch] = useState("");
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -30,7 +33,16 @@ const Home = () => {
   if (!fontsLoaded && !fontError) {
     return null;
   }
-
+  const onSearch = async () => {
+    await axios
+      .get(`${BASE_URL}/users/search/${search}`)
+      .then((res) => {
+        console.log("search", res.data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
   return (
     <View style={styles.container}>
       <Stack.Screen
@@ -96,6 +108,9 @@ const Home = () => {
                 fontSize: 15,
               }}
               placeholder="Tìm kiếm mức chi tiêu"
+              value={search}
+              onChangeText={(text) => setSearch(text)}
+              onSubmitEditing={onSearch}
             />
           </View>
           <Image

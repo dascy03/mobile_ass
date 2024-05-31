@@ -5,6 +5,7 @@ export default function Root() {
   return (
     <AuthProvider>
       <Stack>
+        <Stack.Screen name="(app)" options={{ headerShown: false }} />
         <Stack.Screen name="Login" options={{ headerShown: false }} />
         <Stack.Screen name="Sign-in" />
         <Stack.Screen name="boarding1" options={{ headerShown: false }} />
