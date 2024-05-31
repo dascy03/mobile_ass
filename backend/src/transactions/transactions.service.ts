@@ -128,6 +128,7 @@ export class TransactionsService {
     return {fixedBalance, balance, report};
   }
 
+
   async getShareReport(userRef: string,month: number, year: number ): Promise<ShareReport> {
     return await this.shareReportModel.findOne({ userRef, month, year, shareflag:'true' }).exec()
   }
