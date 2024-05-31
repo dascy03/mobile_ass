@@ -125,7 +125,7 @@ const Pick_Category = () => {
         <StyledView className="flex-row gap-4 p-2">
           <Image
             style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/Bill.png")}
+            source={require("../../assets/images/bill.png")}
           />
           <StyledView className="justify-center border-[#D9D9D9]">
             <Text>Hóa đơn</Text>
