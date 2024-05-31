@@ -7,7 +7,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { router } from "expo-router";
 
-export default function Boarding1() {
+export default function Boarding2() {
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -20,18 +20,18 @@ export default function Boarding1() {
     <View style={styles.container}>
       <Image
         style={styles.Logo}
-        source={require("../../assets/images/boarding1.png")}
+        source={require("../assets/images/boarding2.png")}
       />
-      <Text style={styles.title}>Dễ dàng tự chủ tài chính</Text>
+      <Text style={styles.title}>Trở nên linh hoạt và an toàn hơn</Text>
       <Text style={styles.content}>
-        Chỉ với điện thoại, bạn có thể quản lý toàn bộ dòng tiền của mình một
-        cách dễ dàng và chi tiết hơn
+        Sử dụng nền tảng này trên tất cả thiết bị của bạn, đừng lo lắng về bất
+        cứ điều gì, chúng tôi bảo vệ bạn
       </Text>
       <Image
         style={styles.dot}
-        source={require("../../assets/images/Page_control_1.png")}
+        source={require("../assets/images/Page_control_2.png")}
       />
-      <Pressable style={styles.box} onPress={() => router.push("/boarding2")}>
+      <Pressable style={styles.box} onPress={() => router.push("/boarding3")}>
         <Text style={styles.textFont}>Tiếp tục</Text>
       </Pressable>
       <Pressable
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
   Logo: {
     position: "absolute",
     width: 375,
-    height: 392,
-    marginTop: 66,
+    height: 365,
+    marginTop: 60,
   },
   title: {
     textAlign: "center",
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "#1E1E1E",
     fontFamily: "Poppins_600SemiBold",
-    width: "60%",
+    width: 272,
     position: "absolute",
     marginTop: 406,
   },
@@ -83,15 +83,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#1E1E1E",
     fontFamily: "Poppins_400Regular",
-    marginRight: 33,
-    marginLeft: 33,
+    marginRight: 50,
+    marginLeft: 50,
     marginTop: 514,
-    width: 310,
+    width: 300,
   },
   dot: {
     position: "absolute",
     alignItems: "center",
-    marginTop: 615,
+    marginTop: 600,
   },
   box: {
     position: "absolute",

@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
+  TouchableOpacity,
   Image,
   TextInput,
 } from "react-native";
@@ -17,9 +17,37 @@ import {
 } from "@expo-google-fonts/poppins";
 import { router } from "expo-router";
 import { Stack } from "expo-router";
+import { useAuth } from "../components/AuthContext";
 
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
   const [isChecked, setChecked] = useState(false);
+  const { onRegister } = useAuth();
+
+  const register = async () => {
+    if (!name || !email || !password || !confirmPassword) {
+      alert("Vui lòng điền đầy đủ thông tin");
+      return;
+    }
+    if (!isChecked) {
+      alert("Vui lòng đồng ý với các điều khoản và điều kiện");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Mật khẩu không khớp");
+      return;
+    }
+    const result = await onRegister(email, password, name);
+    if (result && result.error) {
+      alert(result.error);
+    } else {
+      router.replace("/Sign-in");
+    }
+  };
+
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -55,6 +83,8 @@ const Register = () => {
             style={styles.textInput}
             placeholder="Nhập họ và tên"
             textContentType="name"
+            onChangeText={(text) => setName(text)}
+            value={name}
             onSubmitEditing={() => {
               emailInput.focus();
             }}
@@ -73,6 +103,8 @@ const Register = () => {
             placeholder="Nhập email"
             textContentType="emailAddress"
             autoCapitalize="none"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
             ref={(input) => {
               emailInput = input;
             }}
@@ -94,6 +126,8 @@ const Register = () => {
             placeholder="Nhập mật khẩu"
             textContentType="password"
             autoCapitalize="none"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
             secureTextEntry={true}
             ref={(input) => {
               passwordInput = input;
@@ -116,6 +150,8 @@ const Register = () => {
             placeholder="Nhập lại mật khẩu"
             textContentType="password"
             autoCapitalize="none"
+            onChangeText={(text) => setConfirmPassword(text)}
+            value={confirmPassword}
             secureTextEntry={true}
             ref={(input) => {
               confirmPasswordInput = input;
@@ -150,7 +186,7 @@ const Register = () => {
         </Text>
       </View>
 
-      <Pressable style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={register}>
         <Text
           style={{
             fontSize: 18,
@@ -162,7 +198,7 @@ const Register = () => {
           Đăng kí
         </Text>
         <AntIcon name="arrowright" size={20} color="white" />
-      </Pressable>
+      </TouchableOpacity>
 
       <View
         style={{
@@ -190,18 +226,18 @@ const Register = () => {
           alignItems: "flex-start",
         }}
       >
-        <Pressable style={[styles.otherOptionsBtn, { marginRight: 10 }]}>
+        <TouchableOpacity style={[styles.otherOptionsBtn, { marginRight: 10 }]}>
           <Image
             style={styles.logo}
-            source={require("../../assets/images/icon_google_2.png")}
+            source={require("../assets/images/icon_google_2.png")}
           />
-        </Pressable>
-        <Pressable style={[styles.otherOptionsBtn, { marginLeft: 10 }]}>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.otherOptionsBtn, { marginLeft: 10 }]}>
           <Image
             style={styles.logo}
-            source={require("../../assets/images/icon_facebook_2.png")}
+            source={require("../assets/images/icon_facebook_2.png")}
           />
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View
         style={{
@@ -214,11 +250,11 @@ const Register = () => {
         }}
       >
         <Text style={styles.loginText}>Đã là thành viên?</Text>
-        <Pressable onPress={() => router.push("/Login")}>
+        <TouchableOpacity onPress={() => router.push("/Login")}>
           <Text style={[styles.loginText, { color: "#FBC43A" }]}>
             Đăng nhập
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );

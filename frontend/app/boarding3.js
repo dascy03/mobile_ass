@@ -7,7 +7,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { router } from "expo-router";
 
-export default function Boarding2() {
+export default function Boarding3() {
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -20,34 +20,18 @@ export default function Boarding2() {
     <View style={styles.container}>
       <Image
         style={styles.Logo}
-        source={require("../../assets/images/boarding2.png")}
+        source={require("../assets/images/boarding3.png")}
       />
-      <Text style={styles.title}>Trở nên linh hoạt và an toàn hơn</Text>
+      <Text style={styles.title}>Chia sẻ và học hỏi Bắt đầu thôi</Text>
       <Text style={styles.content}>
-        Sử dụng nền tảng này trên tất cả thiết bị của bạn, đừng lo lắng về bất
-        cứ điều gì, chúng tôi bảo vệ bạn
+        Chi tiêu hợp lý và bạn sẽ tiến gần hơn đến tự do tài chính
       </Text>
       <Image
         style={styles.dot}
-        source={require("../../assets/images/Page_control_2.png")}
+        source={require("../assets/images/Page_control_3.png")}
       />
-      <Pressable style={styles.box} onPress={() => router.push("/boarding3")}>
+      <Pressable style={styles.box} onPress={() => router.replace("/Login")}>
         <Text style={styles.textFont}>Tiếp tục</Text>
-      </Pressable>
-      <Pressable
-        style={{ position: "absolute", marginTop: 753 }}
-        onPress={() => router.push("/Login")}
-      >
-        <Text
-          style={{
-            margin: 15,
-            color: "#B09B9B",
-            fontSize: 16,
-            fontFamily: "Poppins_600SemiBold",
-          }}
-        >
-          Skip
-        </Text>
       </Pressable>
     </View>
   );
@@ -63,8 +47,8 @@ const styles = StyleSheet.create({
   Logo: {
     position: "absolute",
     width: 375,
-    height: 365,
-    marginTop: 60,
+    height: 369,
+    marginTop: 44,
   },
   title: {
     textAlign: "center",
@@ -72,7 +56,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "#1E1E1E",
     fontFamily: "Poppins_600SemiBold",
-    width: 272,
+    width: 323,
     position: "absolute",
     marginTop: 406,
   },
@@ -83,10 +67,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#1E1E1E",
     fontFamily: "Poppins_400Regular",
-    marginRight: 50,
-    marginLeft: 50,
-    marginTop: 514,
-    width: 300,
+    marginRight: 51,
+    marginLeft: 51,
+    marginTop: 517,
+    width: 272,
   },
   dot: {
     position: "absolute",

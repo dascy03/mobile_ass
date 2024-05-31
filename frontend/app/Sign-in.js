@@ -9,7 +9,6 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Stack } from "expo-router";
-import CustomTextInput from "../../components/CustomTextInput";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import {
   useFonts,
@@ -136,13 +135,13 @@ const SignIn = () => {
         <Pressable style={[styles.otherOptionsBtn, { marginRight: 10 }]}>
           <Image
             style={styles.logo}
-            source={require("../../assets/images/icon_google_2.png")}
+            source={require("../assets/images/icon_google_2.png")}
           />
         </Pressable>
         <Pressable style={[styles.otherOptionsBtn, { marginLeft: 10 }]}>
           <Image
             style={styles.logo}
-            source={require("../../assets/images/icon_facebook_2.png")}
+            source={require("../assets/images/icon_facebook_2.png")}
           />
         </Pressable>
       </View>
