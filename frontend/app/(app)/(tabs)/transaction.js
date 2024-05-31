@@ -3,7 +3,6 @@ import React from "react";
 import { Stack, router } from "expo-router";
 import { useState, useEffect } from "react";
 
-import { withExpoSnack } from "nativewind";
 import { styled } from "nativewind";
 
 const StyledView = styled(View);
@@ -41,7 +40,7 @@ const Transaction = () => {
         }}
       />
       <StyledView className="bg-[#21B4A3] w-full flex flex-row justify-center py-5">
-        <StyledView className="basis-1/3"> </StyledView>
+        <StyledView className="basis-1/3"></StyledView>
         <StyledView className="basis-1/3 items-center">
           <StyledText className="font-bold text-white" style={{ fontSize: 15 }}>
             Số dư
@@ -101,22 +100,26 @@ const Transaction = () => {
           </StyledView>
         </StyledView>
         <StyledView className="flex-none justify-center items-center py-3 ">
-          <StyledText className="p-1 rounded-xl text-[#4CE57A] bg-[#EAF4F3] font-semibold">
-            Xem báo cáo
-          </StyledText>
+          <StyledView className="p-1 rounded-xl text-[#4CE57A] bg-[#EAF4F3] font-semibold">
+            <StyledText>Xem báo cáo</StyledText>
+          </StyledView>
         </StyledView>
         <StyledView className="bg-[#D9D9D9] h-[20]"></StyledView>
       </StyledView>
       <StyledView className="flex flex-row py-3 w-full border-b-2 border-[#D9D9D9]">
         <StyledView className="basis-1/6 items-center justify-center">
-          25
+          <StyledText>25</StyledText>
         </StyledView>
         <StyledView className="basis-3/6 items-start">
-          <StyledView>Hôm nay</StyledView>
-          <StyledView>Tháng 3 2024</StyledView>
+          <StyledView>
+            <StyledText>Hôm nay</StyledText>
+          </StyledView>
+          <StyledView>
+            <StyledText>Tháng 3 2024</StyledText>
+          </StyledView>
         </StyledView>
         <StyledView className="basis-1/6 items-start justify-center ">
-          70,000
+          <StyledText>70,000</StyledText>
         </StyledView>
         <StyledView className="basis-1/6 items-start "></StyledView>
       </StyledView>
@@ -132,12 +135,12 @@ const Transaction = () => {
           source={require("../../../assets/images/Petrol.png")}
         />
         <StyledView className="basis-3/6 items-start">
-          <StyledView>Hôm nay</StyledView>
-          <StyledView>Tháng 3 2024</StyledView>
+          <StyledText>Hôm nay</StyledText>
+          <StyledText>Tháng 3 2024</StyledText>
         </StyledView>
-        <StyledView className="basis-1/6 items-start justify-center ">
+        <StyledText className="basis-1/6 items-start justify-center ">
           70,000
-        </StyledView>
+        </StyledText>
         <StyledView className="basis-1/6 items-start "></StyledView>
       </TouchableOpacity>
     </StyledView>
