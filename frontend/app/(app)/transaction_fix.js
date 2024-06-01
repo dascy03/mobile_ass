@@ -10,11 +10,6 @@ import React from "react";
 import { Stack, router } from "expo-router";
 import { useState, useEffect } from "react";
 
-import { styled } from "nativewind";
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
-
 const Transaction_Fix = () => {
   const formatNumber = (num) => {
     if (num == undefined) return;
@@ -32,81 +27,80 @@ const Transaction_Fix = () => {
     setOutcome(22222222);
     setTotal(income - outcome);
   }, []);
+
   return (
-    <StyledView style={styles.container}>
-      <StyledView className="bg-[#21B4A3] w-full flex flex-row py-3 justify-center place-content-center">
+    <View style={styles.container}>
+      <View style={styles.header}>
         <TouchableOpacity
-          className="basis-1/6 mt-2 px-4"
+          style={styles.headerButton}
           onPress={() => {
             router.back();
           }}
         >
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={styles.headerIcon}
             source={require("../../assets/images/back-button.png")}
           />
         </TouchableOpacity>
-        <StyledText className="basis-3/6 text-3xl text-white font-semibold ">
-          Sửa giao dịch
-        </StyledText>
-      </StyledView>
-      <StyledView>
-        <StyledView className="bg-[#D9D9D9] h-[20]"></StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+        <Text style={styles.headerTitle}>Sửa giao dịch</Text>
+      </View>
+      <View>
+        <View style={styles.spacer}></View>
+        <View style={styles.detailRow}>
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={styles.detailIcon}
             source={require("../../assets/images/VND.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Fill your money"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.input} placeholder="Fill your money" />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View style={styles.detailRow}>
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={styles.detailIcon}
             source={require("../../assets/images/Wallet.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Chọn ví"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.input} placeholder="Chọn ví" />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View style={styles.detailRow}>
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.detailIcon}
             source={require("../../assets/images/Invoice.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Hóa đơn điện"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.input} placeholder="Hóa đơn điện" />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View style={styles.detailRow}>
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.detailIcon}
             source={require("../../assets/images/Calendar_month.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Hôm nay"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.input} placeholder="Hôm nay" />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View style={styles.detailRow}>
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={styles.detailIcon}
             source={require("../../assets/images/Note.png")}
           />
-          <StyledView>
-            <StyledText>...</StyledText>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-    </StyledView>
+          <View>
+            <Text>...</Text>
+          </View>
+        </View>
+      </View>
+    </View>
   );
 };
 
