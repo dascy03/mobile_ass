@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
       console.log(response);
       return response;
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error.response.data);
       return { error };
       //console.error("Failed to login:", error);
     }
@@ -37,7 +37,6 @@ const AuthProvider = ({ children }) => {
         email,
         password,
       });
-      console.log("data", response.data);
       const token = response.data.data.accessToken;
       console.log("token", token);
       setAuthState({ token, authenticated: true });

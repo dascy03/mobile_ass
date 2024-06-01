@@ -342,6 +342,7 @@ const Transaction = () => {
           router.push("transaction_details");
         }}
       >
+
         <View
           style={{
             flexDirection: "row",

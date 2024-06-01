@@ -27,7 +27,7 @@ export default function TabLayout() {
           tabBarStyle: {
             height: 72,
           },
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -100,7 +100,7 @@ export default function TabLayout() {
             >
               <Image
                 source={require("../../../assets/images/addTransaction.png")}
-                style={{ width: 50, height: 50, resizeMode: 'contain' }}
+                style={{ width: 50, height: 50, resizeMode: "contain" }}
               />
             </View>
           ),

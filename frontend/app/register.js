@@ -25,6 +25,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [isChecked, setChecked] = useState(false);
+
   const { onRegister } = useAuth();
 
   const register = async () => {
@@ -44,7 +45,10 @@ const Register = () => {
     if (result && result.error) {
       alert(result.error);
     } else {
-      router.replace("/Sign-in");
+      router.push({
+        pathname: "/otp-verify/[email]",
+        params: { email: email },
+      });
     }
   };
 
