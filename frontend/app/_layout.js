@@ -12,6 +12,7 @@ export default function Root() {
         <Stack.Screen name="boarding2" options={{ headerShown: false }} />
         <Stack.Screen name="boarding3" options={{ headerShown: false }} />
         <Stack.Screen name="register" />
+        <Stack.Screen name="otp-verify/[email]" />
       </Stack>
     </AuthProvider>
   );

@@ -45,7 +45,10 @@ const Register = () => {
     if (result && result.error) {
       alert(result.error);
     } else {
-      router.replace("/Sign-in");
+      router.push({
+        pathname: "/otp-verify/[email]",
+        params: { email: email },
+      });
     }
   };
 
