@@ -15,7 +15,6 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { router } from "expo-router";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import React from "react";
 
