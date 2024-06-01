@@ -1,144 +1,133 @@
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
   TouchableOpacity,
-  Modal,
   TextInput,
 } from "react-native";
-import React from "react";
 import { Stack, router } from "expo-router";
-import { useState, useEffect } from "react";
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
-import { styled } from "nativewind";
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
+const formatNumber = (num) => {
+  if (num === undefined) return "";
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
 
 const Add_Transaction = () => {
-  const formatNumber = (num) => {
-    if (num == undefined) return;
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
-
-  const [SoDu, setSoDu] = useState();
-  const [income, setIncome] = useState();
-  const [outcome, setOutcome] = useState();
-  const [total, setTotal] = useState();
+  const [SoDu, setSoDu] = useState(9999999);
+  const [income, setIncome] = useState(100000);
+  const [outcome, setOutcome] = useState(22222222);
+  const [total, setTotal] = useState(income - outcome);
   const [modalVisible, setModalVisible] = useState(false);
-  useEffect(() => {
-    setSoDu(9999999);
-    setIncome(100000);
-    setOutcome(22222222);
-    setTotal(income - outcome);
-  }, []);
+
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded && !fontError) return null;
+
   return (
-    <StyledView style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           statusBarTranslucent: false,
           headerShown: false,
-
           headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: "white",
-          },
+          headerStyle: { backgroundColor: "white" },
           headerShadowVisible: false,
         }}
       />
-      <StyledView className="bg-[#21B4A3] w-full flex flex-row py-5 justify-center place-content-center">
+      <View style={styles.header}>
         <TouchableOpacity
-          className="basis-1/6 mt-2 px-4"
-          onPress={() => {
-            router.back();
-          }}
+          style={styles.backButton}
+          onPress={() => router.back()}
         >
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.icon}
             source={require("../../../assets/images/Delete.png")}
           />
         </TouchableOpacity>
-        <StyledText className=" text-3xl text-white font-semibold ">
-          Giao dịch mới
-        </StyledText>
-      </StyledView>
-      <StyledView>
-        <StyledView className="bg-[#D9D9D9] h-[20]"></StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+        <Text style={styles.headerText}>Giao dịch mới</Text>
+      </View>
+      <View>
+        <View style={styles.divider}></View>
+        <View style={styles.inputContainer}>
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={styles.icon}
             source={require("../../../assets/images/VND.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Fill your money"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View style={styles.inputWrapper}>
+            <TextInput placeholder="Fill your money" style={styles.input} />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View style={styles.inputContainer}>
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={styles.icon}
             source={require("../../../assets/images/WalletVector.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TouchableOpacity
-              onPress={() => {
-                router.push("pick_wallet");
-              }}
-            >
-              {" "}
-              Chọn ví
+          <View style={styles.inputWrapper}>
+            <TouchableOpacity onPress={() => router.push("pick_wallet")}>
+              <Text style={styles.selectText}>Chọn ví</Text>
             </TouchableOpacity>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          </View>
+        </View>
+      </View>
+      <View>
+        <View style={styles.inputContainer}>
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.icon}
             source={require("../../../assets/images/Category.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
+          <View style={styles.inputWrapper}>
             <TouchableOpacity
-              onPress={() => {
-                router.push("pick_category_outcome");
-              }}
+              onPress={() => router.push("pick_category_outcome")}
             >
-              {" "}
-              Chọn danh mục
+              <Text style={styles.selectText}>Chọn danh mục</Text>
             </TouchableOpacity>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          </View>
+        </View>
+      </View>
+      <View>
+        <View style={styles.inputContainer}>
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.icon}
             source={require("../../../assets/images/Calendar_month_vector.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <StyledText>Hôm nay</StyledText>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View style={styles.inputWrapper}>
+            <Text style={styles.selectText}>Hôm nay</Text>
+          </View>
+        </View>
+      </View>
+      <View>
+        <View style={styles.inputContainer}>
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={styles.icon}
             source={require("../../../assets/images/NoteVector.png")}
           />
-          <StyledView>
-            <StyledText>...</StyledText>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView className="flex-row justify-center mt-[20]">
-        <TouchableOpacity className="bg-[#21B4A3] text-white rounded-xl py-1 px-20 text-xl">
-          Lưu
+          <View style={styles.inputWrapper}>
+            <Text style={styles.selectText}>...</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.saveButtonContainer}>
+        <TouchableOpacity style={styles.saveButton}>
+          <Text style={styles.saveButtonText}>Lưu</Text>
         </TouchableOpacity>
-      </StyledView>
-    </StyledView>
+      </View>
+    </View>
   );
 };
 
@@ -149,5 +138,70 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     backgroundColor: "#FFFFFF",
+  },
+  header: {
+    backgroundColor: "#21B4A3",
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 20,
+  },
+  backButton: {
+    flexBasis: "16%",
+    marginTop: 10,
+    paddingHorizontal: 10,
+  },
+  headerText: {
+    flexBasis: "68%",
+    fontSize: 24,
+    color: "white",
+    fontFamily: "Poppins_600SemiBold",
+    textAlign: "center",
+  },
+  divider: {
+    backgroundColor: "#D9D9D9",
+    height: 20,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 15,
+    gap: 10,
+  },
+  icon: {
+    resizeMode: "contain",
+    width: 30,
+    height: 30,
+  },
+  inputWrapper: {
+    justifyContent: "center",
+    borderBottomWidth: 2,
+    borderBottomColor: "#D9D9D9",
+    flex: 1,
+  },
+  input: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 16,
+  },
+  selectText: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 16,
+  },
+  saveButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  saveButton: {
+    backgroundColor: "#21B4A3",
+    paddingHorizontal: 40,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  saveButtonText: {
+    color: "white",
+    fontSize: 20,
+    fontFamily: "Poppins_600SemiBold",
   },
 });
