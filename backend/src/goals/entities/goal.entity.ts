@@ -12,8 +12,12 @@ export class Goal {
   @Prop()
   walletRef: string;
   @Prop()
+  userRef: string;
+  @Prop()
   createdAt: Date;
   @Prop()
   endDate: Date;
+  @Prop({default: false})
+  isDeleted: boolean;
 }
 export const GoalSchema = SchemaFactory.createForClass(Goal);

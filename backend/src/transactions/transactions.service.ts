@@ -80,8 +80,8 @@ export class TransactionsService {
       })
       .exec();
   }
-  async remove(id: number): Promise<Transaction> {
-    return await this.model.findByIdAndDelete(id).exec();
+  async remove(id: string): Promise<Transaction> {
+    return await this.model.findOneAndUpdate({ _id: id }, { isDeleted: true },{new: true}).exec();
   }
 
   async getMonthlyReport(userRef: string,month: number, year: number): Promise<any> {
