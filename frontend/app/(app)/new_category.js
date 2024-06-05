@@ -9,25 +9,14 @@ import {
 } from "react-native";
 import { Stack, router } from "expo-router";
 
-const New_Category = () => {
-  const [SoDu, setSoDu] = useState();
-  const [income, setIncome] = useState();
-  const [outcome, setOutcome] = useState();
-  const [total, setTotal] = useState();
-
-  useEffect(() => {
-    setSoDu(9999999);
-    setIncome(100000);
-    setOutcome(22222222);
-    setTotal(income - outcome);
-  }, []);
+const New_Category = ({ setCategoriesRef, setModalVisible }) => {
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.back()}
+          onPress={() => setModalVisible(false)}
         >
           <Image
             style={{ resizeMode: "contain", height: 30, width: 30 }}

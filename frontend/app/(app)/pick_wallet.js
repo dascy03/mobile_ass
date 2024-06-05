@@ -4,10 +4,10 @@ import {
   View,
   Image,
   TouchableOpacity,
-  TextInput,
+  Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { Stack, router } from "expo-router";
+import { router, useRoute } from "expo-router";
 import {
   useFonts,
   Poppins_400Regular,
@@ -15,25 +15,18 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import axios from "axios";
+import BASE_URL from "../../env";
+
+import New_wallet from "./new_wallet";
 
 const formatNumber = (num) => {
   if (num === undefined) return "";
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
-const Pick_Wallet = () => {
-  const [SoDu, setSoDu] = useState();
-  const [income, setIncome] = useState();
-  const [outcome, setOutcome] = useState();
-  const [total, setTotal] = useState();
-
-  useEffect(() => {
-    setSoDu(9999999);
-    setIncome(100000);
-    setOutcome(22222222);
-    setTotal(income - outcome);
-  }, []);
-
+const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
+  const [modalVisibleNewWallet, setModalVisibleNewWallet] = useState(false);
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -48,7 +41,7 @@ const Pick_Wallet = () => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.back()}
+          onPress={() => setModalVisible(false)}
         >
           <Image
             style={styles.icon}
@@ -63,7 +56,11 @@ const Pick_Wallet = () => {
           style={styles.icon}
           source={require("../../assets/images/confirmVector.png")}
         />
-        <TouchableOpacity onPress={() => router.push("new_wallet")}>
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisibleNewWallet(true);
+          }}
+        >
           <Text
             style={{
               fontFamily: "Poppins_400Regular",
@@ -75,7 +72,20 @@ const Pick_Wallet = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.divider}></View>
-      <View style={styles.optionContainer}>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={async () => {
+          try {
+            setWalletRef("Tiết kiệm");
+          // setModalVisible(false);
+            const response = await axios.get(`${BASE_URL}/wallets`);
+            console.log(response);
+          } catch (error) {
+            console.log("error", error);
+            return { error };
+          }
+        }}
+      >
         <Image
           style={styles.icon}
           source={require("../../assets/images/pigVector.png")}
@@ -90,7 +100,17 @@ const Pick_Wallet = () => {
             Tiết kiệm
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
+      <Modal
+        transparent={true}
+        visible={modalVisibleNewWallet}
+        onRequestClose={() => {
+          setModalVisibleNewWallet(!modalVisibleNewWallet);
+        }}
+      >
+        {modalVisibleNewWallet}
+        <New_wallet setModalVisible={setModalVisibleNewWallet} />
+      </Modal>
     </View>
   );
 };

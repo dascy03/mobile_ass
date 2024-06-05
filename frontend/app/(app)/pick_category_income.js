@@ -4,6 +4,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Stack, router } from "expo-router";
@@ -15,18 +16,15 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
-const Pick_Category_Income = () => {
-  const [SoDu, setSoDu] = useState();
-  const [income, setIncome] = useState();
-  const [outcome, setOutcome] = useState();
-  const [total, setTotal] = useState();
+import New_Category from "./new_category";
 
-  useEffect(() => {
-    setSoDu(9999999);
-    setIncome(100000);
-    setOutcome(22222222);
-    setTotal(income - outcome);
-  }, []);
+const Pick_Category_Income = ({
+  setType,
+  setCategoriesRef,
+  setModalVisible,
+  setGeneralVisible,
+}) => {
+  const [modalNewCategory, setModalNewCategory] = useState(false);
 
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -40,21 +38,12 @@ const Pick_Category_Income = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
-        >
-          <Image
-            style={styles.icon}
-            source={require("../../assets/images/back-button.png")}
-          />
-        </TouchableOpacity>
         <Text style={styles.headerText}>Chọn danh mục</Text>
       </View>
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={styles.tab}
-          onPress={() => router.replace("pick_category_outcome")}
+          onPress={() => setModalVisible(false)}
         >
           <Text style={styles.tabText}>Khoản chi</Text>
         </TouchableOpacity>
@@ -70,50 +59,90 @@ const Pick_Category_Income = () => {
         />
         <TouchableOpacity
           style={styles.optionTextWrapper}
-          onPress={() => router.push("new_category")}
+          onPress={() => setModalNewCategory(true)}
         >
           <Text style={styles.optionText}>Nhóm mới</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.divider}></View>
+      {[{ icon: require("../../assets/images/Salary.png"), text: "Lương" }].map(
+        (item, index) => (
+          <React.Fragment key={index}>
+            <TouchableOpacity
+              onPress={() => {
+                setCategoriesRef(item.text);
+                setType(true);
+                setGeneralVisible(false);
+              }}
+            >
+              <View style={styles.optionContainer}>
+                <Image style={styles.icon} source={item.icon} />
+                <View style={styles.optionTextWrapper}>
+                  <Text style={styles.optionText}>{item.text}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </React.Fragment>
+        )
+      )}
+      <View style={styles.divider}></View>
       {[
-        { icon: require("../../assets/images/Salary.png"), text: "Lương" },
+        {
+          icon: require("../../assets/images/AnotherMoney.png"),
+          text: "Thu nhập khác",
+        },
       ].map((item, index) => (
         <React.Fragment key={index}>
-          <View style={styles.optionContainer}>
-            <Image style={styles.icon} source={item.icon} />
-            <View style={styles.optionTextWrapper}>
-              <Text style={styles.optionText}>{item.text}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setCategoriesRef(item.text);
+              setType(true);
+              setGeneralVisible(false);
+            }}
+          >
+            <View style={styles.optionContainer}>
+              <Image style={styles.icon} source={item.icon} />
+              <View style={styles.optionTextWrapper}>
+                <Text style={styles.optionText}>{item.text}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </React.Fragment>
       ))}
       <View style={styles.divider}></View>
       {[
-        { icon: require("../../assets/images/AnotherMoney.png"), text: "Thu nhập khác" },
+        {
+          icon: require("../../assets/images/MoveMoney.png"),
+          text: "Tiền chuyển đến",
+        },
       ].map((item, index) => (
         <React.Fragment key={index}>
-          <View style={styles.optionContainer}>
-            <Image style={styles.icon} source={item.icon} />
-            <View style={styles.optionTextWrapper}>
-              <Text style={styles.optionText}>{item.text}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setCategoriesRef(item.text);
+              setType(true);
+              setGeneralVisible(false);
+            }}
+          >
+            <View style={styles.optionContainer}>
+              <Image style={styles.icon} source={item.icon} />
+              <View style={styles.optionTextWrapper}>
+                <Text style={styles.optionText}>{item.text}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </React.Fragment>
       ))}
-      <View style={styles.divider}></View>
-      {[
-        { icon: require("../../assets/images/MoveMoney.png"), text: "Tiền chuyển đến" },
-      ].map((item, index) => (
-        <React.Fragment key={index}>
-          <View style={styles.optionContainer}>
-            <Image style={styles.icon} source={item.icon} />
-            <View style={styles.optionTextWrapper}>
-              <Text style={styles.optionText}>{item.text}</Text>
-            </View>
-          </View>
-        </React.Fragment>
-      ))}
+      <Modal
+        transparent={true}
+        visible={modalNewCategory}
+        onRequestClose={() => {
+          setModalNewCategory(!modalNewCategory);
+        }}
+      >
+        {modalNewCategory}
+        <New_Category setModalVisible={setModalNewCategory} />
+      </Modal>
     </View>
   );
 };
@@ -138,6 +167,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   headerText: {
+    paddingHorizontal: 30,
     flexBasis: "68%",
     fontSize: 24,
     color: "white",

@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Stack, router } from "expo-router";
@@ -15,19 +16,16 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import Pick_Category_Income from "./pick_category_income";
+import New_Category from "./new_category";
 
-const Pick_Category = () => {
-  const [SoDu, setSoDu] = useState();
-  const [income, setIncome] = useState();
-  const [outcome, setOutcome] = useState();
-  const [total, setTotal] = useState();
+import axios from "axios";
+import BASE_URL from "../../env";
 
-  useEffect(() => {
-    setSoDu(9999999);
-    setIncome(100000);
-    setOutcome(22222222);
-    setTotal(income - outcome);
-  }, []);
+const Pick_Category = ({ setType, setCategoriesRef, setModalVisible }) => {
+  const [modalVisibleCategoriesIncome, setModalVisibleCategoriesIncome] =
+    useState(false);
+  const [modalNewCategory, setModalNewCategory] = useState(false);
 
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -36,6 +34,19 @@ const Pick_Category = () => {
     Poppins_700Bold,
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Simulate fetching data (replace this with your actual data fetching logic)
+        const response = await axios.get(`${BASE_URL}/categories`);
+        console.log(response.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   if (!fontsLoaded && !fontError) return null;
 
   return (
@@ -43,7 +54,7 @@ const Pick_Category = () => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.back()}
+          onPress={() => setModalVisible(false)}
         >
           <Image
             style={styles.icon}
@@ -58,7 +69,7 @@ const Pick_Category = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tab}
-          onPress={() => router.replace("pick_category_income")}
+          onPress={() => setModalVisibleCategoriesIncome(true)}
         >
           <Text style={styles.tabText}>Khoản thu</Text>
         </TouchableOpacity>
@@ -71,68 +82,143 @@ const Pick_Category = () => {
         />
         <TouchableOpacity
           style={styles.optionTextWrapper}
-          onPress={() => router.push("new_category")}
+          onPress={() => setModalNewCategory(true)}
         >
           <Text style={styles.optionText}>Nhóm mới</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.divider}></View>
-      {[
-        { icon: require("../../assets/images/food.png"), text: "Ăn uống" },
-      ].map((item, index) => (
-        <React.Fragment key={index}>
-          <View style={styles.optionContainer}>
-            <Image style={styles.icon} source={item.icon} />
-            <View style={styles.optionTextWrapper}>
-              <Text style={styles.optionText}>{item.text}</Text>
-            </View>
-          </View>
-        </React.Fragment>
-      ))}
-      
+      {[{ icon: require("../../assets/images/food.png"), text: "Ăn uống" }].map(
+        (item, index) => (
+          <React.Fragment key={index}>
+            <TouchableOpacity
+              onPress={() => {
+                setCategoriesRef(item.text);
+                setType(false);
+                setModalVisible(false);
+              }}
+            >
+              <View style={styles.optionContainer}>
+                <Image style={styles.icon} source={item.icon} />
+                <View style={styles.optionTextWrapper}>
+                  <Text style={styles.optionText}>{item.text}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </React.Fragment>
+        )
+      )}
+
       <View style={styles.divider}></View>
       {[
-        { icon: require("../../assets/images/Motorcycle.png"), text: "Di chuyển" },
+        {
+          icon: require("../../assets/images/Motorcycle.png"),
+          text: "Di chuyển",
+        },
         { icon: require("../../assets/images/Petrol.png"), text: "Xăng" },
-        { icon: require("../../assets/images/Wrench.png"), text: "Bảo dưỡng xe" },
+        {
+          icon: require("../../assets/images/Wrench.png"),
+          text: "Bảo dưỡng xe",
+        },
       ].map((item, index) => (
         <React.Fragment key={index}>
-          <View style={styles.optionContainer}>
-            <Image style={styles.icon} source={item.icon} />
-            <View style={styles.optionTextWrapper}>
-              <Text style={styles.optionText}>{item.text}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setCategoriesRef(item.text);
+              setType(false);
+              setModalVisible(false);
+            }}
+          >
+            <View style={styles.optionContainer}>
+              <Image style={styles.icon} source={item.icon} />
+              <View style={styles.optionTextWrapper}>
+                <Text style={styles.optionText}>{item.text}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </React.Fragment>
       ))}
       <View style={styles.divider}></View>
       {[
-        { icon: require("../../assets/images/bill.png"), text: "Hóa đơn và Tiện ích" },
-        { icon: require("../../assets/images/Invoice.png"), text: "Hóa đơn điện" },
-        { icon: require("../../assets/images/InvoiceInternet.png"), text: "Hóa đơn Internet" },
+        {
+          icon: require("../../assets/images/bill.png"),
+          text: "Hóa đơn và Tiện ích",
+        },
+        {
+          icon: require("../../assets/images/Invoice.png"),
+          text: "Hóa đơn điện",
+        },
+        {
+          icon: require("../../assets/images/InvoiceInternet.png"),
+          text: "Hóa đơn Internet",
+        },
       ].map((item, index) => (
         <React.Fragment key={index}>
-          <View style={styles.optionContainer}>
-            <Image style={styles.icon} source={item.icon} />
-            <View style={styles.optionTextWrapper}>
-              <Text style={styles.optionText}>{item.text}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setCategoriesRef(item.text);
+              setType(false);
+              setModalVisible(false);
+            }}
+          >
+            <View style={styles.optionContainer}>
+              <Image style={styles.icon} source={item.icon} />
+              <View style={styles.optionTextWrapper}>
+                <Text style={styles.optionText}>{item.text}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </React.Fragment>
       ))}
       <View style={styles.divider}></View>
       {[
-        { icon: require("../../assets/images/MoveMoney.png"), text: "Tiền chuyển đi" },
+        {
+          icon: require("../../assets/images/MoveMoney.png"),
+          text: "Tiền chuyển đi",
+        },
       ].map((item, index) => (
         <React.Fragment key={index}>
-          <View style={styles.optionContainer}>
-            <Image style={styles.icon} source={item.icon} />
-            <View style={styles.optionTextWrapper}>
-              <Text style={styles.optionText}>{item.text}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setCategoriesRef(item.text);
+              setType(false);
+              setModalVisible(false);
+            }}
+          >
+            <View style={styles.optionContainer}>
+              <Image style={styles.icon} source={item.icon} />
+              <View style={styles.optionTextWrapper}>
+                <Text style={styles.optionText}>{item.text}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         </React.Fragment>
       ))}
+      <Modal
+        transparent={true}
+        visible={modalVisibleCategoriesIncome}
+        onRequestClose={() => {
+          setModalVisibleCategoriesIncome(!modalVisibleCategoriesIncome);
+        }}
+      >
+        {modalVisibleCategoriesIncome}
+        <Pick_Category_Income
+          setType={setType}
+          setCategoriesRef={setCategoriesRef}
+          setModalVisible={setModalVisibleCategoriesIncome}
+          setGeneralVisible={setModalVisible}
+        />
+      </Modal>
+      <Modal
+        transparent={true}
+        visible={modalNewCategory}
+        onRequestClose={() => {
+          setModalNewCategory(!modalNewCategory);
+        }}
+      >
+        {modalNewCategory}
+        <New_Category setModalVisible={setModalNewCategory} />
+      </Modal>
     </View>
   );
 };
