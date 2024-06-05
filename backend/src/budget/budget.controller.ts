@@ -31,7 +31,7 @@ export class BudgetController {
       }
 
     const userid: any = jwt.verify(token, process.env.JWT_SECRET);
-    return await this.budgetService.create(userid,createBudgetDto);
+    return await this.budgetService.create(userid.id,createBudgetDto);
   }
 
   
@@ -57,7 +57,7 @@ export class BudgetController {
       }
 
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
-    return this.budgetService.getBudgetsByUserRefAndMonth(userRef, year, month);
+    return this.budgetService.getBudgetsByUserRefAndMonth(userRef.id, year, month);
   }
 
 
