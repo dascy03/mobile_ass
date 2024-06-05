@@ -6,17 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="01779770-2342-4de0-960e-d1036fad1819" name="Changes" comment="add wallet, categories">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/categories/categories.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/categories/categories.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/categories/categories.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/categories/categories.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/goals/entities/goal.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/goals/entities/goal.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/goals/goals.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/goals/goals.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/goals/goals.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/goals/goals.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/goals/goals.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/goals/goals.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/transactions/transactions.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/transactions/transactions.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/transactions/transactions.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/transactions/transactions.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/wallets/entities/wallet.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/wallets/entities/wallet.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/wallets/wallets.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/wallets/wallets.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/wallets/wallets.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/wallets/wallets.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/assets/images/Bill.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/images/Bill.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +51,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Long",
     "last_opened_file_path": "/Users/macbookpro/Documents/mobile_ass",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -100,7 +89,7 @@
       <workItem from="1716560180477" duration="3941000" />
       <workItem from="1716654263845" duration="312000" />
       <workItem from="1716654698272" duration="12413000" />
-      <workItem from="1717004770461" duration="10902000" />
+      <workItem from="1717004770461" duration="14341000" />
     </task>
     <servers />
   </component>
