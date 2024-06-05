@@ -15,6 +15,10 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import { err } from "react-native-svg";
+
+import axios from "axios";
+import BASE_URL from "../../env";
 
 const formatNumber = (num) => {
   if (num === undefined) return "";
@@ -24,6 +28,7 @@ const formatNumber = (num) => {
 const New_Wallet = ({ setModalVisible }) => {
   const [newWallet, setNewWallet] = useState("");
   const [money, setMoney] = useState();
+  const [image, setImage] = useState("");
 
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -80,14 +85,40 @@ const New_Wallet = ({ setModalVisible }) => {
             />
           </View>
         </View>
+        <View style={styles.inputContainer}>
+          <Image
+            style={styles.icon}
+            source={require("../../assets/images/yellowCircle.png")}
+          />
+          <View style={styles.inputWrapper}>
+            <TextInput
+              placeholder="Biểu tượng"
+              style={styles.input}
+              onChangeText={(image) => {
+                setImage(image);
+              }}
+            />
+          </View>
+        </View>
       </View>
       <View style={styles.saveButtonContainer}>
         <TouchableOpacity
           style={styles.saveButton}
-          onPress={() => {
-            console.log(money);
-            console.log(newWallet);
-            // setModalVisible(false);
+          onPress={async () => {
+            try {
+              if (!money || !newWallet) {
+                alert("Nhập đầy đủ đi nào!");
+                return;
+              }
+              const response = await axios.post(`${BASE_URL}/wallets`, {
+                Name: newWallet.toString(),
+                Balance: money,
+                Icon: image.toString(),
+              });
+              setModalVisible(false);
+            } catch (error) {
+              console.log(error);
+            }
           }}
         >
           <Text style={styles.saveButtonText}>Lưu</Text>

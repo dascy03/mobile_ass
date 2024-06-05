@@ -34,6 +34,19 @@ const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
     Poppins_700Bold,
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Simulate fetching data (replace this with your actual data fetching logic)
+        const response = await axios.get(`${BASE_URL}/wallets`);
+        console.log(response.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   if (!fontsLoaded && !fontError) return null;
 
   return (
@@ -79,7 +92,7 @@ const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
             setWalletRef("Tiết kiệm");
           // setModalVisible(false);
             const response = await axios.get(`${BASE_URL}/wallets`);
-            console.log(response);
+            console.log(response.data);
           } catch (error) {
             console.log("error", error);
             return { error };
