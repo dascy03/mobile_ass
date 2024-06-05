@@ -4,6 +4,10 @@ const CategoriesFakeData = [
         isIncome: false,
     }, 
     {
+        name: 'Di chuyển',
+        isIncome: false,
+    },
+    {
         name: 'Xăng',
         isIncome: false,
     },
@@ -12,11 +16,7 @@ const CategoriesFakeData = [
         isIncome: false,
     },
     {
-        name: 'Giải trí',
-        isIncome: false,
-    },
-    {
-        name:'Hóa đơn nước',
+        name: 'Hóa đơn và tiện ích',
         isIncome: false,
     },
     {
@@ -32,14 +32,6 @@ const CategoriesFakeData = [
         isIncome: false,
     },
     {
-        name: 'Mua sắm',
-        isIncome: false,
-    },
-    {
-        name: 'Di chuyển',
-        isIncome: false,
-    },
-    {
         name:' Tiền chuyển đi',
         isIncome: false,
     },
@@ -50,10 +42,6 @@ const CategoriesFakeData = [
     
     {
         name: 'Lương',
-        isIncome: true,
-    },
-    {
-        name: 'Tiết kiệm',
         isIncome: true,
     },
     {
