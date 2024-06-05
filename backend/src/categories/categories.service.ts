@@ -34,6 +34,6 @@ export class CategoriesService {
 
 
   remove(id: string):any{
-    return this.model.deleteOne({_id: id});
+    return this.model.findOneAndUpdate({_id: id},{isDeleted: true}, {new: true}).exec();
   }
 }
