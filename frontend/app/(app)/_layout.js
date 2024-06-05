@@ -20,6 +20,9 @@ export default function Layout() {
       />
       <Stack.Screen name="new_category" options={{ headerShown: false }} />
       <Stack.Screen name="new_wallet" options={{ headerShown: false }} />
+      <Stack.Screen name="goal" />
+      <Stack.Screen name="budget" />
+      <Stack.Screen name="new_goal" options={{ headerShown: false }} />
     </Stack>
   );
 }
