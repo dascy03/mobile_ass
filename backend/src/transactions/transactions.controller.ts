@@ -42,7 +42,7 @@ export class TransactionsController {
         throw new UnauthorizedException('Token missing');
       }
       const user: any = jwt.verify(token, 'super-ultra-max-secret');
-      const _id = user._id;
+      const _id = user.id;
       return await this.transactionsService.create(_id, createTransactionDto);
     } catch (err) {
       return {message: err.message || 'Internal Server Error'};
@@ -203,8 +203,4 @@ export class TransactionsController {
       return {message: err.message || 'Internal Server Error'};
     }
   }
-
-
-
-
 }

@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01779770-2342-4de0-960e-d1036fad1819" name="Changes" comment="add wallet, categories">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/budget/budget.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/budget/budget.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/categories/categories.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/categories/categories.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/wallets/wallets.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/wallets/wallets.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/images/Bill.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/images/Bill.png" afterDir="false" />
-    </list>
+    <list default="true" id="01779770-2342-4de0-960e-d1036fad1819" name="Changes" comment="add wallet, categories" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,18 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "longthaibao"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;longthaibao&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dascy03/mobile_ass.git",
-    "accountId": "56b38cd7-180c-47fd-9dbb-b148320a9f67"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dascy03/mobile_ass.git&quot;,
+    &quot;accountId&quot;: &quot;56b38cd7-180c-47fd-9dbb-b148320a9f67&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -50,22 +44,22 @@
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Long",
-    "last_opened_file_path": "/Users/macbookpro/Documents/mobile_ass",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Users/macbookpro/Documents/mobile_ass/backend/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Long&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/macbookpro/Documents/mobile_ass&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/macbookpro/Documents/mobile_ass/backend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -93,6 +87,7 @@
       <workItem from="1716654263845" duration="312000" />
       <workItem from="1716654698272" duration="12413000" />
       <workItem from="1717004770461" duration="19462000" />
+      <workItem from="1717611782279" duration="457000" />
     </task>
     <servers />
   </component>
