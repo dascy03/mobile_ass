@@ -141,7 +141,7 @@ const Pick_Category_Income = ({
         }}
       >
         {modalNewCategory}
-        <New_Category setModalVisible={setModalNewCategory} />
+        <New_Category setModalVisible={setModalNewCategory} isIncome={true} />
       </Modal>
     </View>
   );

@@ -29,12 +29,12 @@ export class BudgetController {
       if (!token) {
         throw new UnauthorizedException('Token missing');
       }
-
     const userid: any = jwt.verify(token, process.env.JWT_SECRET);
-    return await this.budgetService.create(userid,createBudgetDto);
+    return await this.budgetService.create(userid.id,createBudgetDto);
+
   }
 
-  
+
   @Get('user')
   @ApiOperation({ summary: 'get a budget by month' })
   @ApiResponse({ status: 200, description: 'Get budget successfully' })
@@ -57,7 +57,7 @@ export class BudgetController {
       }
 
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
-    return this.budgetService.getBudgetsByUserRefAndMonth(userRef, year, month);
+    return this.budgetService.getBudgetsByUserRefAndMonth(userRef.id, year, month);
   }
 
 
@@ -78,7 +78,7 @@ export class BudgetController {
     return updatedBudget;
   }
 
-  
+
   // @Get()
   // findAll() {
   //   return this.budgetService.findAll();

@@ -115,6 +115,7 @@ const New_Wallet = ({ setModalVisible }) => {
                 Balance: money,
                 Icon: image.toString(),
               });
+              console.log(response.data)
               setModalVisible(false);
             } catch (error) {
               console.log(error);

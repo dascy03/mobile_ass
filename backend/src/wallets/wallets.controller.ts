@@ -45,10 +45,11 @@ export class WalletsController {
       }
 
       const user: any = jwt.verify(token, 'super-ultra-max-secret');
-      const _id = user._id;
-      return await this.walletsService.create(_id, createWalletDto);
-    } catch (err) {
-      return { message: err.message || 'Internal Server Error' };
+      const _id = user.id;
+      return await this.walletsService.create(_id,createWalletDto);
+    }
+    catch (err) {
+      return {message: err.message || 'Internal Server Error'};
     }
   }
 

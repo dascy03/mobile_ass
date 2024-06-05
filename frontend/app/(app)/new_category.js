@@ -9,8 +9,11 @@ import {
 } from "react-native";
 import { Stack, router } from "expo-router";
 
-const New_Category = ({ setCategoriesRef, setModalVisible }) => {
+import axios from "axios";
+import BASE_URL from "../../env";
 
+const New_Category = ({ setModalVisible, isIncome }) => {
+  const [name, setName] = useState();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -31,9 +34,15 @@ const New_Category = ({ setCategoriesRef, setModalVisible }) => {
             style={styles.inputIcon}
             source={require("../../assets/images/Question.png")}
           />
-          <TextInput style={styles.input} placeholder="Tên nhóm" />
+          <TextInput
+            style={styles.input}
+            placeholder="Tên nhóm"
+            onChangeText={(name) => {
+              setName(name);
+            }}
+          />
         </View>
-        <View style={styles.inputWrapper}>
+        {/* <View style={styles.inputWrapper}>
           <Image
             style={styles.inputIcon}
             source={require("../../assets/images/plusminus.png")}
@@ -46,9 +55,29 @@ const New_Category = ({ setCategoriesRef, setModalVisible }) => {
             source={require("../../assets/images/split.png")}
           />
           <TextInput style={styles.input} placeholder="Nhóm chia" />
-        </View>
+        </View> */}
       </View>
-      <TouchableOpacity style={styles.saveButton}>
+      <TouchableOpacity
+        style={styles.saveButton}
+        onLongPress={() => {
+          console.log(123);
+        }}
+        onPress={async () => {
+          try {
+            if (!name) {
+              alert("Thiếu tên nhóm kìa!");
+              return;
+            }
+            const response = await axios.post(`${BASE_URL}/categories`, {
+              name: name,
+              isIncome: isIncome,
+            });
+            console.log(response.data);
+          } catch (error) {
+            console.log("error: ", error);
+          }
+        }}
+      >
         <Text style={styles.saveButtonText}>Lưu</Text>
       </TouchableOpacity>
     </View>

@@ -27,6 +27,8 @@ const formatNumber = (num) => {
 
 const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
   const [modalVisibleNewWallet, setModalVisibleNewWallet] = useState(false);
+  const [data, setData] = useState();
+
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -37,15 +39,16 @@ const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Simulate fetching data (replace this with your actual data fetching logic)
         const response = await axios.get(`${BASE_URL}/wallets`);
-        console.log(response.data);
+        setData(response.data);
+        console.log(data);
       } catch (error) {
-        console.log("error", error);
+        console.error("error", error);
       }
     };
+
     fetchData();
-  }, []);
+  }, [modalVisibleNewWallet]);
 
   if (!fontsLoaded && !fontError) return null;
 
@@ -85,35 +88,46 @@ const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.divider}></View>
-      <TouchableOpacity
-        style={styles.optionContainer}
-        onPress={async () => {
-          try {
-            setWalletRef("Tiết kiệm");
-          // setModalVisible(false);
-            const response = await axios.get(`${BASE_URL}/wallets`);
-            console.log(response.data);
-          } catch (error) {
-            console.log("error", error);
-            return { error };
-          }
-        }}
-      >
-        <Image
-          style={styles.icon}
-          source={require("../../assets/images/pigVector.png")}
-        />
-        <View>
-          <Text
-            style={{
-              fontFamily: "Poppins_400Regular",
-              fontSize: 18,
-            }}
-          >
-            Tiết kiệm
-          </Text>
-        </View>
-      </TouchableOpacity>
+      {data &&
+        data.map((item, index) => (
+          <React.Fragment key={index}>
+            <TouchableOpacity
+              style={styles.optionContainer}
+              onPress={async () => {
+                try {
+                  setWalletRef(item.Name.toString());
+                  setModalVisible(false);
+                } catch (error) {
+                  console.log("error", error);
+                  return { error };
+                }
+              }}
+            >
+              <Image
+                style={styles.icon}
+                source={require("../../assets/images/pigVector.png")}
+              />
+              <View>
+                <Text
+                  style={{
+                    fontFamily: "Poppins_400Regular",
+                    fontSize: 18,
+                  }}
+                >
+                  {item.Name}
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "Poppins_400Regular",
+                    fontSize: 18,
+                  }}
+                >
+                  Số dư: {formatNumber(item.Balance)}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </React.Fragment>
+        ))}
       <Modal
         transparent={true}
         visible={modalVisibleNewWallet}
