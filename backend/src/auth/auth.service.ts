@@ -103,11 +103,12 @@ export class AuthService {
     await this.userModel.findByIdAndUpdate(user._id, { active: true });
 
     const userReg = await this.userModel.findOne({ _id: user._id });
-
+    const userId = userReg.id;
+    console.log(userId);
     if(userReg) {
         const categoriesWithUserId = CategoriesFakeData.map(category => ({
           ...category,
-          userRef: userReg._id,
+          userRef: userId,
           createdAt: new Date(),
           updatedAt: new Date(),
         }))
