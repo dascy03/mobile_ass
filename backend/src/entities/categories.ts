@@ -32,7 +32,7 @@ const CategoriesFakeData = [
         isIncome: false,
     },
     {
-        name:' Tiền chuyển đi',
+        name:'Tiền chuyển đi',
         isIncome: false,
     },
     {
@@ -49,7 +49,7 @@ const CategoriesFakeData = [
         isIncome: true,
     },
     {
-        name:' Tiền chuyển đến',
+        name:'Tiền chuyển đến',
         isIncome: true,
     }
 ];
