@@ -38,7 +38,10 @@ export class AuthService {
           // career: user.career,
           // income: user.income,
           // outcome: user.outcome,
-          accessToken: this.jwtService.sign(user),
+          accessToken: this.jwtService.sign(
+            { id: user._id, email: user.email }, // Payload
+            { expiresIn: '7d' } // Token expiration time
+          ),
           active: user.active,
         },
       };

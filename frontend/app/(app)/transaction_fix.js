@@ -9,11 +9,13 @@ import {
 import React from "react";
 import { Stack, router } from "expo-router";
 import { useState, useEffect } from "react";
-
-import { styled } from "nativewind";
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
 const Transaction_Fix = () => {
   const formatNumber = (num) => {
@@ -32,81 +34,230 @@ const Transaction_Fix = () => {
     setOutcome(22222222);
     setTotal(income - outcome);
   }, []);
+
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
-    <StyledView style={styles.container}>
-      <StyledView className="bg-[#21B4A3] w-full flex flex-row py-3 justify-center place-content-center">
+    <View style={styles.container}>
+      <View
+        style={{
+          backgroundColor: "#21B4A3",
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          width: "100%",
+          paddingHorizontal: 10,
+          gap: 20,
+          paddingVertical: 10,
+        }}
+      >
         <TouchableOpacity
-          className="basis-1/6 mt-2 px-4"
           onPress={() => {
             router.back();
           }}
         >
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={{ resizeMode: "contain", height: 40, width: 40 }}
             source={require("../../assets/images/back-button.png")}
           />
         </TouchableOpacity>
-        <StyledText className="basis-3/6 text-3xl text-white font-semibold ">
+
+        <Text
+          style={{
+            color: "#FFFFFF",
+            fontFamily: "Poppins_700Bold",
+            fontSize: 30,
+          }}
+        >
           Sửa giao dịch
-        </StyledText>
-      </StyledView>
-      <StyledView>
-        <StyledView className="bg-[#D9D9D9] h-[20]"></StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+        </Text>
+      </View>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 10,
+            gap: 10,
+            alignItems: "flex-end",
+            paddingVertical: 10,
+          }}
+        >
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={{
+              resizeMode: "contain",
+              width: 40,
+              height: 40,
+            }}
             source={require("../../assets/images/VND.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Fill your money"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View
+            style={{
+              width: "70%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <TextInput
+              style={{
+                textAlignVertical: "center",
+                color: "#FF0000",
+                fontSize: 20,
+                fontFamily: "Poppins_700Bold",
+                includeFontPadding: false,
+              }}
+            />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 10,
+            gap: 10,
+            alignItems: "flex-end",
+            paddingVertical: 10,
+          }}
+        >
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={{
+              resizeMode: "contain",
+              width: 40,
+              height: 40,
+            }}
             source={require("../../assets/images/Wallet.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Chọn ví"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View
+            style={{
+              width: "70%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <TextInput
+              style={{
+                textAlignVertical: "center",
+                color: "#FF0000",
+                fontSize: 20,
+                fontFamily: "Poppins_700Bold",
+                includeFontPadding: false,
+              }}
+            />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 10,
+            gap: 10,
+            alignItems: "flex-end",
+            paddingVertical: 10,
+          }}
+        >
           <Image
-            style={{ resizeMode: "contain" }}
+            style={{
+              resizeMode: "contain",
+              width: 40,
+              height: 40,
+            }}
             source={require("../../assets/images/Invoice.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Hóa đơn điện"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View
+            style={{
+              width: "70%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <TextInput
+              style={{
+                textAlignVertical: "center",
+                color: "#FF0000",
+                fontSize: 20,
+                fontFamily: "Poppins_700Bold",
+                includeFontPadding: false,
+              }}
+            />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 10,
+            gap: 10,
+            alignItems: "flex-end",
+            paddingVertical: 10,
+          }}
+        >
           <Image
-            style={{ resizeMode: "contain" }}
+            style={{
+              resizeMode: "contain",
+              width: 40,
+              height: 40,
+            }}
             source={require("../../assets/images/Calendar_month.png")}
           />
-          <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-            <TextInput placeholder="Hôm nay"></TextInput>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View
+            style={{
+              width: "70%",
+              borderBottomWidth: 1,
+            }}
+          >
+            <TextInput
+              style={{
+                textAlignVertical: "center",
+                color: "#FF0000",
+                fontSize: 20,
+                fontFamily: "Poppins_700Bold",
+                includeFontPadding: false,
+              }}
+            />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 10,
+            gap: 10,
+            alignItems: "flex-end",
+            paddingVertical: 10,
+          }}
+        >
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={{
+              resizeMode: "contain",
+              width: 40,
+              height: 40,
+            }}
             source={require("../../assets/images/Note.png")}
           />
-          <StyledView>
-            <StyledText>...</StyledText>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-    </StyledView>
+          <View>
+            <Text
+              style={{
+                textAlignVertical: "center",
+                fontSize: 20,
+                fontFamily: "Poppins_700Bold",
+                includeFontPadding: false,
+              }}
+            >
+              ...
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
   );
 };
 
