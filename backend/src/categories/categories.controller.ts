@@ -41,7 +41,8 @@ export class CategoriesController {
         throw new UnauthorizedException('Token missing');
       }
 
-      const _id: any = jwt.verify(token, 'super-ultra-max-secret');
+      const user: any = jwt.verify(token, 'super-ultra-max-secret');
+      const _id = user._id;
       return await this.categoriesService.create(_id, createCategoryDto);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
