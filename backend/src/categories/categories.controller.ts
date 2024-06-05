@@ -42,7 +42,7 @@ export class CategoriesController {
       }
 
       const user: any = jwt.verify(token, 'super-ultra-max-secret');
-      const _id = user._id;
+      const _id = user.id;
       return await this.categoriesService.create(_id, createCategoryDto);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
@@ -62,7 +62,6 @@ export class CategoriesController {
       throw new UnauthorizedException('Token missing');
     }
     const userRef: any = jwt.verify(token,process.env.JWT_SECRET);
-    // console.log("tttt: ",userRef)
     return this.categoriesService.findAll(userRef);
   }
 
