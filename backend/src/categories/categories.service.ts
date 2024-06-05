@@ -20,8 +20,8 @@ export class CategoriesService {
     }).save();
   }
 
-  findAll() {
-    return this.model.find();
+  findAll(userRef:any) {
+    return this.model.find({userRef: userRef});
   }
 
   findOne(id: string): Promise<CategoryDocument>{

@@ -49,21 +49,38 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll() {
-    return this.categoriesService.findAll();
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
+  findAll(@Req() request: Request){
+    const authHeader = request.headers['authorization'];
+    if (!authHeader) {
+      throw new UnauthorizedException('Authorization header missing');
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Token missing');
+    }
+    const userRef: any = jwt.verify(token,process.env.JWT_SECRET);
+    return this.categoriesService.findAll(userRef);
   }
 
   @Get(':id')
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
   findOne(@Param('id') id: string) {
     return this.categoriesService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoriesService.update(id, updateCategoryDto);
   }
 
   @Delete()
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
   remove(@Param('id') id: string) {
     return this.categoriesService.remove(id);
   }

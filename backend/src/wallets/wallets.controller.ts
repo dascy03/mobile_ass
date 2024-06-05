@@ -41,8 +41,17 @@ export class WalletsController {
   @Get()
   @ApiResponse({status: 200, description: 'successfully'})
   @ApiResponse({status: 500, description: 'fail!'})
-  findAll() {
-    return this.walletsService.findAll();
+  findAll(@Req() request: Request) {
+    const authHeader = request.headers['authorization'];
+    if (!authHeader) {
+      throw new UnauthorizedException('Authorization header missing');
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Token missing');
+    }
+    const userRef: any = jwt.verify(token, 'super-ultra-max-secret');
+    return this.walletsService.findAll(userRef);
   }
   @Put(':id')
   @ApiResponse({status: 200, description: 'successfully'})

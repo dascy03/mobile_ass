@@ -48,7 +48,7 @@ export class TransactionsController {
     }
   }
 
-  
+
 
 
   @Get()
@@ -61,7 +61,7 @@ export class TransactionsController {
       return {message: err.message || 'Internal Server Error'};
     }
   }
- 
+
   @Get('report/detail')
   @ApiOperation({ summary: 'Get a report by month and year' })
   @ApiResponse({ status: 200, description: 'Get report successfully' })
@@ -197,13 +197,13 @@ export class TransactionsController {
   @ApiResponse({status: 500, description: "fail!"})
   async remove(@Param('id') id: string): Promise<Object> {
     try {
-      return await this.transactionsService.remove(+id);
+      return await this.transactionsService.remove(id);
     } catch (err) {
       return {message: err.message || 'Internal Server Error'};
     }
   }
 
-  
+
 
 
 }
