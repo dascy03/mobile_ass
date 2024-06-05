@@ -11,7 +11,9 @@ import { LoginDto, RegisterDto } from './dto';
 import { UserLogin, UserRegister } from './types';
 import * as phoneNumberToken from 'generate-sms-verification-code';
 import { MailService } from 'src/mail/mail.service';
+import { CategoryDocument } from 'src/categories/entities/category.entity';
 
+const CategoriesFakeData = require('./../entities/categories')
 // import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
@@ -20,6 +22,7 @@ export class AuthService {
     @InjectModel('users') private readonly userModel: Model<UserDocument>,
     private readonly jwtService: JwtService,
     private mailService: MailService,
+    @InjectModel('categories') private readonly categoriesModel: Model<CategoryDocument>,
   ) {}
 
   async login(userDto: LoginDto): Promise<ResponseStatus<UserLogin>> {
@@ -98,6 +101,19 @@ export class AuthService {
       };
     }
     await this.userModel.findByIdAndUpdate(user._id, { active: true });
+
+    const userReg = await this.userModel.findOne({ _id: user._id });
+
+    if(userReg) {
+        const categoriesWithUserId = CategoriesFakeData.map(category => ({
+          ...category,
+          userRef: userReg._id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }))
+
+        await this.categoriesModel.insertMany(categoriesWithUserId);
+    }
     return {
       code: HttpStatus.OK,
       message: SUCCESS_EXCEPTION.OK,
