@@ -19,7 +19,7 @@ import AntIcon from "react-native-vector-icons/AntDesign";
 import React, { useState, useEffect } from "react";
 import BASE_URL from "../../../env";
 import axios from "axios";
-
+import { router } from "expo-router";
 const Home = () => {
   const [search, setSearch] = useState("");
   let [fontsLoaded, fontError] = useFonts({
@@ -172,6 +172,7 @@ const Home = () => {
         <View style={styles.featureContainer}>
           <TouchableOpacity
             style={{ flexDirection: "column", alignItems: "center", rowGap: 8 }}
+            onPress={() => router.push("/goal")}
           >
             <Image
               style={{ width: 60, height: 60 }}
@@ -181,6 +182,7 @@ const Home = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{ flexDirection: "column", alignItems: "center", rowGap: 8 }}
+            onPress={() => router.push("/budget")}
           >
             <Image
               style={{ width: 60, height: 60 }}

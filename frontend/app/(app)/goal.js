@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { router } from 'expo-router'
+import React, { useState } from "react";
+import { router } from "expo-router";
 
 import {
   View,
@@ -8,15 +8,34 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-} from 'react-native'
+} from "react-native";
+import { Stack } from "expo-router";
+import {
+  useFonts,
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
 const Goal = ({ title, amount, progress, timeRemaining, icon }) => {
   return (
     <View style={styles.goalContainer}>
-      <View style={styles.goalHeader}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
         <Image
-          source={icon}
-          style={styles.goalIcon}
+          source={require("../../assets/images/food.png")}
+          style={{
+            width: 55,
+            height: 55,
+            marginRight: 18,
+          }}
         />
         <View>
           <Text style={styles.goalTitle}>{title}</Text>
@@ -25,208 +44,358 @@ const Goal = ({ title, amount, progress, timeRemaining, icon }) => {
       </View>
       <View style={styles.progressBar}>
         <View style={[styles.progressFill, { width: `${progress}%` }]} />
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginTop: 6,
+        }}
+      >
+        <Text style={styles.progressAmount}>
+          {((amount * progress) / 100).toLocaleString()} VND
+        </Text>
         <Text style={styles.progressAmount}>{amount.toLocaleString()} VND</Text>
       </View>
     </View>
-  )
-}
+  );
+};
+
+const FinishGoal = ({ title, amount, time }) => {
+  return (
+    <View style={styles.goalContainer}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        <Image
+          source={require("../../assets/images/plane.png")}
+          style={{
+            width: 50,
+            height: 50,
+            marginRight: 18,
+          }}
+        />
+        <View>
+          <Text style={styles.goalTitle}>{title}</Text>
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 15,
+              color: "#21B4A3",
+            }}
+          >
+            {amount.toLocaleString()} VND
+          </Text>
+          <Text style={styles.goalTime}>{time}</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
 
 const GoalsScreen = () => {
   const [goals, setGoals] = useState([
     {
-      title: 'Buffet trên máy bay',
+      title: "Buffet trên máy bay",
       amount: 2304000,
       progress: 80,
-      timeRemaining: '23 ngày',
-      icon: require('../../assets/images/Food.png'),
+      timeRemaining: "23 ngày",
+      icon: "../../assets/images/food.png",
     },
     {
-      title: 'Mua tủ lạnh',
+      title: "Mua tủ lạnh",
       amount: 50000000,
       progress: 46,
-      timeRemaining: '2 tuần',
-      icon: require('../../assets/images/Food.png'),
+      timeRemaining: "2 tuần",
+      icon: "../../assets/images/food.png",
     },
     {
-      title: 'Du lịch Hawaii',
+      title: "Du lịch Hawaii",
       amount: 50000000,
       progress: 46,
-      timeRemaining: '2 tháng',
-      icon: require('../../assets/images/Food.png'),
+      timeRemaining: "2 tháng",
+      icon: "../../assets/images/food.png",
     },
     {
-      title: 'Mua tủ lạnh',
+      title: "Mua tủ lạnh",
       amount: 50000000,
       progress: 46,
-      timeRemaining: '2 tuần',
-      icon: require('../../assets/images/Food.png'),
+      timeRemaining: "2 tuần",
+      icon: "../../assets/images/food.png",
     },
-  ])
+    {
+      title: "Mua tủ lạnh",
+      amount: 50000000,
+      progress: 46,
+      timeRemaining: "2 tuần",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Mua tủ lạnh",
+      amount: 50000000,
+      progress: 46,
+      timeRemaining: "2 tuần",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Mua tủ lạnh",
+      amount: 50000000,
+      progress: 46,
+      timeRemaining: "2 tuần",
+      icon: "../../assets/images/food.png",
+    },
+  ]);
 
+  const [finishGoal, setFinishGoal] = useState([
+    {
+      title: "Du lịch Hawaii",
+      amount: 50000000,
+      time: "Hoàn tất vào 23/04/2024",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Du lịch Hawaii",
+      amount: 50000000,
+      time: "Hoàn tất vào 23/04/2024",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Du lịch Hawaii",
+      amount: 50000000,
+      time: "Hoàn tất vào 23/04/2024",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Du lịch Hawaii",
+      amount: 50000000,
+      time: "Hoàn tất vào 23/04/2024",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Du lịch Hawaii",
+      amount: 50000000,
+      time: "Hoàn tất vào 23/04/2024",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Du lịch Hawaii",
+      amount: 50000000,
+      time: "Hoàn tất vào 23/04/2024",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Du lịch Hawaii",
+      amount: 50000000,
+      time: "Hoàn tất vào 23/04/2024",
+      icon: "../../assets/images/food.png",
+    },
+    {
+      title: "Du lịch Hawaii",
+      amount: 50000000,
+      time: "Hoàn tất vào 23/04/2024",
+      icon: "../../assets/images/food.png",
+    },
+  ]);
+
+  const [finished, setFinished] = useState(false);
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
-          <Image
-            source={require('../../assets/images/back-button.png')}
-            style={styles.backIcon}
-          />
+      <Stack.Screen
+        options={{
+          statusBarTranslucent: false,
+          headerShown: true,
+          title: "Mục tiêu",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#21B4A3",
+          },
+          headerShadowVisible: true,
+          headerTitleStyle: {
+            fontFamily: "Poppins_600SemiBold",
+            color: "white",
+            fontSize: 18,
+          },
+        }}
+      />
+      <View style={styles.topContainer}>
+        <Text
+          style={{
+            fontFamily: "Poppins_400Regular",
+            fontSize: 17,
+            color: "#fff",
+          }}
+        >
+          Bạn đã tiết kiệm được
+        </Text>
+        <Text
+          style={{
+            fontFamily: "Poppins_500Medium",
+            fontSize: 14,
+            color: "#fff",
+          }}
+        >
+          VNĐ{"    "}
+          <Text
+            style={{
+              fontFamily: "Poppins_700Bold",
+              fontSize: 45,
+              color: "#fff",
+            }}
+          >
+            1,305,000
+          </Text>
+        </Text>
+        <TouchableOpacity style={styles.addGoalBtn}>
+          <Text
+            style={{
+              color: "#fff",
+              fontFamily: "Poppins_600SemiBold",
+              fontSize: 16,
+              includeFontPadding: true,
+              textAlignVertical: "center",
+            }}
+          >
+            Tạo mục tiêu
+          </Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Mục tiêu</Text>
-        <TouchableOpacity style={styles.addButton}>
-          <Image
-            source={require('../../assets/images/back-button.png')}
-            style={styles.addIcon}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.savedAmount}>
-        <Text style={styles.savedAmountText}>Bạn đã tiết kiệm được</Text>
-        <Text style={styles.savedAmountValue}>1,305,000 VND</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.createGoalButton}
-        onPress={() => router.push('/new_goal')}
-      >
-        <Text style={styles.createGoalButtonText}>Tạo mục tiêu</Text>
-      </TouchableOpacity>
-      <View style={styles.tabs}>
-        <TouchableOpacity style={styles.tab}>
-          <Text style={styles.tabText}>Mục tiêu của bạn</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tab}>
-          <Text style={styles.tabText}>Đang thực hiện</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tab}>
-          <Text style={styles.tabText}>Hoàn tất</Text>
-        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            marginTop: 20,
+            marginBottom: 10,
+          }}
+        >
+          <Text
+            style={{
+              flex: 1,
+              color: "#fff",
+              fontFamily: "Poppins_400Regular",
+              fontSize: 15,
+            }}
+          >
+            Mục tiêu của bạn
+          </Text>
+          <TouchableOpacity onPress={() => setFinished(false)}>
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: finished
+                  ? "Poppins_300Light"
+                  : "Poppins_600SemiBold",
+                fontSize: 14,
+              }}
+            >
+              Đang thực hiện
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFinished(true)}>
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: finished
+                  ? "Poppins_600SemiBold"
+                  : "Poppins_300Light",
+                fontSize: 14,
+                marginLeft: 8,
+              }}
+            >
+              Hoàn tất
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <ScrollView style={styles.goalsList}>
-        {goals.map((goal, index) => (
-          <Goal
-            key={index}
-            {...goal}
-          />
-        ))}
+        {finished
+          ? finishGoal.map((goal, index) => (
+              <FinishGoal key={index} {...goal} />
+            ))
+          : goals.map((goal, index) => <Goal key={index} {...goal} />)}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '##21B4A3',
+    backgroundColor: "#21B4A3",
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 20,
+  topContainer: {
+    width: "100%",
+    paddingTop: 24,
+    paddingHorizontal: 30,
+    backgroundColor: "#21B4A3",
   },
-  backButton: {
-    padding: 10,
-  },
-  backIcon: {
-    width: 20,
-    height: 20,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  addButton: {
-    padding: 10,
-  },
-  addIcon: {
-    width: 24,
-    height: 24,
-  },
-  savedAmount: {
-    alignItems: 'center',
-    padding: 20,
-  },
-  savedAmountText: {
-    fontSize: 16,
-    color: '#fff',
-    marginBottom: 5,
-  },
-  savedAmountValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  createGoalButton: {
-    backgroundColor: '#FFD700',
-    padding: 15,
-    margin: 20,
+  addGoalBtn: {
+    height: 36,
+    width: 156,
+    backgroundColor: "#FBC43A",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
-    alignItems: 'center',
-  },
-  createGoalButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  tabs: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
-  },
-  tab: {
-    padding: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: '#fff',
-  },
-  tabText: {
-    fontSize: 16,
-    color: '#fff',
+    alignSelf: "center",
+    marginTop: 24,
   },
   goalsList: {
-    padding: 20,
+    paddingHorizontal: 30,
+    backgroundColor: "white",
+    borderRadius: 30,
   },
   goalContainer: {
-    backgroundColor: '#fff',
-    padding: 20,
+    backgroundColor: "#fff",
+    marginTop: 14,
     marginBottom: 10,
-    borderRadius: 10,
   },
   goalHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
-  goalIcon: {
-    width: 40,
-    height: 40,
-    marginRight: 15,
-  },
+
   goalTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    marginTop: 6,
+    fontSize: 17,
+    fontFamily: "Poppins_600SemiBold",
   },
   goalTime: {
-    fontSize: 14,
-    color: '#808080',
+    fontSize: 13,
+    color: "#797979",
+    fontFamily: "Poppins_300Light",
   },
   progressBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: "#21B4A3",
   },
   progressFill: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#FFD700',
+    backgroundColor: "#FBC43A",
   },
   progressAmount: {
-    marginLeft: 10,
     fontSize: 14,
-    color: '#808080',
+    color: "#797979",
+    fontFamily: "Poppins_400Regular",
   },
-})
+});
 
-export default GoalsScreen
+export default GoalsScreen;
