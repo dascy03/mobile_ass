@@ -21,7 +21,7 @@ export class CategoriesService {
   }
 
   findAll(userRef:any) {
-    return this.model.find({userRef: userRef._id});
+    return this.model.find({userRef: userRef.id});
   }
 
   findOne(id: string): Promise<CategoryDocument>{

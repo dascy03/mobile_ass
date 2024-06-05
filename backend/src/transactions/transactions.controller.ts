@@ -19,6 +19,7 @@ import { ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
+import { ShareReport } from 'src/entities/share-report.entity';
 @ApiTags('Transactions')
 @Controller('transactions')
 @UseGuards(JwtAuthGuard)
@@ -79,6 +80,32 @@ export class TransactionsController {
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
     // console.log(userRef,month,year);
     return await this.transactionsService.getMonthlyReport(userRef,month, year);
+  }
+
+  @Get('share-report')
+  @ApiOperation({ summary: 'Get share report by month and year' })
+  @ApiResponse({ status: 200, description: 'Get report successfully' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async getShareReport(
+    @Query('userRef') userRef: string,
+    @Query('month') month: number,
+    @Query('year') year: number,
+  ): Promise<ShareReport> {
+    return this.transactionsService.getShareReport(userRef, month, year);
+  }
+
+  @Patch('set-share-flag')
+  @ApiOperation({ summary: 'update shareflag' })
+  @ApiResponse({ status: 200, description: 'Get report successfully' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async setShareFlag(
+    @Query('userRef') userRef: string,
+    @Query('month') month: number,
+    @Query('year') year: number,
+  ) {
+    return await this.transactionsService.setShareReport(userRef, month, year);
   }
 
   @Get('report/outcome')

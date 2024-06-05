@@ -1,11 +1,11 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Stack, useRouter } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
   View,
-  Pressable,
+  TouchableOpacity,
   Image,
   BackHandler,
 } from "react-native";
@@ -44,12 +44,12 @@ export default function Login() {
     <View style={styles.container}>
       <Text style={styles.title}>Brew Kash</Text>
 
-      <Pressable
+      <TouchableOpacity
         style={[styles.box, { backgroundColor: "#21B4A3" }]}
         onPress={() => router.push("/Sign-in")}
       >
         <Text style={styles.textFont}>Đăng nhập</Text>
-      </Pressable>
+      </TouchableOpacity>
       <Text
         style={{
           margin: 15,
@@ -61,30 +61,30 @@ export default function Login() {
         hoặc
       </Text>
 
-      <Pressable style={[styles.box, { backgroundColor: "#5384EE" }]}>
+      <TouchableOpacity style={[styles.box, { backgroundColor: "#5384EE" }]}>
         <Image
           style={styles.tinyLogo}
-          source={require("../../assets/images/icon_google.png")}
+          source={require("../assets/images/icon_google.png")}
         />
         <Text style={styles.textFont}>Đăng nhập với Google</Text>
-      </Pressable>
-      <Pressable style={[styles.box, { backgroundColor: "#415792" }]}>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.box, { backgroundColor: "#415792" }]}>
         <Image
           style={styles.tinyLogo}
-          source={require("../../assets/images/icon_facebook.png")}
+          source={require("../assets/images/icon_facebook.png")}
         />
         <Text style={styles.textFont}>Đăng nhập với Facebook</Text>
-      </Pressable>
-      <Pressable style={[styles.box, { backgroundColor: "#000000" }]}>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.box, { backgroundColor: "#000000" }]}>
         <Image
           style={styles.tinyLogo}
-          source={require("../../assets/images/icon_apple.png")}
+          source={require("../assets/images/icon_apple.png")}
         />
         <Text style={styles.textFont}>Đăng nhập với Apple</Text>
-      </Pressable>
-      <Pressable onPress={() => router.push("/register")}>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.push("/register")}>
         <Text style={styles.register}>Đăng ký tài khoản</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }

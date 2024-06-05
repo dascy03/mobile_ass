@@ -11,6 +11,7 @@ import {
 import { Wallet, WalletDocument } from 'src/wallets/entities/wallet.entity';
 import { Budget, BudgetDocument} from '../entities/budget.entity';
 import { Category, CategoryDocument } from '../categories/entities/category.entity';
+import { ShareReport } from 'src/entities/share-report.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -23,6 +24,7 @@ export class TransactionsService {
     private readonly budgetModel: Model<BudgetDocument>,
     @InjectModel(Category.name)
     private readonly categoryModel: Model<CategoryDocument>,
+    @InjectModel('ShareReport') private readonly shareReportModel: Model<ShareReport>,
   ) {}
   async create(_id:string, createTransactionDto: CreateTransactionDto): Promise<Transaction> {
     if(createTransactionDto.type === true){
@@ -122,14 +124,30 @@ export class TransactionsService {
     }, {});
 
     const balance = wallet?.Balance
-    return {balance, report};
+    const fixedBalance = wallet?.fixedBalance
+    return {fixedBalance, balance, report};
   }
 
+
+  async getShareReport(userRef: string,month: number, year: number ): Promise<ShareReport> {
+    return await this.shareReportModel.findOne({ userRef, month, year, shareflag:'true' }).exec()
+  }
+
+  async setShareReport(userRef: string, month: number, year: number) {
+    const report = await this.shareReportModel.findOne({ userRef, month, year }).exec()
+    report.shareflag = true
+    await report.save()
+    return 'Shared successfully'
+  }
   async getMonthlyReportOutcome(userRef: string,month: number, year: number): Promise<any> {
     const startOfMonth = new Date(year, month - 1, 1);
     const endOfMonth = new Date(year, month, 0);
 
     // console.log(userRef,startOfMonth,endOfMonth)
+    const existingReport = await this.shareReportModel.findOne({ userRef, month, year }).exec();
+    if (existingReport) {
+      return existingReport; 
+    }
 
     const transactions = await this.model.find({
       userRef: userRef,
@@ -142,6 +160,19 @@ export class TransactionsService {
     const totalOutcome = transactions.reduce((total, transaction) => total + transaction.money, 0);
     const totalDays = (endOfMonth.getDate() - startOfMonth.getDate()) + 1;
     const averageDailyOutcome = totalOutcome / totalDays;
+
+    
+    const shareReport = new this.shareReportModel({
+      userRef,
+      month,
+      year,
+      totalOutcome,
+      averageDailyOutcome,
+      shareflag: false, 
+      transactions,
+    });
+    
+    await shareReport.save();
 
     return { totalOutcome, averageDailyOutcome,transactions };
   }

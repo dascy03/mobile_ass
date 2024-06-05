@@ -9,30 +9,42 @@ const AuthProvider = ({ children }) => {
   const [authState, setAuthState] = useState({
     token: null,
     authenticated: null,
-    role: null,
   });
 
-  const onRegister = async (account, password) => {
+  const onRegister = async (email, password, name) => {
     // Your implementation for registration
-  };
-
-  const onLogin = async (account, password) => {
-    // Your implementation for login
     try {
-      console.log("account", account);
-      const response = await axios.post(`${BASE_URL}/auth/login`, {
-        account_name: account,
-        password: password,
+      const response = await axios.post(`${BASE_URL}/users/register`, {
+        email,
+        password,
+        name,
       });
-      const token = response.data.access_token;
-      const role = response.data.position;
-      console.log("token", token);
-      setAuthState({ token, authenticated: true, role });
-      axios.defaults.headers.common["Authorization"] = token;
-      await SecureStore.setItemAsync("token", token);
-      await SecureStore.setItemAsync("role", role);
+      console.log("register", name);
+      console.log(response);
       return response;
     } catch (error) {
+      console.log("error", error.response.data);
+      return { error };
+      //console.error("Failed to login:", error);
+    }
+  };
+
+  const onLogin = async (email, password) => {
+    // Your implementation for login
+    try {
+      console.log("login", email);
+      const response = await axios.post(`${BASE_URL}/users/login`, {
+        email,
+        password,
+      });
+      const token = response.data.data.accessToken;
+      console.log("token", token);
+      setAuthState({ token, authenticated: true });
+      axios.defaults.headers.common["Authorization"] = token;
+      await SecureStore.setItemAsync("token", token);
+      return response;
+    } catch (error) {
+      console.log("error", error.response);
       return { error };
       //console.error("Failed to login:", error);
     }
@@ -40,21 +52,19 @@ const AuthProvider = ({ children }) => {
 
   const onLogout = async () => {
     // Your implementation for logout
-    setAuthState({ token: null, authenticated: false, role: null });
+    setAuthState({ token: null, authenticated: false });
     axios.defaults.headers.common["Authorization"] = null;
     await SecureStore.deleteItemAsync("token");
-    await SecureStore.deleteItemAsync("role");
   };
 
   useEffect(() => {
     const loadAuthState = async () => {
       try {
         const token = await SecureStore.getItemAsync("token");
-        const role = await SecureStore.getItemAsync("role");
         if (token) {
-          setAuthState({ token, authenticated: true, role });
+          setAuthState({ token, authenticated: true });
         } else {
-          setAuthState({ token: null, authenticated: false, role: null });
+          setAuthState({ token: null, authenticated: false });
         }
       } catch (error) {
         console.error("Failed to load authentication state:", error);

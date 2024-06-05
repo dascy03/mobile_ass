@@ -2,12 +2,13 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Stack, router } from "expo-router";
 import { useState, useEffect } from "react";
-
-import { withExpoSnack } from "nativewind";
-import { styled } from "nativewind";
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
 const Transaction = () => {
   const formatNumber = (num) => {
@@ -26,8 +27,20 @@ const Transaction = () => {
     setOutcome(22222222);
     setTotal(income - outcome);
   }, []);
+
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
-    <StyledView style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           statusBarTranslucent: false,
@@ -40,38 +53,92 @@ const Transaction = () => {
           headerShadowVisible: false,
         }}
       />
-      <StyledView className="bg-[#21B4A3] w-full flex flex-row justify-center py-5">
-        <StyledView className="basis-1/3"> </StyledView>
-        <StyledView className="basis-1/3 items-center">
-          <StyledText className="font-bold text-white" style={{ fontSize: 15 }}>
+      <View
+        style={{
+          backgroundColor: "#21B4A3",
+          flexDirection: "row",
+          justifyContent: "center",
+          width: "100%",
+          paddingTop: 44,
+          paddingBottom: 30,
+        }}
+      >
+        <View style={{ flexBasis: "33%" }}></View>
+        <View
+          style={{
+            flexBasis: "33%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Poppins_700Bold",
+              color: "white",
+              fontSize: 20,
+            }}
+          >
             Số dư
-          </StyledText>
-          <StyledText
-            className="font-bold text-white py-2"
-            style={{ fontSize: 15 }}
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Poppins_700Bold",
+              color: "white",
+              fontSize: 20,
+            }}
           >
             {formatNumber(SoDu)}
-            <StyledText className="font-semibold px-2" style={{ fontSize: 13 }}>
+            <Text
+              style={{
+                fontFamily: "Poppins_500Medium",
+                color: "white",
+                fontSize: 13,
+              }}
+            >
+              {" "}
               VNĐ
-            </StyledText>
-          </StyledText>
-          <StyledView className="flex-row justify-center items-center bg-[#D9D9D9] rounded-xl px-1">
+            </Text>
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              flexBasis: 33,
+              backgroundColor: "#D9D9D9",
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 5,
+              paddingHorizontal: 10,
+              paddingVertical: 5
+            }}
+          >
             <Image
-              className="h-5 mr-2"
-              style={{ resizeMode: "contain" }}
+              style={{ resizeMode: "contain", width: 30, height: 30 }}
               source={require("../../../assets/images/Wallet.png")}
             />
-            <StyledText className="rounded-lg p-1 text-center">
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 11,
+              }}
+            >
               Tiền mặt
-            </StyledText>
+            </Text>
             <Image
-              className="h-1 ml-1 mr-1"
               style={{ resizeMode: "contain" }}
               source={require("../../../assets/images/DotDown.png")}
             />
-          </StyledView>
-        </StyledView>
-        <StyledView className="basis-1/3 flex-row gap-4 justify-center items-center">
+          </View>
+        </View>
+        <View
+          style={{
+            flexBasis: "33%",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            gap: 20,
+            paddingRight: 20,
+          }}
+        >
           <Image
             style={{ resizeMode: "contain" }}
             source={require("../../../assets/images/searching.png")}
@@ -80,67 +147,236 @@ const Transaction = () => {
             style={{ resizeMode: "contain" }}
             source={require("../../../assets/images/threeDot.png")}
           />
-        </StyledView>
-      </StyledView>
-      <StyledView className="w-full">
-        <StyledView className="flex flex-row gap-x-4 justify-between py-2 px-2 border-b-2 border-[#D9D9D9]">
-          <StyledText style={{ fontSize: 15 }}>Tháng trước</StyledText>
-          <StyledText style={{ fontSize: 15 }}>Tháng này</StyledText>
-          <StyledText style={{ fontSize: 15 }}>Tương lai</StyledText>
-        </StyledView>
-        <StyledView className="flex flex-row justify-between py-3">
-          <StyledView className="basis-1/3 items-start pl-10">
-            <StyledText>Tiền vào</StyledText>
-            <StyledText>Tiền ra</StyledText>
-            <StyledText className="font-bold">Tổng tiền</StyledText>
-          </StyledView>
-          <StyledView className="basis-1/3 items-end pr-10">
-            <StyledText>{formatNumber(income)}</StyledText>
-            <StyledText>{formatNumber(outcome)}</StyledText>
-            <StyledText className="font-bold">{formatNumber(total)}</StyledText>
-          </StyledView>
-        </StyledView>
-        <StyledView className="flex-none justify-center items-center py-3 ">
-          <StyledText className="p-1 rounded-xl text-[#4CE57A] bg-[#EAF4F3] font-semibold">
+        </View>
+      </View>
+      <View style={{ width: "100%" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            borderBlockEndColor: "#D9D9D9",
+            borderBottomWidth: 1,
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+          }}
+        >
+          <Text style={{ fontFamily: "Poppins_600SemiBold", fontSize: 15 }}>
+            Tháng trước
+          </Text>
+          <Text style={{ fontFamily: "Poppins_600SemiBold", fontSize: 15 }}>
+            Tháng này
+          </Text>
+          <Text style={{ fontFamily: "Poppins_600SemiBold", fontSize: 15 }}>
+            Tương lai
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 30,
+            marginVertical: 10,
+          }}
+        >
+          <View>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+              }}
+            >
+              Tiền vào
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+              }}
+            >
+              Tiền ra
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+                borderTopWidth: 1,
+              }}
+            >
+              Tổng tiền
+            </Text>
+          </View>
+          <View style={{ alignItems: "flex-end" }}>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+              }}
+            >
+              {formatNumber(income)}
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+              }}
+            >
+              {formatNumber(outcome)}
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+                borderTopWidth: 1,
+              }}
+            >
+              {formatNumber(total)}
+            </Text>
+          </View>
+        </View>
+
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
+            backgroundColor: "#EAF4F3",
+            paddingHorizontal: 15,
+            borderRadius: 12,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 18,
+              color: "#4CE57A",
+            }}
+          >
             Xem báo cáo
-          </StyledText>
-        </StyledView>
-        <StyledView className="bg-[#D9D9D9] h-[20]"></StyledView>
-      </StyledView>
-      <StyledView className="flex flex-row py-3 w-full border-b-2 border-[#D9D9D9]">
-        <StyledView className="basis-1/6 items-center justify-center">
-          25
-        </StyledView>
-        <StyledView className="basis-3/6 items-start">
-          <StyledView>Hôm nay</StyledView>
-          <StyledView>Tháng 3 2024</StyledView>
-        </StyledView>
-        <StyledView className="basis-1/6 items-start justify-center ">
-          70,000
-        </StyledView>
-        <StyledView className="basis-1/6 items-start "></StyledView>
-      </StyledView>
+          </Text>
+        </View>
+        <View
+          style={{ backgroundColor: "#D9D9D9", height: 22, marginVertical: 20 }}
+        ></View>
+      </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          width: "100%",
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <View>
+            <Text
+              style={{
+                fontFamily: "Poppins_700Bold",
+                fontSize: 18,
+              }}
+            >
+              25
+            </Text>
+          </View>
+          <View>
+            <View>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 11,
+                }}
+              >
+                {" "}
+                Hôm nay
+              </Text>
+            </View>
+            <View>
+              <Text
+                style={{
+                  color: "#A9A9A9",
+                  fontSize: 11,
+                  fontFamily: "Poppins_400Regular",
+                }}
+              >
+                Tháng 3 2024
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: "Poppins_400Regular",
+            }}
+          >
+            70,000
+          </Text>
+        </View>
+      </View>
       <TouchableOpacity
-        className="flex flex-row py-3 w-full border-b-2 border-[#D9D9D9]"
+        style={{
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingHorizontal: 20,
+          gap: 10,
+          borderTopWidth: 1,
+          borderBlockColor: "#D9D9D9",
+        }}
         onPress={() => {
           router.push("transaction_details");
         }}
       >
-        <Image
-          className="basis-1/6 items-center justify-center place-items-center"
-          style={{ resizeMode: "contain" }}
-          source={require("../../../assets/images/Petrol.png")}
-        />
-        <StyledView className="basis-3/6 items-start">
-          <StyledView>Hôm nay</StyledView>
-          <StyledView>Tháng 3 2024</StyledView>
-        </StyledView>
-        <StyledView className="basis-1/6 items-start justify-center ">
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 10,
+            paddingVertical: 10,
+          }}
+        >
+          <Image
+            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            source={require("../../../assets/images/Petrol.png")}
+          />
+          <View>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+              }}
+            >
+              Xăng
+            </Text>
+          </View>
+        </View>
+        <Text
+          style={{
+            fontSize: 18,
+            fontFamily: "Poppins_400Regular",
+          }}
+        >
           70,000
-        </StyledView>
-        <StyledView className="basis-1/6 items-start "></StyledView>
+        </Text>
       </TouchableOpacity>
-    </StyledView>
+    </View>
   );
 };
 
@@ -153,13 +389,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFFFFF",
   },
-  topContainer: {
-    width: "100%",
-    height: 150,
-    alignItems: "center",
-    paddingHorizontal: 30,
-    paddingTop: 20,
-    backgroundColor: "#21B4A3",
-  },
-  downContainer: {},
 });

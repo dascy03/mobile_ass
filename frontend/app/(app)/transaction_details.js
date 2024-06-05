@@ -5,17 +5,17 @@ import {
   Image,
   TouchableOpacity,
   Modal,
-  Pressable,
-  Button,
 } from "react-native";
 import React from "react";
 import { Stack, router } from "expo-router";
 import { useState, useEffect } from "react";
-
-import { styled } from "nativewind";
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
 const Transaction_Details = () => {
   const formatNumber = (num) => {
@@ -28,19 +28,30 @@ const Transaction_Details = () => {
   const [outcome, setOutcome] = useState();
   const [total, setTotal] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+
   useEffect(() => {
     setSoDu(9999999);
     setIncome(100000);
     setOutcome(22222222);
     setTotal(income - outcome);
   }, []);
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
-    <StyledView style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           statusBarTranslucent: false,
           headerShown: false,
-
           headerTitleAlign: "center",
           headerStyle: {
             backgroundColor: "white",
@@ -48,81 +59,96 @@ const Transaction_Details = () => {
           headerShadowVisible: false,
         }}
       />
-      <StyledView className="bg-[#21B4A3] w-full flex flex-row py-3 justify-center place-content-center">
+      <View style={styles.header}>
         <TouchableOpacity
-          className="basis-1/6 mt-2 px-4"
+          style={styles.headerButton}
           onPress={() => {
             router.back();
           }}
         >
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.headerIcon}
             source={require("../../assets/images/Delete.png")}
           />
         </TouchableOpacity>
-        <StyledText className="basis-2/6 text-3xl text-white font-semibold ">
-          Chi tiết
-        </StyledText>
-        <StyledText className="basis-1/6"></StyledText>
+        <Text style={styles.headerTitle}>Chi tiết</Text>
+        <View style={styles.headerSpacer}></View>
         <TouchableOpacity
-          className="basis-1/6 mt-2"
+          style={styles.headerButton}
           onPress={() => {
             router.push("transaction_fix");
           }}
         >
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.headerIcon}
             source={require("../../assets/images/pencil.png")}
           />
         </TouchableOpacity>
         <TouchableOpacity
-          className="basis-1/6 mt-2"
+          style={styles.headerButton}
           onPress={() => {
             setModalVisible(true);
           }}
         >
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.headerIcon}
             source={require("../../assets/images/bin.png")}
           />
         </TouchableOpacity>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+      </View>
+      <View style={styles.detailsContainer}>
+        <View style={styles.detailRow}>
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.detailIcon}
             source={require("../../assets/images/Invoice.png")}
           />
-          <StyledView>
-            <StyledText>Hóa đơn điện</StyledText>
-            <StyledText className="text-xl text-red-500">1,000,000</StyledText>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+              }}
+            >
+              Hóa đơn điện
+            </Text>
+            <Text style={styles.detailAmount}>1,000,000</Text>
+          </View>
+        </View>
+        <View style={styles.detailRow}>
           <Image
-            style={{ resizeMode: "contain" }}
+            style={styles.detailIcon}
             source={require("../../assets/images/Calendar_month.png")}
           />
-          <StyledView>
-            <StyledText>Hôm nay</StyledText>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
+          <View>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+              }}
+            >
+              Hôm nay
+            </Text>
+          </View>
+        </View>
+        <View style={styles.detailRow}>
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={[styles.detailIcon, { width: 30, height: 30 }]}
             source={require("../../assets/images/Wallet.png")}
           />
-          <StyledView>
-            <StyledText>Tiền mặt</StyledText>
-          </StyledView>
-        </StyledView>
-      </StyledView>
+          <View>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                fontSize: 18,
+              }}
+            >
+              Tiền mặt
+            </Text>
+          </View>
+        </View>
+      </View>
       {/* Modal Popup */}
-      <StyledView className="flex-1 justify-center items-center">
+      <View style={styles.modalContainer}>
         <Modal
           transparent={true}
           visible={modalVisible}
@@ -130,28 +156,26 @@ const Transaction_Details = () => {
             setModalVisible(!modalVisible);
           }}
         >
-          {modalVisible && (
-            <StyledView className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50" />
-          )}
-          <StyledView className="fixed flex-1 justify-center items-center ">
-            <StyledView className="w-72 p-5 bg-white rounded-lg items-center ">
-              <StyledText>Xóa giao dịch này?</StyledText>
-              <StyledView className="flex-row gap-5 pt-4">
-                <TouchableOpacity className="bg-[#21B4A3] text-white rounded-md py-1 px-3">
-                  Đồng ý
+          {modalVisible && <View style={styles.modalBackground} />}
+          <View style={styles.modalContentContainer}>
+            <View style={styles.modalContent}>
+              <Text>Xóa giao dịch này?</Text>
+              <View style={styles.modalButtons}>
+                <TouchableOpacity style={styles.modalButton}>
+                  <Text style={styles.modalButtonText}>Đồng ý</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  className="bg-[#21B4A3] text-white rounded-md py-1 px-3"
+                  style={styles.modalButton}
                   onPress={() => setModalVisible(false)}
                 >
-                  Không
+                  <Text style={styles.modalButtonText}>Không</Text>
                 </TouchableOpacity>
-              </StyledView>
-            </StyledView>
-          </StyledView>
+              </View>
+            </View>
+          </View>
         </Modal>
-      </StyledView>
-    </StyledView>
+      </View>
+    </View>
   );
 };
 
@@ -162,5 +186,89 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     backgroundColor: "#FFFFFF",
+  },
+  header: {
+    backgroundColor: "#21B4A3",
+    width: "100%",
+    flexDirection: "row",
+    paddingVertical: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerButton: {
+    flexBasis: "16%",
+    marginTop: 8,
+    paddingHorizontal: 16,
+  },
+  headerIcon: {
+    resizeMode: "contain",
+  },
+  headerTitle: {
+    flexBasis: "33%",
+    fontSize: 24,
+    color: "#FFFFFF",
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  headerSpacer: {
+    flexBasis: "16%",
+  },
+  detailsContainer: {
+    padding: 12,
+  },
+  detailRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+  },
+  detailIcon: {
+    resizeMode: "contain",
+  },
+  detailAmount: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 18,
+    color: "#FF0000",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalBackground: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "#000000",
+    opacity: 0.5,
+  },
+  modalContentContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    width: 288,
+    padding: 20,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalButtons: {
+    flexDirection: "row",
+    gap: 20,
+    paddingTop: 16,
+  },
+  modalButton: {
+    backgroundColor: "#21B4A3",
+    borderRadius: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+  },
+  modalButtonText: {
+    color: "#FFFFFF",
   },
 });

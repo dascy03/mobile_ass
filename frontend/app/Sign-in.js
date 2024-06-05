@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Pressable,
+  TouchableOpacity,
   Image,
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
 import { Stack } from "expo-router";
-import CustomTextInput from "../../components/CustomTextInput";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import {
   useFonts,
@@ -17,8 +16,26 @@ import {
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
 import { router } from "expo-router";
+import { useAuth } from "../components/AuthContext";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { onLogin } = useAuth();
+
+  const login = async () => {
+    if (!email || !password) {
+      alert("Vui lòng điền đầy đủ thông tin");
+      return;
+    }
+    const result = await onLogin(email, password);
+    console.log(result);
+    if (result && result.error) {
+      alert(result.error);
+    } else {
+      router.replace("/home");
+    }
+  };
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -55,6 +72,8 @@ const SignIn = () => {
             placeholder="Nhập email"
             textContentType="emailAddress"
             autoCapitalize="none"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
             onSubmitEditing={() => {
               passwordInput.focus();
             }}
@@ -73,6 +92,8 @@ const SignIn = () => {
             placeholder="Nhập mật khẩu"
             textContentType="password"
             autoCapitalize="none"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
             returnKeyType="done"
             ref={(input) => {
               passwordInput = input;
@@ -92,7 +113,7 @@ const SignIn = () => {
         Quên mật khẩu
       </Text>
 
-      <Pressable style={styles.btn} onPress={() => router.push("home")}>
+      <TouchableOpacity style={styles.btn} onPress={login}>
         <Text
           style={{
             fontSize: 18,
@@ -104,7 +125,7 @@ const SignIn = () => {
           Đăng nhập
         </Text>
         <AntIcon name="arrowright" size={20} color="white" />
-      </Pressable>
+      </TouchableOpacity>
 
       <View
         style={{
@@ -133,18 +154,18 @@ const SignIn = () => {
           alignItems: "flex-start",
         }}
       >
-        <Pressable style={[styles.otherOptionsBtn, { marginRight: 10 }]}>
+        <TouchableOpacity style={[styles.otherOptionsBtn, { marginRight: 10 }]}>
           <Image
             style={styles.logo}
-            source={require("../../assets/images/icon_google_2.png")}
+            source={require("../assets/images/icon_google_2.png")}
           />
-        </Pressable>
-        <Pressable style={[styles.otherOptionsBtn, { marginLeft: 10 }]}>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.otherOptionsBtn, { marginLeft: 10 }]}>
           <Image
             style={styles.logo}
-            source={require("../../assets/images/icon_facebook_2.png")}
+            source={require("../assets/images/icon_facebook_2.png")}
           />
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View
         style={{
@@ -153,7 +174,9 @@ const SignIn = () => {
           alignItems: "center",
         }}
       >
-        <Text style={styles.registerText}>Đăng ký tài khoản</Text>
+        <TouchableOpacity onPress={() => router.push("/register")}>
+          <Text style={styles.registerText}>Đăng ký tài khoản</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );

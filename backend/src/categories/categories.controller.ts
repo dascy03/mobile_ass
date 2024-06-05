@@ -62,6 +62,7 @@ export class CategoriesController {
       throw new UnauthorizedException('Token missing');
     }
     const userRef: any = jwt.verify(token,process.env.JWT_SECRET);
+    // console.log("tttt: ",userRef)
     return this.categoriesService.findAll(userRef);
   }
 

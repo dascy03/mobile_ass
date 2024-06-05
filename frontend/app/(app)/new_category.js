@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,21 +7,9 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
 import { Stack, router } from "expo-router";
-import { useState, useEffect } from "react";
-
-import { styled } from "nativewind";
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
 
 const New_Category = () => {
-  const formatNumber = (num) => {
-    if (num == undefined) return;
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
-
   const [SoDu, setSoDu] = useState();
   const [income, setIncome] = useState();
   const [outcome, setOutcome] = useState();
@@ -32,65 +21,48 @@ const New_Category = () => {
     setOutcome(22222222);
     setTotal(income - outcome);
   }, []);
+
   return (
-    <StyledView style={styles.container}>
-      <StyledView className="bg-[#21B4A3] w-full flex flex-row py-3 justify-center place-content-center">
+    <View style={styles.container}>
+      <View style={styles.header}>
         <TouchableOpacity
-          className="basis-1/6 mt-2 px-4"
-          onPress={() => {
-            router.back();
-          }}
+          style={styles.backButton}
+          onPress={() => router.back()}
         >
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={{ resizeMode: "contain", height: 30, width: 30 }}
             source={require("../../assets/images/back-button.png")}
           />
         </TouchableOpacity>
-        <StyledText className="basis-3/6 text-xl text-white font-semibold items-center flex ">
-          Danh mục mới
-        </StyledText>
-      </StyledView>
-      <StyledView>
-        <StyledView>
-          <StyledView className="flex-row gap-4 p-3">
-            <Image
-              style={{ resizeMode: "contain", width: 30, height: 30 }}
-              source={require("../../assets/images/Question.png")}
-            />
-            <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-              <TextInput placeholder="Tên nhóm"></TextInput>
-            </StyledView>
-          </StyledView>
-        </StyledView>
-        <StyledView>
-          <StyledView className="flex-row gap-4 p-3">
-            <Image
-              style={{ resizeMode: "contain", width: 30, height: 30 }}
-              source={require("../../assets/images/plusminus.png")}
-            />
-            <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-              <TextInput placeholder="Khoản chi"></TextInput>
-            </StyledView>
-          </StyledView>
-        </StyledView>
-        <StyledView>
-          <StyledView className="flex-row gap-4 p-3">
-            <Image
-              style={{ resizeMode: "contain", width: 30, height: 30 }}
-              source={require("../../assets/images/split.png")}
-            />
-            <StyledView className="justify-center border-b-2 border-[#D9D9D9]">
-              <TextInput placeholder="Nhóm chia"></TextInput>
-            </StyledView>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView className="flex-row justify-center mt-[20]">
-        <TouchableOpacity className="bg-[#21B4A3] text-white rounded-xl py-1 px-20 text-xl">
-          Lưu
-        </TouchableOpacity>
-      </StyledView>
-    </StyledView>
+        <Text style={styles.headerText}>Danh mục mới</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <View style={styles.inputWrapper}>
+          <Image
+            style={styles.inputIcon}
+            source={require("../../assets/images/Question.png")}
+          />
+          <TextInput style={styles.input} placeholder="Tên nhóm" />
+        </View>
+        <View style={styles.inputWrapper}>
+          <Image
+            style={styles.inputIcon}
+            source={require("../../assets/images/plusminus.png")}
+          />
+          <TextInput style={styles.input} placeholder="Khoản chi" />
+        </View>
+        <View style={styles.inputWrapper}>
+          <Image
+            style={styles.inputIcon}
+            source={require("../../assets/images/split.png")}
+          />
+          <TextInput style={styles.input} placeholder="Nhóm chia" />
+        </View>
+      </View>
+      <TouchableOpacity style={styles.saveButton}>
+        <Text style={styles.saveButtonText}>Lưu</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -101,5 +73,59 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     backgroundColor: "#FFFFFF",
+  },
+  header: {
+    backgroundColor: "#21B4A3",
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 15,
+  },
+  backButton: {
+    marginTop: 10,
+    paddingHorizontal: 10,
+  },
+  headerText: {
+    flexBasis: "68%",
+    fontSize: 24,
+    color: "white",
+    fontWeight: "bold",
+  },
+  inputContainer: {
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+  inputWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottomColor: "#D9D9D9",
+    marginBottom: 20,
+  },
+  inputIcon: {
+    resizeMode: "contain",
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
+  input: {
+    borderBottomWidth: 2,
+    flex: 1,
+    height: 40,
+    fontSize: 16,
+    color: "#000",
+  },
+  saveButton: {
+    backgroundColor: "#21B4A3",
+    borderRadius: 20,
+    alignSelf: "center",
+    marginTop: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  saveButtonText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

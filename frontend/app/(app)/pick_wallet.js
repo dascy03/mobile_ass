@@ -6,21 +6,22 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Stack, router } from "expo-router";
-import { useState, useEffect } from "react";
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
-import { styled } from "nativewind";
-
-const StyledView = styled(View);
-const StyledText = styled(Text);
+const formatNumber = (num) => {
+  if (num === undefined) return "";
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
 
 const Pick_Wallet = () => {
-  const formatNumber = (num) => {
-    if (num == undefined) return;
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
-
   const [SoDu, setSoDu] = useState();
   const [income, setIncome] = useState();
   const [outcome, setOutcome] = useState();
@@ -32,54 +33,65 @@ const Pick_Wallet = () => {
     setOutcome(22222222);
     setTotal(income - outcome);
   }, []);
+
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded && !fontError) return null;
+
   return (
-    <StyledView style={styles.container}>
-      <StyledView className="bg-[#21B4A3] w-full flex flex-row py-3 justify-center place-content-center">
+    <View style={styles.container}>
+      <View style={styles.header}>
         <TouchableOpacity
-          className="basis-1/6 mt-2 px-4"
-          onPress={() => {
-            router.back();
-          }}
+          style={styles.backButton}
+          onPress={() => router.back()}
         >
           <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
+            style={styles.icon}
             source={require("../../assets/images/back-button.png")}
           />
         </TouchableOpacity>
-        <StyledText className="basis-3/6 text-xl text-white font-semibold items-center flex ">
-          Chọn ví
-        </StyledText>
-      </StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
-          <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/confirmVector.png")}
-          />
-          <StyledView className="justify-center border-[#D9D9D9]">
-            <TouchableOpacity
-              onPress={() => {
-                router.push("new_wallet");
-              }}
-            >
-              Ví mới
-            </TouchableOpacity>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-      <StyledView className="bg-[#D9D9D9] h-[10]"></StyledView>
-      <StyledView>
-        <StyledView className="flex-row gap-4 p-3">
-          <Image
-            style={{ resizeMode: "contain", width: 30, height: 30 }}
-            source={require("../../assets/images/pigVector.png")}
-          />
-          <StyledView className="justify-center border-[#D9D9D9]">
-            <Text>Tiết kiệm</Text>
-          </StyledView>
-        </StyledView>
-      </StyledView>
-    </StyledView>
+        <Text style={styles.headerText}>Chọn ví</Text>
+      </View>
+      <View style={styles.divider}></View>
+      <View style={styles.optionContainer}>
+        <Image
+          style={styles.icon}
+          source={require("../../assets/images/confirmVector.png")}
+        />
+        <TouchableOpacity onPress={() => router.push("new_wallet")}>
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 18,
+            }}
+          >
+            VÍ MỚI
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.divider}></View>
+      <View style={styles.optionContainer}>
+        <Image
+          style={styles.icon}
+          source={require("../../assets/images/pigVector.png")}
+        />
+        <View>
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 18,
+            }}
+          >
+            Tiết kiệm
+          </Text>
+        </View>
+      </View>
+    </View>
   );
 };
 
@@ -90,5 +102,50 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     backgroundColor: "#FFFFFF",
+  },
+  header: {
+    backgroundColor: "#21B4A3",
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 15,
+  },
+  backButton: {
+    flexBasis: "16%",
+    marginTop: 10,
+    paddingHorizontal: 10,
+  },
+  headerText: {
+    flexBasis: "68%",
+    fontSize: 24,
+    color: "white",
+    fontFamily: "Poppins_400Regular",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  divider: {
+    backgroundColor: "#D9D9D9",
+    height: 10,
+  },
+  optionContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 15,
+    gap: 10,
+  },
+  icon: {
+    resizeMode: "contain",
+    width: 30,
+    height: 30,
+  },
+  optionTextWrapper: {
+    justifyContent: "center",
+    borderBottomWidth: 2,
+    borderBottomColor: "#D9D9D9",
+    flex: 1,
+  },
+  optionText: {
+    fontFamily: "Poppins_400Regular",
+    fontSize: 16,
   },
 });

@@ -1,3 +1,4 @@
+import { ShareReport, ShareReportSchema } from './../entities/share-report.entity';
 import { Module } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { TransactionsController } from './transactions.controller';
@@ -25,6 +26,10 @@ import { Category, CategorySchema} from '../categories/entities/category.entity'
     {
       name: Category.name,
       schema: CategorySchema
+    },
+    {
+      name: 'ShareReport',
+      schema: ShareReportSchema
     }
   ])],
 })
