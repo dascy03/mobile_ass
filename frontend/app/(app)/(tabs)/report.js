@@ -53,7 +53,7 @@ const Report = () => {
           }}
         >
           1,200,000
-          <Text style={{ fontSize: 16 }}>VND</Text>
+          <Text style={{ fontSize: 16 }}> VND</Text>
         </Text>
         <ScrollView
           horizontal={true}
@@ -120,6 +120,201 @@ const Report = () => {
           </Text>
         </ScrollView>
       </View>
+      <ScrollView contentContainerStyle={styles.bottomContainer}>
+        <View
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 15,
+              color: "black",
+            }}
+          >
+            Số dư ban đầu
+          </Text>
+          <Text style={{ fontFamily: "Poppins_500Medium", fontSize: 17 }}>
+            700,000
+          </Text>
+        </View>
+        <View
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Poppins_400Regular",
+              fontSize: 15,
+              color: "black",
+            }}
+          >
+            Số dư kết thúc
+          </Text>
+          <Text style={{ fontFamily: "Poppins_500Medium", fontSize: 17 }}>
+            1,200,000
+          </Text>
+        </View>
+        <View style={styles.reportSection}>
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Poppins_600SemiBold",
+                fontSize: 17,
+                color: "black",
+              }}
+            >
+              Số dư
+            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  fontFamily: "Poppins_500Medium",
+                  fontSize: 13,
+                  color: "#7C8474",
+                }}
+              >
+                Xem chi tiết
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <Text
+            style={{
+              fontFamily: "Poppins_500Medium",
+              fontSize: 19,
+              marginVertical: 5,
+            }}
+          >
+            1,200,000 VNĐ
+          </Text>
+          <Image
+            source={require("../../../assets/images/report-chart-1.png")}
+            style={{
+              width: 295,
+              height: 155,
+              alignSelf: "center",
+              marginTop: 10,
+            }}
+          />
+        </View>
+
+        <View style={styles.reportSection}>
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Poppins_600SemiBold",
+                fontSize: 17,
+                color: "black",
+              }}
+            >
+              Chi tiêu
+            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  fontFamily: "Poppins_500Medium",
+                  fontSize: 13,
+                  color: "#7C8474",
+                }}
+              >
+                Xem chi tiết
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <Text
+            style={{
+              fontFamily: "Poppins_500Medium",
+              fontSize: 19,
+              marginVertical: 5,
+              color: "#FA416A",
+            }}
+          >
+            1,000,000 VNĐ
+          </Text>
+          <Image
+            source={require("../../../assets/images/report-chart-2.png")}
+            style={{
+              width: 212,
+              height: 183,
+              alignSelf: "center",
+              marginTop: 10,
+            }}
+          />
+        </View>
+
+        <View style={styles.reportSection}>
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Poppins_600SemiBold",
+                fontSize: 17,
+                color: "black",
+              }}
+            >
+              Thu nhập
+            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  fontFamily: "Poppins_500Medium",
+                  fontSize: 13,
+                  color: "#7C8474",
+                }}
+              >
+                Xem chi tiết
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <Text
+            style={{
+              fontFamily: "Poppins_500Medium",
+              fontSize: 19,
+              marginVertical: 5,
+              color: "#21B4A3",
+            }}
+          >
+            1,000,000 VNĐ
+          </Text>
+          <Image
+            source={require("../../../assets/images/report-chart-2.png")}
+            style={{
+              width: 212,
+              height: 183,
+              alignSelf: "center",
+              marginTop: 10,
+            }}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -138,5 +333,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 20,
     backgroundColor: "white",
+  },
+  bottomContainer: {
+    backgroundColor: "#D9D9D9",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    padding: 16,
+    rowGap: 10,
+  },
+  reportSection: {
+    width: "100%",
+    backgroundColor: "white",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
   },
 });
