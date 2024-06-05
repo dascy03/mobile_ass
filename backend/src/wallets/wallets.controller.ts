@@ -30,7 +30,8 @@ export class WalletsController {
         throw new UnauthorizedException('Token missing');
       }
 
-      const _id: any = jwt.verify(token, 'super-ultra-max-secret');
+      const user: any = jwt.verify(token, 'super-ultra-max-secret');
+      const _id = user._id;
       return await this.walletsService.create(_id,createWalletDto);
     }
     catch (err) {

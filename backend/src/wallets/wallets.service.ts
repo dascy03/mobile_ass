@@ -22,7 +22,7 @@ export class WalletsService {
   }
 
   findAll(userRef:any): Promise<WalletDocument[]>{
-    return this.model.find({userRef: userRef});
+    return this.model.find({userRef: userRef._id});
   }
 
   async update(id: string, updateWalletDto: UpdateWalletDto) {
