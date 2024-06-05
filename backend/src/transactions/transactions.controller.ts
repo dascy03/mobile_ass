@@ -203,8 +203,4 @@ export class TransactionsController {
       return {message: err.message || 'Internal Server Error'};
     }
   }
-
-
-
-
 }
