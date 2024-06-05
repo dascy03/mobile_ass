@@ -31,7 +31,7 @@ export class WalletsController {
       }
 
       const user: any = jwt.verify(token, 'super-ultra-max-secret');
-      const _id = user._id;
+      const _id = user.id;
       return await this.walletsService.create(_id,createWalletDto);
     }
     catch (err) {
