@@ -79,7 +79,7 @@ export class TransactionsController {
     }
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
     // console.log(userRef,month,year);
-    return await this.transactionsService.getMonthlyReport(userRef,month, year);
+    return await this.transactionsService.getMonthlyReport(userRef.id,month, year);
   }
 
   @Get('share-report')
@@ -127,7 +127,7 @@ export class TransactionsController {
       throw new UnauthorizedException('Token missing');
     }
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
-    return await this.transactionsService.getMonthlyReportOutcome(userRef, month, year);
+    return await this.transactionsService.getMonthlyReportOutcome(userRef.id, month, year);
   }
 
   @Get('report/income')
@@ -149,7 +149,7 @@ export class TransactionsController {
       throw new UnauthorizedException('Token missing');
     }
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
-    return await this.transactionsService.getMonthlyReportIncome(userRef, month, year);
+    return await this.transactionsService.getMonthlyReportIncome(userRef.id, month, year);
   }
 
 

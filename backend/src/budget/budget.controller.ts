@@ -29,10 +29,9 @@ export class BudgetController {
       if (!token) {
         throw new UnauthorizedException('Token missing');
       }
+    const userid: any = jwt.verify(token, process.env.JWT_SECRET);
+    return await this.budgetService.create(userid.id,createBudgetDto);
 
-    const user: any = jwt.verify(token, process.env.JWT_SECRET);
-    const userid = user._id;
-    return await this.budgetService.create(userid,createBudgetDto);
   }
 
 
@@ -58,7 +57,7 @@ export class BudgetController {
       }
 
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
-    return this.budgetService.getBudgetsByUserRefAndMonth(userRef, year, month);
+    return this.budgetService.getBudgetsByUserRefAndMonth(userRef.id, year, month);
   }
 
 
