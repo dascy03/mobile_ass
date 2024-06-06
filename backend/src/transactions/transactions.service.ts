@@ -41,6 +41,15 @@ export class TransactionsService {
     else {
       const categories = await this.categoryModel.findOne({ _id: createTransactionDto.categoriesRef }).exec();
       const budget= await this.budgetModel.findOne({categories:categories.name}).exec();
+      const wallet= await this.walletModel.findOneAndUpdate(
+        { _id: createTransactionDto.walletRef },
+        {
+          $inc: {
+            Balance: -createTransactionDto.money
+          }
+        },
+        { new: true }
+      ).exec();
       if(budget){
         const budget= await this.budgetModel.findOneAndUpdate(
           {categories:categories.name},
