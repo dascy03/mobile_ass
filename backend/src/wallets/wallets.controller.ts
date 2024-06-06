@@ -68,6 +68,12 @@ export class WalletsController {
     const userRef: any = jwt.verify(token, 'super-ultra-max-secret');
     return this.walletsService.findAll(userRef);
   }
+  @Get(':id')
+  @ApiResponse({status: 200, description: 'successfully'})
+  @ApiResponse({status: 500, description: 'fail!'})
+  findOne(@Param('id') id: string) {
+    return this.walletsService.findOne(id);
+  }
   @Put(':id')
   @ApiResponse({ status: 200, description: 'successfully' })
   @ApiResponse({ status: 500, description: 'fail!' })

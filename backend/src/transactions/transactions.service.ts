@@ -62,8 +62,9 @@ export class TransactionsService {
     }).save();
   }
 
-  async findAll(): Promise<Transaction[]> {
-    return this.model.find().exec();
+  async findAll(_id: string): Promise<Transaction[]> {
+    const listTransaction= this.model.find({ userRef: _id }).sort({dateCreated:1}).exec();
+    return listTransaction;
   }
 
   async findByCategory(categories: String): Promise<Transaction> {

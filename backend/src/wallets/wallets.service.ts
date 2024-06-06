@@ -24,6 +24,9 @@ export class WalletsService {
   findAll(userRef:any): Promise<WalletDocument[]>{
     return this.model.find({userRef: userRef.id});
   }
+  findOne(id: string): Promise<WalletDocument>{
+    return this.model.findById(id);
+  }
 
   async update(id: string, updateWalletDto: UpdateWalletDto) {
     //update the wallet with new value,if not value is provided, keep the old value

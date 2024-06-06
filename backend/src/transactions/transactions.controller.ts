@@ -55,9 +55,19 @@ export class TransactionsController {
   @Get()
   @ApiResponse({status: 200, description: "successfully"})
   @ApiResponse({status: 500, description: "fail!"})
-  async findAll(): Promise<Object> {
+  async findAll(@Req() req: Request): Promise<Object> {
     try {
-      return await this.transactionsService.findAll();
+      const authHeader = req.headers['authorization'];
+      if (!authHeader) {
+        throw new UnauthorizedException('Authorization header missing');
+      }
+      const token = authHeader.split(' ')[1];
+      if (!token) {
+        throw new UnauthorizedException('Token missing');
+      }
+      const user: any = jwt.verify(token, 'super-ultra-max-secret');
+      const _id = user.id;
+      return await this.transactionsService.findAll(_id);
     } catch (err) {
       return {message: err.message || 'Internal Server Error'};
     }
