@@ -217,7 +217,12 @@ const Budget = () => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.addGoalBtn}>
+        <TouchableOpacity
+          style={styles.addGoalBtn}
+          onPress={() => {
+            router.push("addBudget");
+          }}
+        >
           <Text
             style={{
               color: "#fff",
@@ -304,6 +309,7 @@ const styles = StyleSheet.create({
     color: "#797979",
     fontFamily: "Poppins_400Regular",
   },
+  
 });
 
 export default Budget;
