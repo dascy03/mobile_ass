@@ -15,6 +15,8 @@ export class Transaction {
   note: string;
   // @Prop({ default: false})
   // shareflag: boolean;
+  @Prop()
+  nameCategory: string;
   @Prop({ default: false })
   type: boolean; // income = True | outcome = False
   @Prop({ required: true })

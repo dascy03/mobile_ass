@@ -20,12 +20,12 @@ export class CategoriesService {
     }).save();
   }
 
-  findAll(userRef:any) {
-    return this.model.find({userRef: userRef.id});
+  async findAll(userRef:any) {
+    return await this.model.find({userRef: userRef.id});
   }
 
-  findOne(id: string): Promise<CategoryDocument>{
-    return this.model.findById(id);
+  async findOne(id: string): Promise<CategoryDocument>{
+    return await this.model.findById(id);
   }
 
   async update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<CategoryDocument>{

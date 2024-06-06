@@ -52,8 +52,10 @@ export class TransactionsService {
         ).exec();
       }
     }
+    const categories = await this.categoryModel.findOne({ _id: createTransactionDto.categoriesRef }).exec();
     return new this.model({
       ...createTransactionDto,
+      nameCategory: categories.name,
       userRef: _id,
       createdAt: new Date(),
     }).save();
@@ -146,7 +148,7 @@ export class TransactionsService {
     // console.log(userRef,startOfMonth,endOfMonth)
     const existingReport = await this.shareReportModel.findOne({ userRef, month, year }).exec();
     if (existingReport) {
-      return existingReport; 
+      return existingReport;
     }
 
     const transactions = await this.model.find({
@@ -161,17 +163,17 @@ export class TransactionsService {
     const totalDays = (endOfMonth.getDate() - startOfMonth.getDate()) + 1;
     const averageDailyOutcome = totalOutcome / totalDays;
 
-    
+
     const shareReport = new this.shareReportModel({
       userRef,
       month,
       year,
       totalOutcome,
       averageDailyOutcome,
-      shareflag: false, 
+      shareflag: false,
       transactions,
     });
-    
+
     await shareReport.save();
 
     return { totalOutcome, averageDailyOutcome,transactions };
