@@ -14,6 +14,6 @@ export class Category {
   @Prop()
   updatedAt?: Date;
   @Prop({default: false})
-  isDeleted?: boolean;
+  isDeleted: boolean;
 }
 export const CategorySchema = SchemaFactory.createForClass(Category);

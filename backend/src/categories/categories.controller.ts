@@ -68,21 +68,21 @@ export class CategoriesController {
   @Get(':id')
   @ApiResponse({ status: 200, description: 'successfully' })
   @ApiResponse({ status: 500, description: 'fail!' })
-  findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.categoriesService.findOne(id);
   }
 
   @Patch(':id')
   @ApiResponse({ status: 200, description: 'successfully' })
   @ApiResponse({ status: 500, description: 'fail!' })
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoriesService.update(id, updateCategoryDto);
+  async update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
+    return await this.categoriesService.update(id, updateCategoryDto);
   }
 
-  @Delete()
+  @Delete(':id')
   @ApiResponse({ status: 200, description: 'successfully' })
   @ApiResponse({ status: 500, description: 'fail!' })
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.categoriesService.remove(id);
   }
 }

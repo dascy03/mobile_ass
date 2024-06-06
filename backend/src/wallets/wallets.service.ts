@@ -31,6 +31,6 @@ export class WalletsService {
   }
 
   remove(id: string):Promise<WalletDocument> {
-    return this.model.findOneAndUpdate({_id: id}, {isDeleted: true}, {new: true});
+    return this.model.findOneAndUpdate({_id: id}, {isDeleted: true}, {new: true}).exec();
   }
 }

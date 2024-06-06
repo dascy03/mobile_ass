@@ -28,12 +28,12 @@ export class CategoriesService {
     return this.model.findById(id);
   }
 
-  update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    return this.model.findOneAndUpdate({_id: id}, updateCategoryDto, {new: true})
+  async update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<CategoryDocument>{
+    return await this.model.findOneAndUpdate({_id: id}, updateCategoryDto, {new: true}).exec()
   }
 
 
-  remove(id: string):any{
-    return this.model.findOneAndUpdate({_id: id},{isDeleted: true}, {new: true}).exec();
+  async remove(id: string) {
+    return await this.model.findOneAndUpdate({_id: id}, {isDeleted: true}, {new: true}).exec();
   }
 }
