@@ -29,7 +29,7 @@ export class AuthService {
     const user = await this.userModel.findOne({ email: userDto.email, active: true }).lean();
     if (user && (await compare(userDto.password, user.password))) {
       return {
-        code: HttpStatus.OK,
+        code: 200,
         message: "login successful",
         data: {
           id: user._id,
@@ -49,11 +49,6 @@ export class AuthService {
         },
       };
     }
-
-    throw new HttpException(
-      ERROR_EXCEPTION.LOGIN_FAILED,
-      HttpStatus.BAD_REQUEST,
-    );
   }
 
   async register(userDto: RegisterDto): Promise<ResponseStatus<UserRegister>> {
@@ -96,8 +91,8 @@ export class AuthService {
     if (otp != user.otp) {
       console.log(otp, user);
       return {
-        code: HttpStatus.UNAUTHORIZED,
-        message: ERROR_EXCEPTION.UNAUTHORIZED,
+        code: 401,
+        message: "UnAuth!",
       };
     }
     await this.userModel.findByIdAndUpdate(user._id, { active: true });
@@ -117,8 +112,8 @@ export class AuthService {
         await this.categoriesModel.insertMany(categoriesWithUserId);
     }
     return {
-      code: HttpStatus.OK,
-      message: SUCCESS_EXCEPTION.OK,
+      code: 200,
+      message: "successfully" ,
     };
   }
 }
