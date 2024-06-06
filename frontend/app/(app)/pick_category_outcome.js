@@ -25,11 +25,17 @@ import BASE_URL from "../../env";
 
 import { Alert } from "react-native";
 
-const Pick_Category = ({ setType, setCategoriesRef, setModalVisible }) => {
+const Pick_Category = ({
+  setType,
+  setCategoriesRef,
+  setModalVisible,
+  setCategoriesID,
+}) => {
   const [modalVisibleCategoriesIncome, setModalVisibleCategoriesIncome] =
     useState(false);
   const [modalNewCategory, setModalNewCategory] = useState(false);
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
 
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -43,13 +49,17 @@ const Pick_Category = ({ setType, setCategoriesRef, setModalVisible }) => {
       try {
         // Simulate fetching data (replace this with your actual data fetching logic)
         const response = await axios.get(`${BASE_URL}/categories`);
-        setData(response.data);
+        const filter_data = await response.data.filter(
+          (item) => item.isIncome === false
+        );
+        setData(filter_data);
+        console.log(data);
       } catch (error) {
         console.log("error", error);
       }
     };
     fetchData();
-  }, [modalNewCategory]);
+  }, [modalNewCategory, loading]);
 
   if (!fontsLoaded && !fontError) return null;
 
@@ -93,116 +103,141 @@ const Pick_Category = ({ setType, setCategoriesRef, setModalVisible }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.divider}></View>
-        {[
-          { icon: require("../../assets/images/food.png"), text: "Ăn uống" },
-        ].map((item, index) => (
-          <React.Fragment key={index}>
-            <TouchableOpacity
-              onPress={() => {
-                setCategoriesRef(item.text);
-                setType(false);
-                setModalVisible(false);
-              }}
-            >
-              <View style={styles.optionContainer}>
-                <Image style={styles.icon} source={item.icon} />
-                <View style={styles.optionTextWrapper}>
-                  <Text style={styles.optionText}>{item.text}</Text>
+        {data &&
+          [data[0]].map((item, index) => (
+            <React.Fragment key={index}>
+              <TouchableOpacity
+                onPress={() => {
+                  console.log(item);
+                  setCategoriesRef(item.name);
+                  setCategoriesID(item._id);
+                  setType(false);
+                  setModalVisible(false);
+                }}
+              >
+                <View style={styles.optionContainer}>
+                  <Image
+                    style={styles.icon}
+                    source={require("../../assets/images/food.png")}
+                  />
+                  <View style={styles.optionTextWrapper}>
+                    <Text style={styles.optionText}>{item.name}</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </React.Fragment>
-        ))}
+              </TouchableOpacity>
+            </React.Fragment>
+          ))}
 
         <View style={styles.divider}></View>
-        {[
-          {
-            icon: require("../../assets/images/Motorcycle.png"),
-            text: "Di chuyển",
-          },
-          { icon: require("../../assets/images/Petrol.png"), text: "Xăng" },
-          {
-            icon: require("../../assets/images/Wrench.png"),
-            text: "Bảo dưỡng xe",
-          },
-        ].map((item, index) => (
-          <React.Fragment key={index}>
-            <TouchableOpacity
-              onPress={() => {
-                setCategoriesRef(item.text);
-                setType(false);
-                setModalVisible(false);
-              }}
-            >
-              <View style={styles.optionContainer}>
-                <Image style={styles.icon} source={item.icon} />
-                <View style={styles.optionTextWrapper}>
-                  <Text style={styles.optionText}>{item.text}</Text>
+        {data &&
+          [
+            {
+              icon: require("../../assets/images/Motorcycle.png"),
+              name: data[1].name,
+              _id: data[1]._id,
+            },
+            {
+              icon: require("../../assets/images/Petrol.png"),
+              name: data[2].name,
+              _id: data[2]._id,
+            },
+            {
+              icon: require("../../assets/images/Wrench.png"),
+              name: data[3].name,
+              _id: data[3]._id,
+            },
+          ].map((item, index) => (
+            <React.Fragment key={index}>
+              <TouchableOpacity
+                onPress={() => {
+                  setCategoriesRef(item.name);
+                  setCategoriesID(item._id);
+                  setType(false);
+                  setModalVisible(false);
+                }}
+              >
+                <View style={styles.optionContainer}>
+                  <Image style={styles.icon} source={item.icon} />
+                  <View style={styles.optionTextWrapper}>
+                    <Text style={styles.optionText}>{item.name}</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </React.Fragment>
-        ))}
+              </TouchableOpacity>
+            </React.Fragment>
+          ))}
         <View style={styles.divider}></View>
-        {[
-          {
-            icon: require("../../assets/images/bill.png"),
-            text: "Hóa đơn và Tiện ích",
-          },
-          {
-            icon: require("../../assets/images/Invoice.png"),
-            text: "Hóa đơn điện",
-          },
-          {
-            icon: require("../../assets/images/InvoiceInternet.png"),
-            text: "Hóa đơn Internet",
-          },
-        ].map((item, index) => (
-          <React.Fragment key={index}>
-            <TouchableOpacity
-              onPress={() => {
-                setCategoriesRef(item.text);
-                setType(false);
-                setModalVisible(false);
-              }}
-            >
-              <View style={styles.optionContainer}>
-                <Image style={styles.icon} source={item.icon} />
-                <View style={styles.optionTextWrapper}>
-                  <Text style={styles.optionText}>{item.text}</Text>
+        {data &&
+          [
+            {
+              icon: require("../../assets/images/bill.png"),
+              name: data[4].name,
+              _id: data[4]._id,
+            },
+            {
+              icon: require("../../assets/images/Invoice.png"),
+              name: data[5].name,
+              _id: data[5]._id,
+            },
+            {
+              icon: require("../../assets/images/InvoiceInternet.png"),
+              name: data[6].name,
+              _id: data[6]._id,
+            },
+            {
+              icon: require("../../assets/images/rentHouse.png"),
+              name: data[7].name,
+              _id: data[7]._id,
+            },
+          ].map((item, index) => (
+            <React.Fragment key={index}>
+              <TouchableOpacity
+                onPress={() => {
+                  setCategoriesRef(item.name);
+                  setCategoriesID(item._id);
+                  setType(false);
+                  setModalVisible(false);
+                }}
+              >
+                <View style={styles.optionContainer}>
+                  <Image style={styles.icon} source={item.icon} />
+                  <View style={styles.optionTextWrapper}>
+                    <Text style={styles.optionText}>{item.name}</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </React.Fragment>
-        ))}
+              </TouchableOpacity>
+            </React.Fragment>
+          ))}
         <View style={styles.divider}></View>
-        {[
-          {
-            icon: require("../../assets/images/MoveMoney.png"),
-            text: "Tiền chuyển đi",
-          },
-        ].map((item, index) => (
-          <React.Fragment key={index}>
-            <TouchableOpacity
-              onPress={() => {
-                setCategoriesRef(item.text);
-                setType(false);
-                setModalVisible(false);
-              }}
-            >
-              <View style={styles.optionContainer}>
-                <Image style={styles.icon} source={item.icon} />
-                <View style={styles.optionTextWrapper}>
-                  <Text style={styles.optionText}>{item.text}</Text>
+        {data &&
+          [
+            {
+              icon: require("../../assets/images/MoveMoney.png"),
+              name: data[8].name,
+              _id: data[8]._id,
+            },
+          ].map((item, index) => (
+            <React.Fragment key={index}>
+              <TouchableOpacity
+                onPress={() => {
+                  setCategoriesRef(item.name);
+                  setCategoriesID(item._id);
+                  setType(false);
+                  setModalVisible(false);
+                }}
+              >
+                <View style={styles.optionContainer}>
+                  <Image style={styles.icon} source={item.icon} />
+                  <View style={styles.optionTextWrapper}>
+                    <Text style={styles.optionText}>{item.name}</Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </React.Fragment>
-        ))}
+              </TouchableOpacity>
+            </React.Fragment>
+          ))}
         <View style={styles.divider}></View>
         {data &&
           data.map((item, index) => {
-            if (index > 12)
+            if (index > 8 && !item.isDeleted && !item.isIncome)
               return (
                 <React.Fragment key={index}>
                   <TouchableOpacity
@@ -220,10 +255,9 @@ const Pick_Category = ({ setType, setCategoriesRef, setModalVisible }) => {
                             text: "Yes",
                             onPress: async () => {
                               const response = await axios.delete(
-                                `${BASE_URL}/categories`,
-                                { id: item._id }
+                                `${BASE_URL}/categories/${item._id}`
                               );
-                              console.log(response.data);
+                              setLoading(!loading);
                             },
                           },
                         ],
@@ -231,7 +265,8 @@ const Pick_Category = ({ setType, setCategoriesRef, setModalVisible }) => {
                       );
                     }}
                     onPress={() => {
-                      setCategoriesRef(item.text);
+                      setCategoriesRef(item.name);
+                      setCategoriesID(item._id);
                       setType(false);
                       setModalVisible(false);
                     }}
@@ -261,6 +296,7 @@ const Pick_Category = ({ setType, setCategoriesRef, setModalVisible }) => {
         <Pick_Category_Income
           setType={setType}
           setCategoriesRef={setCategoriesRef}
+          setCategoriesID={setCategoriesID}
           setModalVisible={setModalVisibleCategoriesIncome}
           setGeneralVisible={setModalVisible}
         />

@@ -32,7 +32,9 @@ const formatNumber = (num) => {
 const Add_Transaction = () => {
   const [money, setMoney] = useState("");
   const [categoriesRef, setCategoriesRef] = useState("");
+  const [categoriesID, setCategoriesID] = useState("");
   const [walletRef, setWalletRef] = useState("");
+  const [walletID, setWalletID] = useState("");
   const [note, setNote] = useState("");
   const [type, setType] = useState("");
   const [date, setDate] = useState(new Date());
@@ -187,19 +189,23 @@ const Add_Transaction = () => {
               console.log(categoriesRef);
               console.log(walletRef);
               console.log(date);
-              if (!money || !categoriesRef || !walletRef || !date) {
+              console.log(walletID);
+              console.log(categoriesID);
+              if (!money || !categoriesID || !walletID || !date) {
                 alert("Hãy điền đầy đủ thông tin");
                 return;
               }
+              return
               const response = await axios.post(`${BASE_URL}/transactions`, {
                 money: money,
-                categoriesRef: categoriesRef.toString(),
-                walletRef: walletRef.toString(),
+                categoriesRef: categoriesID.toString(),
+                walletRef: walletID.toString(),
                 note: note.toString(),
                 type: type,
                 dateCreated: date.toString(),
               });
-              console.log(response.data);
+              console.log(response.data)
+              router.back();
             } catch (error) {
               console.log("error", error.response.data);
               return { error };
@@ -221,6 +227,7 @@ const Add_Transaction = () => {
         <Pick_Wallet
           setWalletRef={setWalletRef}
           setModalVisible={setModalVisibleWallet}
+          setWalletID={setWalletID}
         />
       </Modal>
       <Modal
@@ -235,6 +242,7 @@ const Add_Transaction = () => {
           setType={setType}
           setCategoriesRef={setCategoriesRef}
           setModalVisible={setModalVisibleCategories}
+          setCategoriesID={setCategoriesID}
         />
       </Modal>
     </View>

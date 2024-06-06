@@ -25,7 +25,7 @@ const formatNumber = (num) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
-const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
+const Pick_Wallet = ({ setWalletRef, setModalVisible, setWalletID }) => {
   const [modalVisibleNewWallet, setModalVisibleNewWallet] = useState(false);
   const [data, setData] = useState();
 
@@ -41,7 +41,6 @@ const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
       try {
         const response = await axios.get(`${BASE_URL}/wallets`);
         setData(response.data);
-        console.log(data);
       } catch (error) {
         console.error("error", error);
       }
@@ -96,6 +95,7 @@ const Pick_Wallet = ({ setWalletRef, setModalVisible }) => {
               onPress={async () => {
                 try {
                   setWalletRef(item.Name.toString());
+                  setWalletID(item._id.toString());
                   setModalVisible(false);
                 } catch (error) {
                   console.log("error", error);

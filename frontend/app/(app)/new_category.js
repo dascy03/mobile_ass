@@ -72,7 +72,12 @@ const New_Category = ({ setModalVisible, isIncome }) => {
               name: name,
               isIncome: isIncome,
             });
-            console.log(response.data);
+            if ("message" in response.data) {
+              alert("Nhóm đã tồn tại");
+              return;
+            }
+            setModalVisible(false);
+            
           } catch (error) {
             console.log("error: ", error);
           }
