@@ -7,8 +7,8 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { Stack, router } from "expo-router";
-import { useState, useEffect } from "react";
+import { Stack, router, useFocusEffect } from "expo-router";
+import { useState, useEffect, useCallback } from "react";
 import {
   useFonts,
   Poppins_400Regular,
@@ -98,36 +98,40 @@ const Transaction = () => {
   const [data, setData] = useState();
   const [name, setName] = useState();
   const [transactionData, setTransactionData] = useState();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/wallets`).then((res) => {
-          setSoDu(res.data[0].Balance);
-          setName(res.data[0].Name);
-          setData(res.data);
-        });
-        const response_transaction = await axios
-          .get(`${BASE_URL}/transactions`)
-          .then((res) => {
-            setTransactionData(res.data);
-            res.data.map((item) => {
-              if (item.type && !item.isDeleted) {
-                setIncome((pre) => pre + item.money);
-                setTotal((pre) => pre + item.money);
-              } else if (!item.type && !item.isDeleted) {
-                setOutcome((pre) => pre + item.money);
-                setTotal((pre) => pre - item.money);
-              }
-            });
+  const fetchData = useCallback(async () => {
+    setIncome(0);
+    setOutcome(0);
+    setTotal(0);
+    try {
+      const response = await axios.get(`${BASE_URL}/wallets`).then((res) => {
+        setSoDu(res.data[0].Balance);
+        setName(res.data[0].Name);
+        setData(res.data);
+      });
+      const response_transaction = await axios
+        .get(`${BASE_URL}/transactions`)
+        .then((res) => {
+          setTransactionData(res.data);
+          res.data.map((item) => {
+            if (item.type && !item.isDeleted) {
+              setIncome((pre) => pre + item.money);
+              setTotal((pre) => pre + item.money);
+            } else if (!item.type && !item.isDeleted) {
+              setOutcome((pre) => pre + item.money);
+              setTotal((pre) => pre - item.money);
+            }
           });
-        console.log(total);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-    fetchData();
-  }, []);
+        });
+    } catch (error) {
+      console.log("error", error);
+    }
+  });
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+      return () => fetchData();
+    }, [])
+  );
 
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
