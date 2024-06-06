@@ -81,8 +81,7 @@ const Transaction_Details = () => {
           <TouchableOpacity
             style={styles.headerButton}
             onPress={() => {
-              // router.push("transaction_fix");
-              alert("Tính năng đang phát triển!");
+              router.push("transaction_fix");
             }}
           >
             <Image
