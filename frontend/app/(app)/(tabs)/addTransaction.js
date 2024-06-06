@@ -185,17 +185,16 @@ const Add_Transaction = () => {
           style={styles.saveButton}
           onPress={async () => {
             try {
-              console.log(money);
-              console.log(categoriesRef);
-              console.log(walletRef);
-              console.log(date);
-              console.log(walletID);
-              console.log(categoriesID);
+              // console.log(money);
+              // console.log(categoriesRef);
+              // console.log(walletRef);
+              // console.log(date);
+              // console.log(walletID);
+              // console.log(categoriesID);
               if (!money || !categoriesID || !walletID || !date) {
                 alert("Hãy điền đầy đủ thông tin");
                 return;
               }
-              return
               const response = await axios.post(`${BASE_URL}/transactions`, {
                 money: money,
                 categoriesRef: categoriesID.toString(),
@@ -204,7 +203,6 @@ const Add_Transaction = () => {
                 type: type,
                 dateCreated: date.toString(),
               });
-              console.log(response.data)
               router.back();
             } catch (error) {
               console.log("error", error.response.data);
