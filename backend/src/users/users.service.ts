@@ -25,12 +25,12 @@ export class UsersService {
     if (response)
       return {
         code: 200,
-        message: "successfully,
+        message: "successfully",
         data: response,
       };
     return {
       code: 500,
-      message: "fail,
+      message: "fail",
     };
   }
 
