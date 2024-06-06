@@ -21,16 +21,19 @@ export class WalletsService {
     }).save();
   }
 
-  findAll(): Promise<WalletDocument[]>{
-    return this.model.find();
+  findAll(userRef:any): Promise<WalletDocument[]>{
+    return this.model.find({userRef: userRef.id});
+  }
+  findOne(id: string): Promise<WalletDocument>{
+    return this.model.findById(id);
   }
 
   async update(id: string, updateWalletDto: UpdateWalletDto) {
     //update the wallet with new value,if not value is provided, keep the old value
-    return this.model.findOneAndUpdate({_id: id}, updateWalletDto, {new: true})
+    return this.model.findOneAndUpdate({_id: id}, updateWalletDto, {new: true}).exec()
   }
 
   remove(id: string):Promise<WalletDocument> {
-    return this.model.findByIdAndDelete(id);
+    return this.model.findOneAndUpdate({_id: id}, {isDeleted: true}, {new: true}).exec();
   }
 }

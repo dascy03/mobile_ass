@@ -41,27 +41,38 @@ export class TransactionsController {
       if (!token) {
         throw new UnauthorizedException('Token missing');
       }
-      const _id: any = jwt.verify(token, 'super-ultra-max-secret');
+      const user: any = jwt.verify(token, 'super-ultra-max-secret');
+      const _id = user.id;
       return await this.transactionsService.create(_id, createTransactionDto);
     } catch (err) {
       return {message: err.message || 'Internal Server Error'};
     }
   }
 
-  
+
 
 
   @Get()
   @ApiResponse({status: 200, description: "successfully"})
   @ApiResponse({status: 500, description: "fail!"})
-  async findAll(): Promise<Object> {
+  async findAll(@Req() req: Request): Promise<Object> {
     try {
-      return await this.transactionsService.findAll();
+      const authHeader = req.headers['authorization'];
+      if (!authHeader) {
+        throw new UnauthorizedException('Authorization header missing');
+      }
+      const token = authHeader.split(' ')[1];
+      if (!token) {
+        throw new UnauthorizedException('Token missing');
+      }
+      const user: any = jwt.verify(token, 'super-ultra-max-secret');
+      const _id = user.id;
+      return await this.transactionsService.findAll(_id);
     } catch (err) {
       return {message: err.message || 'Internal Server Error'};
     }
   }
- 
+
   @Get('report/detail')
   @ApiOperation({ summary: 'Get a report by month and year' })
   @ApiResponse({ status: 200, description: 'Get report successfully' })
@@ -78,7 +89,7 @@ export class TransactionsController {
     }
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
     // console.log(userRef,month,year);
-    return await this.transactionsService.getMonthlyReport(userRef,month, year);
+    return await this.transactionsService.getMonthlyReport(userRef.id,month, year);
   }
 
   @Get('share-report')
@@ -126,7 +137,7 @@ export class TransactionsController {
       throw new UnauthorizedException('Token missing');
     }
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
-    return await this.transactionsService.getMonthlyReportOutcome(userRef, month, year);
+    return await this.transactionsService.getMonthlyReportOutcome(userRef.id, month, year);
   }
 
   @Get('report/income')
@@ -148,7 +159,7 @@ export class TransactionsController {
       throw new UnauthorizedException('Token missing');
     }
     const userRef: any = jwt.verify(token, process.env.JWT_SECRET);
-    return await this.transactionsService.getMonthlyReportIncome(userRef, month, year);
+    return await this.transactionsService.getMonthlyReportIncome(userRef.id, month, year);
   }
 
 
@@ -197,13 +208,9 @@ export class TransactionsController {
   @ApiResponse({status: 500, description: "fail!"})
   async remove(@Param('id') id: string): Promise<Object> {
     try {
-      return await this.transactionsService.remove(+id);
+      return await this.transactionsService.remove(id);
     } catch (err) {
       return {message: err.message || 'Internal Server Error'};
     }
   }
-
-  
-
-
 }

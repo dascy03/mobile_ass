@@ -41,7 +41,8 @@ export class CategoriesController {
         throw new UnauthorizedException('Token missing');
       }
 
-      const _id: any = jwt.verify(token, 'super-ultra-max-secret');
+      const user: any = jwt.verify(token, 'super-ultra-max-secret');
+      const _id = user.id;
       return await this.categoriesService.create(_id, createCategoryDto);
     } catch (err) {
       return { message: err.message || 'Internal Server Error' };
@@ -49,22 +50,39 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll() {
-    return this.categoriesService.findAll();
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
+  findAll(@Req() request: Request){
+    const authHeader = request.headers['authorization'];
+    if (!authHeader) {
+      throw new UnauthorizedException('Authorization header missing');
+    }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Token missing');
+    }
+    const userRef: any = jwt.verify(token,process.env.JWT_SECRET);
+    return this.categoriesService.findAll(userRef);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(id);
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
+  async findOne(@Param('id') id: string) {
+    return await this.categoriesService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoriesService.update(id, updateCategoryDto);
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
+  async update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
+    return await this.categoriesService.update(id, updateCategoryDto);
   }
 
-  @Delete()
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(id);
+  @Delete(':id')
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
+  async remove(@Param('id') id: string) {
+    return await this.categoriesService.remove(id);
   }
 }

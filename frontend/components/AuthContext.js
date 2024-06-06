@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
       const token = response.data.data.accessToken;
       console.log("token", token);
       setAuthState({ token, authenticated: true });
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
       await SecureStore.setItemAsync("token", token);
       return response;
     } catch (error) {

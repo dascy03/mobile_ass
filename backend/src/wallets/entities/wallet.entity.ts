@@ -17,5 +17,7 @@ export class Wallet {
   createdAt?: Date;
   @Prop()
   updatedAt?: Date;
+  @Prop({ default: false})
+  isDeleted: boolean;
 }
 export const WalletSchema = SchemaFactory.createForClass(Wallet);

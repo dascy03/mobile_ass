@@ -20,20 +20,20 @@ export class CategoriesService {
     }).save();
   }
 
-  findAll() {
-    return this.model.find();
+  async findAll(userRef:any) {
+    return await this.model.find({userRef: userRef.id});
   }
 
-  findOne(id: string): Promise<CategoryDocument>{
-    return this.model.findById(id);
+  async findOne(id: string): Promise<CategoryDocument>{
+    return await this.model.findById(id);
   }
 
-  update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    return this.model.findOneAndUpdate({_id: id}, updateCategoryDto, {new: true})
+  async update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<CategoryDocument>{
+    return await this.model.findOneAndUpdate({_id: id}, updateCategoryDto, {new: true}).exec()
   }
 
 
-  remove(id: string):any{
-    return this.model.deleteOne({_id: id});
+  async remove(id: string) {
+    return await this.model.findOneAndUpdate({_id: id}, {isDeleted: true}, {new: true}).exec();
   }
 }

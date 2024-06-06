@@ -11,4 +11,6 @@ export class BaseTransactionDto {
   note: string;
   @ApiProperty()
   type: boolean;
+  @ApiProperty()
+  dateCreated: string;
 }

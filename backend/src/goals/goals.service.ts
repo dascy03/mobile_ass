@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGoalDto } from './dto/create-goal.dto';
 import { UpdateGoalDto } from './dto/update-goal.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Goal, GoalDocument } from './entities/goal.entity';
 
 @Injectable()
 export class GoalsService {
-  create(createGoalDto: CreateGoalDto) {
-    return 'This action adds a new goal';
+  constructor(
+    @InjectModel(Goal.name)
+    private readonly model: Model<GoalDocument>,
+  ) {}
+    async create(userid:any,createGoalDto: CreateGoalDto): Promise<Goal>{
+    return new this.model({
+      ...createGoalDto,
+      userRef: userid,
+    }).save();
   }
 
   findAll() {

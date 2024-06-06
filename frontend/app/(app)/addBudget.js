@@ -8,6 +8,7 @@ import {
   TextInput,
   Modal,
 } from "react-native";
+import Checkbox from "expo-checkbox";
 import { Stack, router } from "expo-router";
 import {
   useFonts,
@@ -17,19 +18,16 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import axios from "axios";
-import BASE_URL from "../../../env";
+import BASE_URL from "../../env";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Pick_Wallet from "../pick_wallet";
-import Pick_Category from "../pick_category_outcome";
-import Pick_Category_Income from "../pick_category_income";
 
 const formatNumber = (num) => {
   if (num === undefined) return "";
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
-const Add_Transaction = () => {
+const Add_Budget = () => {
   const [money, setMoney] = useState("");
   const [categoriesRef, setCategoriesRef] = useState("");
   const [categoriesID, setCategoriesID] = useState("");
@@ -80,17 +78,17 @@ const Add_Transaction = () => {
         >
           <Image
             style={styles.icon}
-            source={require("../../../assets/images/Delete.png")}
+            source={require("../../assets/images/Delete.png")}
           />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Giao dịch mới</Text>
+        <Text style={styles.headerText}>Tạo ngân sách</Text>
       </View>
       <View>
         <View style={styles.divider}></View>
         <View style={styles.inputContainer}>
           <Image
             style={styles.icon}
-            source={require("../../../assets/images/VND.png")}
+            source={require("../../assets/images/VND.png")}
           />
           <View style={styles.inputWrapper}>
             <TextInput
@@ -109,10 +107,10 @@ const Add_Transaction = () => {
         <View style={styles.inputContainer}>
           <Image
             style={styles.icon}
-            source={require("../../../assets/images/WalletVector.png")}
+            source={require("../../assets/images/WalletVector.png")}
           />
           <View style={styles.inputWrapper}>
-            <TouchableOpacity onPress={() => setModalVisibleWallet(true)}>
+            <TouchableOpacity>
               {walletRef ? (
                 <Text style={styles.selectText}>{walletRef}</Text>
               ) : (
@@ -126,10 +124,10 @@ const Add_Transaction = () => {
         <View style={styles.inputContainer}>
           <Image
             style={styles.icon}
-            source={require("../../../assets/images/Category.png")}
+            source={require("../../assets/images/Category.png")}
           />
           <View style={styles.inputWrapper}>
-            <TouchableOpacity onPress={() => setModalVisibleCategories(true)}>
+            <TouchableOpacity>
               {categoriesRef ? (
                 <Text style={styles.selectText}>{categoriesRef}</Text>
               ) : (
@@ -143,7 +141,7 @@ const Add_Transaction = () => {
         <View style={styles.inputContainer}>
           <Image
             style={styles.icon}
-            source={require("../../../assets/images/Calendar_month_vector.png")}
+            source={require("../../assets/images/Calendar_month_vector.png")}
           />
           <TouchableOpacity
             style={styles.inputWrapper}
@@ -162,92 +160,31 @@ const Add_Transaction = () => {
           />
         )}
       </View>
+      <View style={styles.divider}></View>
       <View>
         <View style={styles.inputContainer}>
-          <Image
-            style={styles.icon}
-            source={require("../../../assets/images/NoteVector.png")}
+          <Checkbox
+            style={{ width: 30, height: 30, borderRadius: 5 }}
+            color={"black"}
           />
-          <View style={styles.inputWrapper}>
-            <TextInput
-              placeholder="..."
-              onChangeText={(note) => {
-                setNote(note.toString());
-              }}
-              value={note}
-              style={styles.selectText}
-            />
+          <View>
+            <Text style={styles.selectText}>Lặp lại ngân sách</Text>
+            <Text style={{ color: "#A9A9A9", fontSize: 12 }}>
+              Ngân sách sẽ tự động làm mới mỗi tháng
+            </Text>
           </View>
         </View>
       </View>
       <View style={styles.saveButtonContainer}>
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={async () => {
-            try {
-              // console.log(money);
-              // console.log(categoriesRef);
-              // console.log(walletRef);
-              // console.log(date);
-              // console.log(walletID);
-              // console.log(categoriesID);
-              if (!money || !categoriesID || !walletID || !date) {
-                alert("Hãy điền đầy đủ thông tin");
-                return;
-              }
-              const response = await axios.post(`${BASE_URL}/transactions`, {
-                money: money,
-                categoriesRef: categoriesID.toString(),
-                walletRef: walletID.toString(),
-                note: note.toString(),
-                type: type,
-                dateCreated: date.toString(),
-              });
-              router.back();
-            } catch (error) {
-              console.log("error", error.response.data);
-              return { error };
-              //console.error("Failed to login:", error);
-            }
-          }}
-        >
+        <TouchableOpacity style={styles.saveButton}>
           <Text style={styles.saveButtonText}>Lưu</Text>
         </TouchableOpacity>
       </View>
-      <Modal
-        transparent={true}
-        visible={modalVisibleWallet}
-        onRequestClose={() => {
-          setModalVisibleWallet(!modalVisibleWallet);
-        }}
-      >
-        {modalVisibleWallet}
-        <Pick_Wallet
-          setWalletRef={setWalletRef}
-          setModalVisible={setModalVisibleWallet}
-          setWalletID={setWalletID}
-        />
-      </Modal>
-      <Modal
-        transparent={true}
-        visible={modalVisibleCategories}
-        onRequestClose={() => {
-          setModalVisibleCategories(!modalVisibleCategories);
-        }}
-      >
-        {modalVisibleCategories}
-        <Pick_Category
-          setType={setType}
-          setCategoriesRef={setCategoriesRef}
-          setModalVisible={setModalVisibleCategories}
-          setCategoriesID={setCategoriesID}
-        />
-      </Modal>
     </View>
   );
 };
 
-export default Add_Transaction;
+export default Add_Budget;
 
 const styles = StyleSheet.create({
   container: {
@@ -320,5 +257,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     fontFamily: "Poppins_600SemiBold",
+  },
+  divider: {
+    backgroundColor: "#D9D9D9",
+    height: 10,
   },
 });

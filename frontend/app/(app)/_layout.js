@@ -24,6 +24,7 @@ export default function Layout() {
       <Stack.Screen name="budget" />
       <Stack.Screen name="new_goal" options={{ headerShown: false }} />
       <Stack.Screen name="setting" options={{ headerShown: false }} />
+      <Stack.Screen name="addBudget" options={{ headerShown: false }} />
     </Stack>
   );
 }

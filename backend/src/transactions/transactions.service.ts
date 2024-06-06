@@ -41,6 +41,15 @@ export class TransactionsService {
     else {
       const categories = await this.categoryModel.findOne({ _id: createTransactionDto.categoriesRef }).exec();
       const budget= await this.budgetModel.findOne({categories:categories.name}).exec();
+      const wallet= await this.walletModel.findOneAndUpdate(
+        { _id: createTransactionDto.walletRef },
+        {
+          $inc: {
+            Balance: -createTransactionDto.money
+          }
+        },
+        { new: true }
+      ).exec();
       if(budget){
         const budget= await this.budgetModel.findOneAndUpdate(
           {categories:categories.name},
@@ -52,15 +61,19 @@ export class TransactionsService {
         ).exec();
       }
     }
+    const categories = await this.categoryModel.findOne({ _id: createTransactionDto.categoriesRef }).exec();
     return new this.model({
       ...createTransactionDto,
+      nameCategory: categories.name,
       userRef: _id,
       createdAt: new Date(),
+      updatedAt: new Date(),
     }).save();
   }
 
-  async findAll(): Promise<Transaction[]> {
-    return this.model.find().exec();
+  async findAll(_id: string): Promise<Transaction[]> {
+    const listTransaction= this.model.find({ userRef: _id }).sort({dateCreated:-1}).exec();
+    return listTransaction;
   }
 
   async findByCategory(categories: String): Promise<Transaction> {
@@ -82,8 +95,8 @@ export class TransactionsService {
       })
       .exec();
   }
-  async remove(id: number): Promise<Transaction> {
-    return await this.model.findByIdAndDelete(id).exec();
+  async remove(id: string): Promise<Transaction> {
+    return await this.model.findOneAndUpdate({ _id: id }, { isDeleted: true },{new: true}).exec();
   }
 
   async getMonthlyReport(userRef: string,month: number, year: number): Promise<any> {
@@ -146,7 +159,7 @@ export class TransactionsService {
     // console.log(userRef,startOfMonth,endOfMonth)
     const existingReport = await this.shareReportModel.findOne({ userRef, month, year }).exec();
     if (existingReport) {
-      return existingReport; 
+      return existingReport;
     }
 
     const transactions = await this.model.find({
@@ -161,17 +174,17 @@ export class TransactionsService {
     const totalDays = (endOfMonth.getDate() - startOfMonth.getDate()) + 1;
     const averageDailyOutcome = totalOutcome / totalDays;
 
-    
+
     const shareReport = new this.shareReportModel({
       userRef,
       month,
       year,
       totalOutcome,
       averageDailyOutcome,
-      shareflag: false, 
+      shareflag: false,
       transactions,
     });
-    
+
     await shareReport.save();
 
     return { totalOutcome, averageDailyOutcome,transactions };

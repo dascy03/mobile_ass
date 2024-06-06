@@ -17,23 +17,27 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
+import { useLocalSearchParams } from "expo-router";
+
+import axios from "axios";
+import BASE_URL from "../../env";
+
 const Transaction_Details = () => {
   const formatNumber = (num) => {
     if (num == undefined) return;
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  const [SoDu, setSoDu] = useState();
-  const [income, setIncome] = useState();
-  const [outcome, setOutcome] = useState();
-  const [total, setTotal] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const { money, date, name, walletRef, transRef } = useLocalSearchParams();
+  const [wallet, setWallet] = useState();
 
   useEffect(() => {
-    setSoDu(9999999);
-    setIncome(100000);
-    setOutcome(22222222);
-    setTotal(income - outcome);
+    const fetchData = async () => {
+      const response = await axios.get(`${BASE_URL}/wallets/${walletRef}`);
+      setWallet(response.data.Name);
+    };
+    fetchData();
   }, []);
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -47,135 +51,154 @@ const Transaction_Details = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Stack.Screen
-        options={{
-          statusBarTranslucent: false,
-          headerShown: false,
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerShadowVisible: false,
-        }}
-      />
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.headerButton}
-          onPress={() => {
-            router.back();
+    wallet && (
+      <View style={styles.container}>
+        <Stack.Screen
+          options={{
+            statusBarTranslucent: false,
+            headerShown: false,
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "white",
+            },
+            headerShadowVisible: false,
           }}
-        >
-          <Image
-            style={styles.headerIcon}
-            source={require("../../assets/images/Delete.png")}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Chi tiết</Text>
-        <View style={styles.headerSpacer}></View>
-        <TouchableOpacity
-          style={styles.headerButton}
-          onPress={() => {
-            router.push("transaction_fix");
-          }}
-        >
-          <Image
-            style={styles.headerIcon}
-            source={require("../../assets/images/pencil.png")}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.headerButton}
-          onPress={() => {
-            setModalVisible(true);
-          }}
-        >
-          <Image
-            style={styles.headerIcon}
-            source={require("../../assets/images/bin.png")}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.detailsContainer}>
-        <View style={styles.detailRow}>
-          <Image
-            style={styles.detailIcon}
-            source={require("../../assets/images/Invoice.png")}
-          />
-          <View>
-            <Text
-              style={{
-                fontFamily: "Poppins_400Regular",
-                fontSize: 18,
-              }}
-            >
-              Hóa đơn điện
-            </Text>
-            <Text style={styles.detailAmount}>1,000,000</Text>
-          </View>
+        />
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => {
+              router.back();
+            }}
+          >
+            <Image
+              style={styles.headerIcon}
+              source={require("../../assets/images/Delete.png")}
+            />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Chi tiết</Text>
+          <View style={styles.headerSpacer}></View>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => {
+              router.push("transaction_fix");
+            }}
+          >
+            <Image
+              style={styles.headerIcon}
+              source={require("../../assets/images/pencil.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          >
+            <Image
+              style={styles.headerIcon}
+              source={require("../../assets/images/bin.png")}
+            />
+          </TouchableOpacity>
         </View>
-        <View style={styles.detailRow}>
-          <Image
-            style={styles.detailIcon}
-            source={require("../../assets/images/Calendar_month.png")}
-          />
-          <View>
-            <Text
-              style={{
-                fontFamily: "Poppins_400Regular",
-                fontSize: 18,
-              }}
-            >
-              Hôm nay
-            </Text>
-          </View>
-        </View>
-        <View style={styles.detailRow}>
-          <Image
-            style={[styles.detailIcon, { width: 30, height: 30 }]}
-            source={require("../../assets/images/Wallet.png")}
-          />
-          <View>
-            <Text
-              style={{
-                fontFamily: "Poppins_400Regular",
-                fontSize: 18,
-              }}
-            >
-              Tiền mặt
-            </Text>
-          </View>
-        </View>
-      </View>
-      {/* Modal Popup */}
-      <View style={styles.modalContainer}>
-        <Modal
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          {modalVisible && <View style={styles.modalBackground} />}
-          <View style={styles.modalContentContainer}>
-            <View style={styles.modalContent}>
-              <Text>Xóa giao dịch này?</Text>
-              <View style={styles.modalButtons}>
-                <TouchableOpacity style={styles.modalButton}>
-                  <Text style={styles.modalButtonText}>Đồng ý</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={() => setModalVisible(false)}
-                >
-                  <Text style={styles.modalButtonText}>Không</Text>
-                </TouchableOpacity>
-              </View>
+        <View style={styles.detailsContainer}>
+          <View style={styles.detailRow}>
+            <Image
+              style={styles.detailIcon}
+              source={require("../../assets/images/Invoice.png")}
+            />
+            <View>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 18,
+                }}
+              >
+                {name}
+              </Text>
+              <Text style={styles.detailAmount}>{formatNumber(money)}</Text>
             </View>
           </View>
-        </Modal>
+          <View style={styles.detailRow}>
+            <Image
+              style={styles.detailIcon}
+              source={require("../../assets/images/Calendar_month.png")}
+            />
+            <View>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 18,
+                }}
+              >
+                {date}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.detailRow}>
+            <Image
+              style={[styles.detailIcon, { width: 30, height: 30 }]}
+              source={require("../../assets/images/Wallet.png")}
+            />
+            <View>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 18,
+                }}
+              >
+                {wallet}
+              </Text>
+            </View>
+          </View>
+        </View>
+        {/* Modal Popup */}
+        <View style={styles.modalContainer}>
+          <Modal
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            {modalVisible && <View style={styles.modalBackground} />}
+            <View style={styles.modalContentContainer}>
+              <View style={styles.modalContent}>
+                <Text>Xóa giao dịch này?</Text>
+                <View style={styles.modalButtons}>
+                  <TouchableOpacity
+                    style={styles.modalButton}
+                    onPress={() => {
+                      const fetchData = async () => {
+                        try {
+                          const response = await axios
+                            .delete(`${BASE_URL}/transactions/${transRef}`)
+                            .then((res) => {
+                              console.log(res.data);
+                            });
+                        } catch (error) {
+                          console.log("error", error);
+                        }
+                      };
+                      fetchData();
+                      router.back();
+                    }}
+                  >
+                    <Text style={styles.modalButtonText}>Đồng ý</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.modalButton}
+                    onPress={() => setModalVisible(false)}
+                  >
+                    <Text style={styles.modalButtonText}>Không</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </View>
-    </View>
+    )
   );
 };
 
