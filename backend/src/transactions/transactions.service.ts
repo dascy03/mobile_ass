@@ -58,6 +58,7 @@ export class TransactionsService {
       nameCategory: categories.name,
       userRef: _id,
       createdAt: new Date(),
+      updatedAt: new Date(),
     }).save();
   }
 
