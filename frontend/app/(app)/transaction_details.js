@@ -17,23 +17,22 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
+import { useLocalSearchParams } from "expo-router";
+
+import axios from "axios";
+import BASE_URL from "../../env";
+
 const Transaction_Details = () => {
   const formatNumber = (num) => {
     if (num == undefined) return;
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  const [SoDu, setSoDu] = useState();
-  const [income, setIncome] = useState();
-  const [outcome, setOutcome] = useState();
-  const [total, setTotal] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const { money, date, name, walletRef, transRef } = useLocalSearchParams();
 
   useEffect(() => {
-    setSoDu(9999999);
-    setIncome(100000);
-    setOutcome(22222222);
-    setTotal(income - outcome);
+    
   }, []);
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -76,7 +75,8 @@ const Transaction_Details = () => {
         <TouchableOpacity
           style={styles.headerButton}
           onPress={() => {
-            router.push("transaction_fix");
+            // router.push("transaction_fix");
+            alert("Tính năng đang phát triển!");
           }}
         >
           <Image
@@ -109,9 +109,9 @@ const Transaction_Details = () => {
                 fontSize: 18,
               }}
             >
-              Hóa đơn điện
+              {name}
             </Text>
-            <Text style={styles.detailAmount}>1,000,000</Text>
+            <Text style={styles.detailAmount}>{formatNumber(money)}</Text>
           </View>
         </View>
         <View style={styles.detailRow}>
@@ -126,7 +126,7 @@ const Transaction_Details = () => {
                 fontSize: 18,
               }}
             >
-              Hôm nay
+              {date}
             </Text>
           </View>
         </View>
@@ -161,7 +161,22 @@ const Transaction_Details = () => {
             <View style={styles.modalContent}>
               <Text>Xóa giao dịch này?</Text>
               <View style={styles.modalButtons}>
-                <TouchableOpacity style={styles.modalButton}>
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={() => {
+                    const fetchData = async () => {
+                      try {
+                        const response = await axios.delete(`${BASE_URL}/transactions/${transRef}`).then((res) => {
+                          console.log(res.data);
+                        });
+                      } catch (error) {
+                        console.log("error", error);
+                      }
+                    };
+                    fetchData();
+                    router.back();
+                  }}
+                >
                   <Text style={styles.modalButtonText}>Đồng ý</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

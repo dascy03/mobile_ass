@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  Modal,
 } from "react-native";
 import { Stack, router } from "expo-router";
 import {
@@ -15,6 +16,13 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import axios from "axios";
+import BASE_URL from "../../../env";
+
+import DateTimePicker from "@react-native-community/datetimepicker";
+import Pick_Wallet from "../pick_wallet";
+import Pick_Category from "../pick_category_outcome";
+import Pick_Category_Income from "../pick_category_income";
 
 const formatNumber = (num) => {
   if (num === undefined) return "";
@@ -22,11 +30,28 @@ const formatNumber = (num) => {
 };
 
 const Add_Transaction = () => {
-  const [SoDu, setSoDu] = useState(9999999);
-  const [income, setIncome] = useState(100000);
-  const [outcome, setOutcome] = useState(22222222);
-  const [total, setTotal] = useState(income - outcome);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [money, setMoney] = useState("");
+  const [categoriesRef, setCategoriesRef] = useState("");
+  const [categoriesID, setCategoriesID] = useState("");
+  const [walletRef, setWalletRef] = useState("");
+  const [walletID, setWalletID] = useState("");
+  const [note, setNote] = useState("");
+  const [type, setType] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+
+  const [modalVisibleWallet, setModalVisibleWallet] = useState(false);
+  const [modalVisibleCategories, setModalVisibleCategories] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(false);
+    setDate(currentDate);
+  };
+
+  const showDatepicker = () => {
+    setShow(true);
+  };
 
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -68,7 +93,15 @@ const Add_Transaction = () => {
             source={require("../../../assets/images/VND.png")}
           />
           <View style={styles.inputWrapper}>
-            <TextInput placeholder="Fill your money" style={styles.input} />
+            <TextInput
+              keyboardType="numeric"
+              placeholder="Fill your money"
+              style={styles.input}
+              onChangeText={(num) => {
+                setMoney(+num);
+              }}
+              value={money.toString()}
+            />
           </View>
         </View>
       </View>
@@ -79,8 +112,12 @@ const Add_Transaction = () => {
             source={require("../../../assets/images/WalletVector.png")}
           />
           <View style={styles.inputWrapper}>
-            <TouchableOpacity onPress={() => router.push("pick_wallet")}>
-              <Text style={styles.selectText}>Chọn ví</Text>
+            <TouchableOpacity onPress={() => setModalVisibleWallet(true)}>
+              {walletRef ? (
+                <Text style={styles.selectText}>{walletRef}</Text>
+              ) : (
+                <Text style={styles.selectText}>Chọn ví</Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -92,10 +129,12 @@ const Add_Transaction = () => {
             source={require("../../../assets/images/Category.png")}
           />
           <View style={styles.inputWrapper}>
-            <TouchableOpacity
-              onPress={() => router.push("pick_category_outcome")}
-            >
-              <Text style={styles.selectText}>Chọn danh mục</Text>
+            <TouchableOpacity onPress={() => setModalVisibleCategories(true)}>
+              {categoriesRef ? (
+                <Text style={styles.selectText}>{categoriesRef}</Text>
+              ) : (
+                <Text style={styles.selectText}>Chọn danh mục</Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -106,10 +145,22 @@ const Add_Transaction = () => {
             style={styles.icon}
             source={require("../../../assets/images/Calendar_month_vector.png")}
           />
-          <View style={styles.inputWrapper}>
-            <Text style={styles.selectText}>Hôm nay</Text>
-          </View>
+          <TouchableOpacity
+            style={styles.inputWrapper}
+            onPress={showDatepicker}
+          >
+            <Text style={styles.selectText}>{date.toDateString()}</Text>
+          </TouchableOpacity>
         </View>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode="date"
+            display="default"
+            onChange={onChange}
+          />
+        )}
       </View>
       <View>
         <View style={styles.inputContainer}>
@@ -118,15 +169,82 @@ const Add_Transaction = () => {
             source={require("../../../assets/images/NoteVector.png")}
           />
           <View style={styles.inputWrapper}>
-            <Text style={styles.selectText}>...</Text>
+            <TextInput
+              placeholder="..."
+              onChangeText={(note) => {
+                setNote(note.toString());
+              }}
+              value={note}
+              style={styles.selectText}
+            />
           </View>
         </View>
       </View>
       <View style={styles.saveButtonContainer}>
-        <TouchableOpacity style={styles.saveButton}>
+        <TouchableOpacity
+          style={styles.saveButton}
+          onPress={async () => {
+            try {
+              console.log(money);
+              console.log(categoriesRef);
+              console.log(walletRef);
+              console.log(date);
+              console.log(walletID);
+              console.log(categoriesID);
+              if (!money || !categoriesID || !walletID || !date) {
+                alert("Hãy điền đầy đủ thông tin");
+                return;
+              }
+              return
+              const response = await axios.post(`${BASE_URL}/transactions`, {
+                money: money,
+                categoriesRef: categoriesID.toString(),
+                walletRef: walletID.toString(),
+                note: note.toString(),
+                type: type,
+                dateCreated: date.toString(),
+              });
+              console.log(response.data)
+              router.back();
+            } catch (error) {
+              console.log("error", error.response.data);
+              return { error };
+              //console.error("Failed to login:", error);
+            }
+          }}
+        >
           <Text style={styles.saveButtonText}>Lưu</Text>
         </TouchableOpacity>
       </View>
+      <Modal
+        transparent={true}
+        visible={modalVisibleWallet}
+        onRequestClose={() => {
+          setModalVisibleWallet(!modalVisibleWallet);
+        }}
+      >
+        {modalVisibleWallet}
+        <Pick_Wallet
+          setWalletRef={setWalletRef}
+          setModalVisible={setModalVisibleWallet}
+          setWalletID={setWalletID}
+        />
+      </Modal>
+      <Modal
+        transparent={true}
+        visible={modalVisibleCategories}
+        onRequestClose={() => {
+          setModalVisibleCategories(!modalVisibleCategories);
+        }}
+      >
+        {modalVisibleCategories}
+        <Pick_Category
+          setType={setType}
+          setCategoriesRef={setCategoriesRef}
+          setModalVisible={setModalVisibleCategories}
+          setCategoriesID={setCategoriesID}
+        />
+      </Modal>
     </View>
   );
 };
@@ -143,21 +261,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#21B4A3",
     width: "100%",
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
     paddingVertical: 20,
+    paddingHorizontal: 20,
+    alignItems: "center",
   },
   backButton: {
     flexBasis: "16%",
-    marginTop: 10,
-    paddingHorizontal: 10,
+    resizeMode: "contain",
+    justifyContent: "center",
+    alignItems: "center",
   },
   headerText: {
     flexBasis: "68%",
     fontSize: 24,
     color: "white",
     fontFamily: "Poppins_600SemiBold",
-    textAlign: "center",
+    textAlignVertical: "center", // Center text vertically
   },
   divider: {
     backgroundColor: "#D9D9D9",

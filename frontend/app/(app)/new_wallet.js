@@ -15,17 +15,20 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import { err } from "react-native-svg";
+
+import axios from "axios";
+import BASE_URL from "../../env";
 
 const formatNumber = (num) => {
   if (num === undefined) return "";
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
-const New_Wallet = () => {
-  const [SoDu, setSoDu] = useState(9999999);
-  const [income, setIncome] = useState(100000);
-  const [outcome, setOutcome] = useState(22222222);
-  const [total, setTotal] = useState(income - outcome);
+const New_Wallet = ({ setModalVisible }) => {
+  const [newWallet, setNewWallet] = useState("");
+  const [money, setMoney] = useState();
+  const [image, setImage] = useState("");
 
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -33,7 +36,6 @@ const New_Wallet = () => {
     Poppins_600SemiBold,
     Poppins_700Bold,
   });
-
   if (!fontsLoaded && !fontError) return null;
 
   return (
@@ -41,7 +43,9 @@ const New_Wallet = () => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.back()}
+          onPress={() => {
+            setModalVisible(false);
+          }}
         >
           <Image
             style={styles.icon}
@@ -58,7 +62,11 @@ const New_Wallet = () => {
             source={require("../../assets/images/Question.png")}
           />
           <View style={styles.inputWrapper}>
-            <TextInput placeholder="Tên ví" style={styles.input} />
+            <TextInput
+              placeholder="Tên ví"
+              style={styles.input}
+              onChangeText={(wallet) => setNewWallet(wallet)}
+            />
           </View>
         </View>
         <View style={styles.inputContainer}>
@@ -67,7 +75,14 @@ const New_Wallet = () => {
             source={require("../../assets/images/initMoney.png")}
           />
           <View style={styles.inputWrapper}>
-            <TextInput placeholder="Số dư ban đầu" style={styles.input} />
+            <TextInput
+              placeholder="Số dư ban đầu"
+              style={styles.input}
+              keyboardType="numeric"
+              onChangeText={(num) => {
+                setMoney(+num);
+              }}
+            />
           </View>
         </View>
         <View style={styles.inputContainer}>
@@ -76,12 +91,37 @@ const New_Wallet = () => {
             source={require("../../assets/images/yellowCircle.png")}
           />
           <View style={styles.inputWrapper}>
-            <TextInput placeholder="Biểu tượng" style={styles.input} />
+            <TextInput
+              placeholder="Biểu tượng"
+              style={styles.input}
+              onChangeText={(image) => {
+                setImage(image);
+              }}
+            />
           </View>
         </View>
       </View>
       <View style={styles.saveButtonContainer}>
-        <TouchableOpacity style={styles.saveButton}>
+        <TouchableOpacity
+          style={styles.saveButton}
+          onPress={async () => {
+            try {
+              if (!money || !newWallet) {
+                alert("Nhập đầy đủ đi nào!");
+                return;
+              }
+              const response = await axios.post(`${BASE_URL}/wallets`, {
+                Name: newWallet.toString(),
+                Balance: money,
+                Icon: image.toString(),
+              });
+              console.log(response.data)
+              setModalVisible(false);
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        >
           <Text style={styles.saveButtonText}>Lưu</Text>
         </TouchableOpacity>
       </View>

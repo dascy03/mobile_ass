@@ -4,10 +4,10 @@ import {
   View,
   Image,
   TouchableOpacity,
-  TextInput,
+  Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { Stack, router } from "expo-router";
+import { router, useRoute } from "expo-router";
 import {
   useFonts,
   Poppins_400Regular,
@@ -15,24 +15,19 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import axios from "axios";
+import BASE_URL from "../../env";
+
+import New_wallet from "./new_wallet";
 
 const formatNumber = (num) => {
   if (num === undefined) return "";
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
-const Pick_Wallet = () => {
-  const [SoDu, setSoDu] = useState();
-  const [income, setIncome] = useState();
-  const [outcome, setOutcome] = useState();
-  const [total, setTotal] = useState();
-
-  useEffect(() => {
-    setSoDu(9999999);
-    setIncome(100000);
-    setOutcome(22222222);
-    setTotal(income - outcome);
-  }, []);
+const Pick_Wallet = ({ setWalletRef, setModalVisible, setWalletID }) => {
+  const [modalVisibleNewWallet, setModalVisibleNewWallet] = useState(false);
+  const [data, setData] = useState();
 
   let [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
@@ -41,6 +36,19 @@ const Pick_Wallet = () => {
     Poppins_700Bold,
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/wallets`);
+        setData(response.data);
+      } catch (error) {
+        console.error("error", error);
+      }
+    };
+
+    fetchData();
+  }, [modalVisibleNewWallet]);
+
   if (!fontsLoaded && !fontError) return null;
 
   return (
@@ -48,7 +56,7 @@ const Pick_Wallet = () => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.back()}
+          onPress={() => setModalVisible(false)}
         >
           <Image
             style={styles.icon}
@@ -63,7 +71,11 @@ const Pick_Wallet = () => {
           style={styles.icon}
           source={require("../../assets/images/confirmVector.png")}
         />
-        <TouchableOpacity onPress={() => router.push("new_wallet")}>
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisibleNewWallet(true);
+          }}
+        >
           <Text
             style={{
               fontFamily: "Poppins_400Regular",
@@ -75,22 +87,57 @@ const Pick_Wallet = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.divider}></View>
-      <View style={styles.optionContainer}>
-        <Image
-          style={styles.icon}
-          source={require("../../assets/images/pigVector.png")}
-        />
-        <View>
-          <Text
-            style={{
-              fontFamily: "Poppins_400Regular",
-              fontSize: 18,
-            }}
-          >
-            Tiết kiệm
-          </Text>
-        </View>
-      </View>
+      {data &&
+        data.map((item, index) => (
+          <React.Fragment key={index}>
+            <TouchableOpacity
+              style={styles.optionContainer}
+              onPress={async () => {
+                try {
+                  setWalletRef(item.Name.toString());
+                  setWalletID(item._id.toString());
+                  setModalVisible(false);
+                } catch (error) {
+                  console.log("error", error);
+                  return { error };
+                }
+              }}
+            >
+              <Image
+                style={styles.icon}
+                source={require("../../assets/images/pigVector.png")}
+              />
+              <View>
+                <Text
+                  style={{
+                    fontFamily: "Poppins_400Regular",
+                    fontSize: 18,
+                  }}
+                >
+                  {item.Name}
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "Poppins_400Regular",
+                    fontSize: 18,
+                  }}
+                >
+                  Số dư: {formatNumber(item.Balance)}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </React.Fragment>
+        ))}
+      <Modal
+        transparent={true}
+        visible={modalVisibleNewWallet}
+        onRequestClose={() => {
+          setModalVisibleNewWallet(!modalVisibleNewWallet);
+        }}
+      >
+        {modalVisibleNewWallet}
+        <New_wallet setModalVisible={setModalVisibleNewWallet} />
+      </Modal>
     </View>
   );
 };

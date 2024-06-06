@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, Req, UseGuards, UnauthorizedException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  Req,
+  UseGuards,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { WalletsService } from './wallets.service';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
@@ -15,9 +26,12 @@ export class WalletsController {
   constructor(private walletsService: WalletsService) {}
 
   @Post()
-  @ApiResponse({ status: 200, description: 'successfully'})
-  @ApiResponse({ status: 500, description: 'fail!'})
-  async create(@Body() createWalletDto: CreateWalletDto,@Req() request: Request): Promise<Object>{
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
+  async create(
+    @Body() createWalletDto: CreateWalletDto,
+    @Req() request: Request,
+  ): Promise<Object> {
     try {
       //how to get accessToken from request
       const authHeader = request.headers['authorization'];
@@ -40,8 +54,8 @@ export class WalletsController {
   }
 
   @Get()
-  @ApiResponse({status: 200, description: 'successfully'})
-  @ApiResponse({status: 500, description: 'fail!'})
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
   findAll(@Req() request: Request) {
     const authHeader = request.headers['authorization'];
     if (!authHeader) {
@@ -55,14 +69,14 @@ export class WalletsController {
     return this.walletsService.findAll(userRef);
   }
   @Put(':id')
-  @ApiResponse({status: 200, description: 'successfully'})
-  @ApiResponse({status: 500, description: 'fail!'})
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
   update(@Param('id') id: string, @Body() updateWalletDto: UpdateWalletDto) {
     return this.walletsService.update(id, updateWalletDto);
   }
   @Delete(':id')
-  @ApiResponse({status: 200, description: 'successfully'})
-  @ApiResponse({status: 500, description: 'fail!'})
+  @ApiResponse({ status: 200, description: 'successfully' })
+  @ApiResponse({ status: 500, description: 'fail!' })
   remove(@Param('id') id: string) {
     return this.walletsService.remove(id);
   }
