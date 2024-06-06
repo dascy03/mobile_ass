@@ -103,34 +103,45 @@ const Transaction = () => {
     setOutcome(0);
     setTotal(0);
     try {
-      const response = await axios.get(`${BASE_URL}/wallets`).then((res) => {
-        setSoDu(res.data[0].Balance);
-        setName(res.data[0].Name);
-        setData(res.data);
+      const [responseWallets, responseTransactions] = await Promise.all([
+        axios.get(`${BASE_URL}/wallets`),
+        axios.get(`${BASE_URL}/transactions`),
+      ]);
+
+      const walletData = responseWallets.data[0];
+      setSoDu(walletData.Balance);
+      setName(walletData.Name);
+      setData(responseWallets.data);
+
+      let income = 0;
+      let outcome = 0;
+      let total = 0;
+
+      responseTransactions.data.forEach((item) => {
+        if (!item.isDeleted) {
+          if (item.type) {
+            income += item.money;
+            total += item.money;
+          } else {
+            outcome += item.money;
+            total -= item.money;
+          }
+        }
       });
-      const response_transaction = await axios
-        .get(`${BASE_URL}/transactions`)
-        .then((res) => {
-          setTransactionData(res.data);
-          res.data.map((item) => {
-            if (item.type && !item.isDeleted) {
-              setIncome((pre) => pre + item.money);
-              setTotal((pre) => pre + item.money);
-            } else if (!item.type && !item.isDeleted) {
-              setOutcome((pre) => pre + item.money);
-              setTotal((pre) => pre - item.money);
-            }
-          });
-        });
+
+      setIncome(income);
+      setOutcome(outcome);
+      setTotal(total);
+      setTransactionData(responseTransactions.data);
     } catch (error) {
       console.log("error", error);
     }
-  });
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
       fetchData();
-      return () => fetchData();
-    }, [])
+    }, [fetchData])
   );
 
   let [fontsLoaded, fontError] = useFonts({
