@@ -21,7 +21,12 @@ import {
 
 const Goal = ({ title, amount, progress, timeRemaining, icon }) => {
   return (
-    <View style={styles.goalContainer}>
+    <TouchableOpacity
+      style={styles.goalContainer}
+      onPress={() => {
+        router.push("budgetDetails");
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -57,7 +62,7 @@ const Goal = ({ title, amount, progress, timeRemaining, icon }) => {
         </Text>
         <Text style={styles.progressAmount}>{amount.toLocaleString()} VND</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -309,7 +314,6 @@ const styles = StyleSheet.create({
     color: "#797979",
     fontFamily: "Poppins_400Regular",
   },
-  
 });
 
 export default Budget;
