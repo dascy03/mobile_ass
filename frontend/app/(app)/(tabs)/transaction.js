@@ -99,9 +99,6 @@ const Transaction = () => {
   const [name, setName] = useState();
   const [transactionData, setTransactionData] = useState();
   const fetchData = useCallback(async () => {
-    setIncome(0);
-    setOutcome(0);
-    setTotal(0);
     try {
       const [responseWallets, responseTransactions] = await Promise.all([
         axios.get(`${BASE_URL}/wallets`),
