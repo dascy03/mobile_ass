@@ -80,7 +80,7 @@ export class AuthService {
         name: newUser.name,
         createdAt: newUser.createdAt,
         email: newUser.email,
-        
+
       },
     };
   }
@@ -111,6 +111,7 @@ export class AuthService {
           userRef: userId,
           createdAt: new Date(),
           updatedAt: new Date(),
+          isDeleted: false,
         }))
 
         await this.categoriesModel.insertMany(categoriesWithUserId);
