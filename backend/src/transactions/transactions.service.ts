@@ -63,7 +63,7 @@ export class TransactionsService {
   }
 
   async findAll(_id: string): Promise<Transaction[]> {
-    const listTransaction= this.model.find({ userRef: _id }).sort({dateCreated:1}).exec();
+    const listTransaction= this.model.find({ userRef: _id }).sort({dateCreated:-1}).exec();
     return listTransaction;
   }
 
