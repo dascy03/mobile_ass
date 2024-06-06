@@ -24,13 +24,13 @@ export class UsersService {
       .lean();
     if (response)
       return {
-        code: HttpStatus.OK,
-        message: SUCCESS_EXCEPTION.OK,
+        code: 200,
+        message: "successfully,
         data: response,
       };
     return {
-      code: HttpStatus.NOT_FOUND,
-      message: ERROR_EXCEPTION.NOT_FOUND,
+      code: 500,
+      message: "fail,
     };
   }
 
